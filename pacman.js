@@ -18,7 +18,8 @@ class Pacman {
             [DIRECTION_DOWN, [2, 8, 7, 8]]
         ]);
 
-        this.offset = [0, 0, 2, 3, 5, 9, 10, 12, 14];
+        this.xoffset = [0, 2, 3, 4, 6, 8, 10, 12, 14];
+        this.yoffset = [0, 0, 0, 0, 0, -1, -1, 1, 1];
 
         setInterval(() => { this.changeAnimation();}, 200);
     }
@@ -117,8 +118,8 @@ class Pacman {
         
         ctx.drawImage(
             spriteSheet,
-            index * 30 + this.offset[index], 0, 30, 30, 
-            this.x - 5, this.y - 5, this.width + 10, this.height + 10
+            index * 30 + this.xoffset[index], this.yoffset[index], 30, 30, 
+            this.x - 13, this.y - 11, this.width + 20, this.height + 20
         );
     }
 
