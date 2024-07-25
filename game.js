@@ -22,7 +22,7 @@ function draw() {
 
 function createPacman() {
     return new Pacman(
-        tileSize * 1,
+        tileSize * 2,
         tileSize * 4,
         tileSize,
         tileSize,
