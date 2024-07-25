@@ -9,8 +9,8 @@ class Pacman {
     yoffset = [0, 0, 0, 0, 0, -1, -1, 1, 1];
 
     constructor(x, y, speed, board) {
-        this.px = x * tileSize;
-        this.py = y * tileSize;
+        this.px = x * TILESIZE;
+        this.py = y * TILESIZE;
         this.speed = speed;
         this.board = board;
         this.direction = DIRECTION_RIGHT;
@@ -18,8 +18,8 @@ class Pacman {
         this.currentFrame = 0;
         this.currentFrameOffset = +1;
         this.frameCount = 2;
-        this.width = tileSize;
-        this.height = tileSize;
+        this.width = TILESIZE;
+        this.height = TILESIZE;
 
         setInterval(() => { this.changeAnimation();}, 200);
     }
@@ -70,8 +70,8 @@ class Pacman {
     }
 
     checkCollision() {
-        let nextx = this.getBoardX();
-        let nexty = this.getBoardY();
+        var nextx = this.getBoardX();
+        var nexty = this.getBoardY();
         if (!this.isInbetween())  {
             switch (this.direction) {
                 case DIRECTION_RIGHT:
@@ -98,7 +98,7 @@ class Pacman {
     changeDirectionIfPossible() {
         if (this.direction == this.nextDirection) return;
         if (this.isInbetween()) return;
-        let tempDirection = this.direction;
+        var tempDirection = this.direction;
         this.direction = this.nextDirection;
         if (this.checkCollision()) {
             this.direction = tempDirection;
@@ -124,15 +124,15 @@ class Pacman {
     }
 
     getBoardX() {
-        return Math.trunc(this.px / tileSize);
+        return Math.trunc(this.px / TILESIZE);
     }
 
     getBoardY() {
-        return Math.trunc(this.py / tileSize);
+        return Math.trunc(this.py / TILESIZE);
     }
 
     isInbetween() {
-        return (this.px % tileSize != 0) || (this.py % tileSize != 0);
+        return (this.px % TILESIZE != 0) || (this.py % TILESIZE != 0);
     }
 
 }

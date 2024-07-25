@@ -1,6 +1,6 @@
 var isMovingPacman = false;
 var board = new Board();
-var pacman = new Pacman(2, 4, tileSize / 5, board);
+var pacman = new Pacman(2, 4, TILESIZE / 5, board);
 
 function gameloop() {
     update();
@@ -15,7 +15,7 @@ function update() {
 }
 
 function draw() {
-    drawFillRect(0, 0, canvas.width, canvas.height, gameBgColor)
+    drawFillRect(0, 0, canvas.width, canvas.height, GAME_BACKGROUND_COLOR)
     // todo
     board.drawBoard();
     pacman.draw();
@@ -25,7 +25,7 @@ gameloop();
 
 var gameInterval = setInterval(gameloop, 1500 / fps);
 window.addEventListener("keydown", (event) => {
-    let k = event.keyCode;
+    var k = event.keyCode;
 
     setTimeout(() => {
         if (k == 37 || k == 65) {

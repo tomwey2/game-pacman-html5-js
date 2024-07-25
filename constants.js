@@ -2,20 +2,21 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const spriteSheet = document.getElementById("assets");
+const GAME_BACKGROUND_COLOR = "black";
 
 const fps = 60;
 
 // Board relevant constants
-const tileSize = 25;
+const TILESIZE = 25;
 
-const wallColor = "#342DCA";
-const wallInnerColor = "black";
-const gameBgColor = "black";
+const BOARD_WALL_COLOR = "#342DCA";
+const BOARD_WALL_INNER_COLOR = "black";
 
-const wallWidth = 2;
-const outerWallWidth = 8;
-const numSimpleWall = 1;
-const numDoubleWall = 2;
+const SIMPLE_WALL_WIDTH = 2;
+const DOUBLE_WALL_WIDTH = 8;
+const BOARD_NUM_SIMPLE_WALL = 1;
+const BOARD_NUM_DOUBLE_WALL = 2;
+const BOARD_NUM_FOOD = 3;
 
 // Pacman relevant constants
 const DIRECTION_RIGHT = 4;

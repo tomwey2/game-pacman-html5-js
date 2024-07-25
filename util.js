@@ -16,8 +16,8 @@ function drawLineSegment (points, color, lineWidth) {
 }
 
 function drawText(x, y, text, color) {
-    let px = x * tileSize;
-    let py = y * tileSize;
+    let px = x * TILESIZE;
+    let py = y * TILESIZE;
     ctx.font = "30px Arial";
     ctx.fillStyle = color;
     ctx.fillText(text, px, py);

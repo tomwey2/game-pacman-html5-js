@@ -50,11 +50,11 @@ class Board {
     }
 
     isSimpleWall(x, y) {
-        return this.data[y][x] == numSimpleWall;
+        return this.data[y][x] == BOARD_NUM_SIMPLE_WALL;
     }
 
     isDoubleWall(x, y) {
-        return this.data[y][x] == numDoubleWall;
+        return this.data[y][x] == BOARD_NUM_DOUBLE_WALL;
     }
 
     isHorizontalWall(x, y) {
@@ -86,35 +86,35 @@ class Board {
     }
 
     getWestPoint(x, y) {
-        return [x * tileSize, y * tileSize + tileSize / 2]
+        return [x * TILESIZE, y * TILESIZE + TILESIZE / 2]
     }
 
     getEastPoint(x, y) {
-        return [x * tileSize + tileSize, y * tileSize + tileSize / 2]
+        return [x * TILESIZE + TILESIZE, y * TILESIZE + TILESIZE / 2]
     }
 
     getNorthPoint(x, y) {
-        return [x * tileSize + tileSize / 2, y * tileSize]
+        return [x * TILESIZE + TILESIZE / 2, y * TILESIZE]
     }
 
     getSouthPoint(x, y) {
-        return [x * tileSize + tileSize / 2, y * tileSize + tileSize]
+        return [x * TILESIZE + TILESIZE / 2, y * TILESIZE + TILESIZE]
     }
 
     getCenterPoint(x, y) {
-        return [x * tileSize + tileSize / 2, y * tileSize + tileSize / 2]
+        return [x * TILESIZE + TILESIZE / 2, y * TILESIZE + TILESIZE / 2]
     }
 
     drawSimpleWall (path) {
         if (path.length > 0) {
-            drawLineSegment(path, wallColor, 2);
+            drawLineSegment(path, BOARD_WALL_COLOR, SIMPLE_WALL_WIDTH);
         }
     }
 
     drawDoubleWall (path) {
         if (path.length > 0) {
-            drawLineSegment(path, wallColor, 8);
-            drawLineSegment(path, wallInnerColor, 2);
+            drawLineSegment(path, BOARD_WALL_COLOR, DOUBLE_WALL_WIDTH);
+            drawLineSegment(path, BOARD_WALL_INNER_COLOR, SIMPLE_WALL_WIDTH);
         }
     }
 
