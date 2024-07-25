@@ -155,55 +155,26 @@ function drawBoard() {
                 if (isHorizontalWall(x, y, board[y][x])) {
                     path = [getWestPoint(x, y), getEastPoint(x, y)];
                 }
-                if (isVerticalWall(x, y, numSimpleWall)) {
+                if (isVerticalWall(x, y, board[y][x])) {
                     path = [getNorthPoint(x ,y), getSouthPoint(x ,y)];
+                }
+                if (isTopLeftWall(x, y, board[y][x])) {
+                    path = [getSouthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)];
+                }
+                if (isTopRightWall(x, y, board[y][x])) {
+                    path = [getSouthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)];
+                }
+                if (isBottomLeftWall(x, y, board[y][x])) {
+                    path = [getNorthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)];
+                }
+                if (isBottomRightWall(x, y, board[y][x])) {
+                    path = [getNorthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)];
                 }
                 if (isSimpleWall(x, y)) {
                     drawSimpleWall(path);
                 }
                 if (isDoubleWall(x, y)) {
                     drawDoubleWall(path);
-                }
-            }
-
-            if (isSimpleWall(x, y)) {
-                if (isHorizontalWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getWestPoint(x, y), getEastPoint(x, y)]);
-                }
-                if (isVerticalWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getNorthPoint(x ,y), getSouthPoint(x ,y)]);
-                }
-                if (isTopLeftWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getSouthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)]);
-                }
-                if (isTopRightWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getSouthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)]);
-                }
-                if (isBottomLeftWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getNorthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)]);
-                }
-                if (isBottomRightWall(x, y, numSimpleWall)) {
-                    drawSimpleWall([getNorthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)]);
-                }
-            }
-            if (isDoubleWall(x, y)) {
-                if (isHorizontalWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getWestPoint(x, y), getEastPoint(x, y)]);
-                }
-                if (isVerticalWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getNorthPoint(x ,y), getSouthPoint(x ,y)]);
-                }
-                if (isTopLeftWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getSouthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)]);
-                }
-                if (isTopRightWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getSouthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)]);
-                }
-                if (isBottomLeftWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getNorthPoint(x ,y), getCenterPoint(x ,y), getEastPoint(x ,y)]);
-                }
-                if (isBottomRightWall(x, y, numDoubleWall)) {
-                    drawDoubleWall([getNorthPoint(x ,y), getCenterPoint(x ,y), getWestPoint(x ,y)]);
                 }
             }
         }

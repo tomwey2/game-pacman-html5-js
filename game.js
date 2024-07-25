@@ -1,4 +1,5 @@
-let isMovingPacman = false;
+var isMovingPacman = false;
+var pacman = createPacman();
 
 function gameloop() {
     update();
@@ -20,7 +21,7 @@ function draw() {
 }
 
 function createPacman() {
-    pacman = new Pacman(
+    return new Pacman(
         tileSize * 1,
         tileSize * 4,
         tileSize,
@@ -29,7 +30,6 @@ function createPacman() {
     );
 }
 
-createPacman();
 gameloop();
 
 var gameInterval = setInterval(gameloop, 1500 / fps);
