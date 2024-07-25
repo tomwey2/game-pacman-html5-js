@@ -1,25 +1,25 @@
 class Pacman {
-    constructor(x, y, width, height, speed) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    frameIndex = new Map([
+        [DIRECTION_RIGHT, [2, 1, 0, 1]],
+        [DIRECTION_LEFT, [2, 3, 4, 3]],
+        [DIRECTION_UP, [2, 6, 5, 6]],
+        [DIRECTION_DOWN, [2, 8, 7, 8]]
+    ]);
+    xoffset = [0, 2, 3, 4, 6, 8, 10, 12, 14];
+    yoffset = [0, 0, 0, 0, 0, -1, -1, 1, 1];
+
+    constructor(x, y, speed, board) {
+        this.px = x * tileSize;
+        this.py = y * tileSize;
         this.speed = speed;
+        this.board = board;
         this.direction = DIRECTION_RIGHT;
         this.nextDirection = DIRECTION_RIGHT;
         this.currentFrame = 0;
         this.currentFrameOffset = +1;
         this.frameCount = 2;
-
-        this.frameIndex = new Map([
-            [DIRECTION_RIGHT, [2, 1, 0, 1]],
-            [DIRECTION_LEFT, [2, 3, 4, 3]],
-            [DIRECTION_UP, [2, 6, 5, 6]],
-            [DIRECTION_DOWN, [2, 8, 7, 8]]
-        ]);
-
-        this.xoffset = [0, 2, 3, 4, 6, 8, 10, 12, 14];
-        this.yoffset = [0, 0, 0, 0, 0, -1, -1, 1, 1];
+        this.width = tileSize;
+        this.height = tileSize;
 
         setInterval(() => { this.changeAnimation();}, 200);
     }
@@ -38,16 +38,16 @@ class Pacman {
     moveForwards() {
         switch(this.direction) {
             case DIRECTION_RIGHT:
-                this.x += this.speed;
+                this.px += this.speed;
                 break;
             case DIRECTION_UP:
-                this.y -= this.speed;
+                this.py -= this.speed;
                 break;
             case DIRECTION_LEFT:
-                this.x -= this.speed;
+                this.px -= this.speed;
                 break;
             case DIRECTION_DOWN:
-                this.y += this.speed;
+                this.py += this.speed;
                 break;
         }
     }
@@ -55,16 +55,16 @@ class Pacman {
     moveBackwards() {
         switch(this.direction) {
             case DIRECTION_RIGHT:
-                this.x -= this.speed;
+                this.px -= this.speed;
                 break;
             case DIRECTION_UP:
-                this.y += this.speed;
+                this.py += this.speed;
                 break;
             case DIRECTION_LEFT:
-                this.x += this.speed;
+                this.px += this.speed;
                 break;
             case DIRECTION_DOWN:
-                this.y -= this.speed;
+                this.py -= this.speed;
                 break;
         }
     }
@@ -85,7 +85,7 @@ class Pacman {
             }
         }
 
-        if (isWall(nextx, nexty)) {
+        if (this.board.isWall(nextx, nexty)) {
             return true; 
         }
         return false;
@@ -119,20 +119,20 @@ class Pacman {
         ctx.drawImage(
             spriteSheet,
             index * 30 + this.xoffset[index], this.yoffset[index], 30, 30, 
-            this.x - 13, this.y - 11, this.width + 20, this.height + 20
+            this.px - 13, this.py - 11, this.width + 20, this.height + 20
         );
     }
 
     getBoardX() {
-        return Math.trunc(this.x / tileSize);
+        return Math.trunc(this.px / tileSize);
     }
 
     getBoardY() {
-        return Math.trunc(this.y / tileSize);
+        return Math.trunc(this.py / tileSize);
     }
 
     isInbetween() {
-        return (this.x % tileSize != 0) || (this.y % tileSize != 0);
+        return (this.px % tileSize != 0) || (this.py % tileSize != 0);
     }
 
 }

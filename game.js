@@ -1,5 +1,6 @@
 var isMovingPacman = false;
-var pacman = createPacman();
+var board = new Board();
+var pacman = new Pacman(2, 4, tileSize / 5, board);
 
 function gameloop() {
     update();
@@ -16,18 +17,8 @@ function update() {
 function draw() {
     drawFillRect(0, 0, canvas.width, canvas.height, gameBgColor)
     // todo
-    drawBoard();
+    board.drawBoard();
     pacman.draw();
-}
-
-function createPacman() {
-    return new Pacman(
-        tileSize * 2,
-        tileSize * 4,
-        tileSize,
-        tileSize,
-        tileSize / 5
-    );
 }
 
 gameloop();
