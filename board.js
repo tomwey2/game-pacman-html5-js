@@ -73,7 +73,8 @@ class Board {
 
     isTopLeftWall(x, y) {
         return this.isWall(x, y + 1) && this.isWall(x + 1, y) && 
-            !this.isWall(x - 1, y - 1) && !this.isWall(x, y - 1) && !this.isWall(x - 1, y);
+            !this.isWall(x - 1, y - 1) && !this.isWall(x, y - 1) && !this.isWall(x - 1, y) ||
+            this.isWall(x, y + 1) && this.isWall(x + 1, y) && !this.isWall(x + 1, y + 1);
     }
 
     isTopRightWall(x, y) {
@@ -84,12 +85,14 @@ class Board {
 
     isBottomLeftWall(x, y) {
         return this.isWall(x, y - 1) && this.isWall(x + 1, y) && 
-        !this.isWall(x - 1, y) && !this.isWall(x, y + 1) && !this.isWall(x - 1, y + 1);
+        !this.isWall(x - 1, y) && !this.isWall(x, y + 1) && !this.isWall(x - 1, y + 1) ||
+        this.isWall(x, y - 1) && this.isWall(x + 1, y) && !this.isWall(x + 1, y - 1);
     }
 
     isBottomRightWall(x, y) {
         return this.isWall(x, y - 1) && this.isWall(x - 1, y) && 
-        !this.isWall(x + 1, y) && !this.isWall(x, y + 1) && !this.isWall(x + 1, y + 1);
+        !this.isWall(x + 1, y) && !this.isWall(x, y + 1) && !this.isWall(x + 1, y + 1) ||
+        this.isWall(x - 1, y) && this.isWall(x, y - 1) && !this.isWall(x - 1, y - 1);
     }
 
     getWestPoint(x, y) {
@@ -121,7 +124,32 @@ class Board {
     drawDoubleWall (path) {
         if (path.length > 0) {
             drawLineSegment(path, BOARD_WALL_COLOR, DOUBLE_WALL_WIDTH);
-            drawLineSegment(path, BOARD_WALL_INNER_COLOR, SIMPLE_WALL_WIDTH);
+            drawLineSegment(path, GAME_BACKGROUND_COLOR, SIMPLE_WALL_WIDTH);
+        }
+    }
+
+    drawSimpleCorner(path) {
+        drawCurve(path, BOARD_WALL_COLOR, SIMPLE_WALL_WIDTH);
+    }
+
+    drawDoubleCorner(path) {
+        drawCurve(path, BOARD_WALL_COLOR, DOUBLE_WALL_WIDTH);
+        drawCurve(path, GAME_BACKGROUND_COLOR, SIMPLE_WALL_WIDTH);
+    }
+
+    drawWall(x, y, path, corner) {
+        if (this.isSimpleWall(x, y)) {
+            if (corner) {
+                this.drawSimpleCorner(path);
+            } else {
+                this.drawSimpleWall(path);
+            }
+        } else {
+            if (corner) {
+                this.drawDoubleCorner(path);
+            } else {
+                this.drawDoubleWall(path);
+            }
         }
     }
 
@@ -129,30 +157,23 @@ class Board {
         for (var y = 0; y < this.data.length; y++) {
             for (var x = 0; x < this.data[0].length; x++) {
                 if (this.isWall(x, y)) {
-                    let path = [];
                     if (this.isHorizontalWall(x, y)) {
-                        path = [this.getWestPoint(x, y), this.getEastPoint(x, y)];
+                        this.drawWall(x, y, [this.getWestPoint(x, y), this.getEastPoint(x, y)], false);
                     }
                     if (this.isVerticalWall(x, y)) {
-                        path = [this.getNorthPoint(x ,y), this.getSouthPoint(x ,y)];
+                        this.drawWall(x, y, [this.getNorthPoint(x ,y), this.getSouthPoint(x ,y)], false);
                     }
                     if (this.isTopLeftWall(x, y)) {
-                        path = [this.getSouthPoint(x ,y), this.getCenterPoint(x ,y), this.getEastPoint(x ,y)];
+                        this.drawWall(x, y, [this.getSouthPoint(x ,y), this.getCenterPoint(x ,y), this.getEastPoint(x ,y)], true);
                     }
                     if (this.isTopRightWall(x, y)) {
-                        path = [this.getSouthPoint(x ,y), this.getCenterPoint(x ,y), this.getWestPoint(x ,y)];
+                        this.drawWall(x, y, [this.getSouthPoint(x ,y), this.getCenterPoint(x ,y), this.getWestPoint(x ,y)], true);
                     }
                     if (this.isBottomLeftWall(x, y)) {
-                        path = [this.getNorthPoint(x ,y), this.getCenterPoint(x ,y), this.getEastPoint(x ,y)];
+                        this.drawWall(x, y, [this.getNorthPoint(x ,y), this.getCenterPoint(x ,y), this.getEastPoint(x ,y)], true);
                     }
                     if (this.isBottomRightWall(x, y)) {
-                        path = [this.getNorthPoint(x ,y), this.getCenterPoint(x ,y), this.getWestPoint(x ,y)];
-                    }
-                    if (this.isSimpleWall(x, y)) {
-                        this.drawSimpleWall(path);
-                    }
-                    if (this.isDoubleWall(x, y)) {
-                        this.drawDoubleWall(path);
+                        this.drawWall(x, y, [this.getNorthPoint(x ,y), this.getCenterPoint(x ,y), this.getWestPoint(x ,y)], true);
                     }
                 }
             }
