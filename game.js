@@ -1,6 +1,5 @@
-var isMovingPacman = false;
 var board = new Board();
-var pacman = new Pacman(14.5, 26, TILESIZE / 5, board);
+var pacman = new Pacman(14.4, 26, TILESIZE / 5, board);
 
 function gameloop() {
     update();
@@ -9,9 +8,11 @@ function gameloop() {
 
 function update() {
     // todo
-    if (isMovingPacman) {
-        pacman.move();
-    }
+    pacman.move();
+}
+
+function drawScore() {
+    drawText(350, 40, "HIGH  SCORE", "yellow");
 }
 
 function draw() {
@@ -19,6 +20,7 @@ function draw() {
     // todo
     board.draw();
     pacman.draw();
+    drawScore();
 }
 
 gameloop();
@@ -41,7 +43,7 @@ window.addEventListener("keydown", (event) => {
             // down
             pacman.nextDirection = DIRECTION_DOWN;
         } else if (k == 32) {
-            isMovingPacman = !isMovingPacman;  
+            pacman.isMoving = !pacman.isMoving;  
         }
     }, 1);
 });

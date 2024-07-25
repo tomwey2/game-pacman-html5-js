@@ -26,10 +26,8 @@ function drawCurve(points, color, lineWidth) {
     ctx.stroke();
 }
 
-function drawText(x, y, text, color) {
-    let px = x * TILESIZE;
-    let py = y * TILESIZE;
-    ctx.font = "30px Arial";
+function drawText(px, py, text, color) {
+    ctx.font = "35px Arial bold";
     ctx.fillStyle = color;
     ctx.fillText(text, px, py);
 }

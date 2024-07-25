@@ -7,18 +7,20 @@ const GAME_BACKGROUND_COLOR = "black";
 const fps = 60;
 
 // Board relevant constants
-const TILESIZE = 25;
+const TILESIZE = 30;
 
 const BOARD_WALL_COLOR = "#342DCA";
 const BOARD_WALL_INNER_COLOR = "black";
 
-const SIMPLE_WALL_WIDTH = 2;
-const DOUBLE_WALL_WIDTH = 8;
+const SIMPLE_WALL_WIDTH = 4;
+const DOUBLE_WALL_WIDTH = 10;
 const BOARD_NUM_SIMPLE_WALL = 1;
 const BOARD_NUM_DOUBLE_WALL = 2;
 const BOARD_NUM_FOOD = 5;
+const FOOD_SIZE = TILESIZE / 3;
 
 // Pacman relevant constants
+const PACMAN_SIZE = TILESIZE * 5 / 3;
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;
 const DIRECTION_LEFT = 2;

@@ -187,7 +187,7 @@ class Board {
                     var px = x * TILESIZE + 5;
                     var py = y * TILESIZE + 5;
                     var off = 0;
-                    ctx.drawImage(spriteSheet, 45, 302, 5, 5, px + 0, py - 0, 10, 10);
+                    ctx.drawImage(spriteSheet, 45, 302, 5, 5, px + 0, py - 0, FOOD_SIZE, FOOD_SIZE);
                 }
             }
         }

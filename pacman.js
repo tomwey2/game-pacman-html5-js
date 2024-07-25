@@ -18,13 +18,13 @@ class Pacman {
         this.currentFrame = 0;
         this.currentFrameOffset = +1;
         this.frameCount = 2;
-        this.width = TILESIZE;
-        this.height = TILESIZE;
+        this.isMoving = false;        
 
         setInterval(() => { this.changeAnimation();}, 75);
     }
 
     move() {
+        if (!this.isMoving) return;
         this.changeDirectionIfPossible();
         if (!this.checkCollision()) {
             this.moveForwards();
@@ -107,24 +107,39 @@ class Pacman {
         if (this.checkCollision()) {
             this.direction = tempDirection;
         }
-    }
 
-    changeAnimation() {
-        this.currentFrame++;
-        if (this.currentFrame >= this.frameIndex.get(this.direction).length) {
-            this.currentFrame = 0;
+        switch(this.direction) {
+            case DIRECTION_RIGHT:
+            case DIRECTION_LEFT: 
+                this.py = getBoardY() * TILESIZE; 
+                break;
+            case DIRECTION_UP:
+            case DIRECTION_DOWN:
+                this.px = this.getBoardX() * TILESIZE;
+                break;
         }
     }
 
+    changeAnimation() {
+        if (!this.isMoving) {
+            this.currentFrame = 0;
+        } else {
+            this.currentFrame++;
+            if (this.currentFrame >= this.frameIndex.get(this.direction).length) {
+                this.currentFrame = 0;
+            }
+            }
+    }
+
     draw() {
-        drawText(20, 3, "y=" + parseInt(this.getBoardY()) + ", x=" + parseInt(this.getBoardX()), "yellow");
         let index = this.frameIndex.get(this.direction)[this.currentFrame];
         
         ctx.drawImage(
             spriteSheet,
             index * 30 + this.xoffset[index], this.yoffset[index], 30, 30, 
-            this.px - 13, this.py - 11, this.width + 20, this.height + 20
+            this.px - 12, this.py - 12, PACMAN_SIZE, PACMAN_SIZE
         );
+
     }
 
     getBoardX() {
