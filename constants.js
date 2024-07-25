@@ -16,7 +16,7 @@ const SIMPLE_WALL_WIDTH = 2;
 const DOUBLE_WALL_WIDTH = 8;
 const BOARD_NUM_SIMPLE_WALL = 1;
 const BOARD_NUM_DOUBLE_WALL = 2;
-const BOARD_NUM_FOOD = 3;
+const BOARD_NUM_FOOD = 5;
 
 // Pacman relevant constants
 const DIRECTION_RIGHT = 4;

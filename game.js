@@ -1,6 +1,6 @@
 var isMovingPacman = false;
 var board = new Board();
-var pacman = new Pacman(2, 4, TILESIZE / 5, board);
+var pacman = new Pacman(14.5, 26, TILESIZE / 5, board);
 
 function gameloop() {
     update();
@@ -17,7 +17,7 @@ function update() {
 function draw() {
     drawFillRect(0, 0, canvas.width, canvas.height, GAME_BACKGROUND_COLOR)
     // todo
-    board.drawBoard();
+    board.draw();
     pacman.draw();
 }
 

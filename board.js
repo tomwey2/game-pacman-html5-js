@@ -9,7 +9,7 @@ class Board {
         [0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0],  // 3
         [0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0],  // 4
         [0,2,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,2,0],  // 5
-        [0,2,0,1,0,0,1,0,1,0,0,0,1,0,1,1,0,1,0,0,0,1,0,1,0,0,1,0,2,0],  // 6
+        [0,2,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,2,0],  // 6
         [0,2,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,2,0],  // 7
         [0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0],  // 8
         [0,2,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,2,0],  // 9
@@ -42,7 +42,11 @@ class Board {
     ];
 
     constructor() {
-        // todo
+        this.initFood()
+    }
+
+    isFood(x, y) {
+        return this.data[y][x] == BOARD_NUM_FOOD;
     }
 
     isWall(x, y) {
@@ -58,11 +62,13 @@ class Board {
     }
 
     isHorizontalWall(x, y) {
-        return this.isWall(x - 1, y) && this.isWall(x + 1, y);
+        return this.isWall(x - 1, y) && this.isWall(x + 1, y) &&
+        (!this.isWall(x, y - 1) || !this.isWall(x, y + 1));
     }
 
     isVerticalWall(x, y) {
-        return this.isWall(x, y - 1) && this.isWall(x, y + 1);
+        return this.isWall(x, y - 1) && this.isWall(x, y + 1) &&
+            (!this.isWall(x - 1, y) || !this.isWall(x + 1, y));
     }
 
     isTopLeftWall(x, y) {
@@ -72,7 +78,8 @@ class Board {
 
     isTopRightWall(x, y) {
         return this.isWall(x, y + 1) && this.isWall(x - 1, y) && 
-            !this.isWall(x + 1, y - 1) && !this.isWall(x, y - 1) && !this.isWall(x + 1, y);
+            !this.isWall(x + 1, y - 1) && !this.isWall(x, y - 1) && !this.isWall(x + 1, y) ||
+            this.isWall(x, y + 1) && this.isWall(x - 1, y) && !this.isWall(x - 1, y + 1);
     }
 
     isBottomLeftWall(x, y) {
@@ -151,4 +158,43 @@ class Board {
             }
         }
     }
+
+    drawFood() {
+        for (var y = 0; y < this.data.length; y++) {
+            for (var x = 0; x < this.data[0].length; x++) {
+                if (this.isFood(x, y)) {
+                    var px = x * TILESIZE + 5;
+                    var py = y * TILESIZE + 5;
+                    var off = 0;
+                    ctx.drawImage(spriteSheet, 45, 302, 5, 5, px + 0, py - 0, 10, 10);
+                }
+            }
+        }
+    }
+
+    draw() {
+        this.drawBoard();
+        this.drawFood();
+    }
+
+    initFood() {
+        for (var y = 0; y < this.data.length; y++) {
+            for (var x = 0; x < this.data[0].length; x++) {
+                if (y > 3 && y < this.data.length - 3 && 
+                    x > 0 && x < this.data[0].length - 2 && 
+                    !(y > 12 && y < 22 && x > 0 && x < 7) &&
+                    !(y > 12 && y < 22 && x > 22 && x < this.data[0].length - 2) &&
+                    !(y > 15 && y < 19 && x > 11 && x < 18) &&
+                    !(x >= 14 && x <= 15 && y == 26) &&
+                    !this.isWall(x, y)) {
+                    this.data[y][x] = BOARD_NUM_FOOD;
+                }
+            }
+        }
+    }
+
+    removeFood(x, y) {
+        this.data[y][x] = 0;
+    }
+
 }

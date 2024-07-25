@@ -21,18 +21,22 @@ class Pacman {
         this.width = TILESIZE;
         this.height = TILESIZE;
 
-        setInterval(() => { this.changeAnimation();}, 200);
+        setInterval(() => { this.changeAnimation();}, 75);
     }
 
     move() {
         this.changeDirectionIfPossible();
         if (!this.checkCollision()) {
             this.moveForwards();
+            this.eat();
         }
     }
 
     eat() {
-
+        if (this.isInbetween()) return;
+        var x = this.getBoardX();
+        var y = this.getBoardY();
+        this.board.removeFood(x, y);
     }
 
     moveForwards() {
