@@ -1,6 +1,6 @@
 var board = new Board();
-var pacman = new Pacman(14, 26, TILESPEED, board);
-var lives = 5;
+var pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED, board);
+var lives = GAME_START_LIVES;
 var highscore = 1200;
 var score = 0;
 
@@ -33,7 +33,7 @@ function drawLives() {
         var index = pacman.frameIndex.get(DIRECTION_LEFT)[1];
         ctx.drawImage(
             spriteSheet,
-            index * 30 + pacman.xoffset[index], pacman.yoffset[index], 30, 30, 
+            index * 30 + pacman.frameOffset[index].x, pacman.frameOffset[index].y, 30, 30, 
             3 * TILESIZE + live * TILESIZE * 2, 34 * TILESIZE, PACMAN_SIZE, PACMAN_SIZE
         );
     }
