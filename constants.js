@@ -8,6 +8,11 @@ const GAME_START_LIVES = 5;
 const fps = 60;
 
 // Board relevant constants
+const BOARD_XMIN = 2;
+const BOARD_XMAX = 27;
+const BOARD_YMIN = 4;
+const BOARD_YMAX = 32;
+
 const TILESIZE = 30;
 const LEFT_DOOR_TILE = {x: 0, y: 17};
 const RIGHT_DOOR_TILE = {x: 28, y: 17};
@@ -24,10 +29,20 @@ const FOOD_SIZE = Math.trunc(TILESIZE / 3);
 
 const PACMAN_START_TILE = {x: 14, y: 26};
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
+const GHOST_START_TILE = {x: 14, y: 18};
+const GHOST_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
 
 // Pacman relevant constants
 const PACMAN_SIZE = Math.trunc(TILESIZE * 5 / 3);
+
+// Ghost relevant constants
+const GHOST_SIZE = Math.trunc(TILESIZE * 5 / 3);
+
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;
 const DIRECTION_LEFT = 2;
 const DIRECTION_DOWN = 1;
+const DIRECTION_NONE = 0;
+
+
+ 

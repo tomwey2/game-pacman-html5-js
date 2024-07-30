@@ -1,5 +1,6 @@
 var board = new Board();
 var pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED, board);
+var pinky = new Ghost(GHOST_START_TILE, GHOST_TILESPEED, board, pacman);
 var lives = GAME_START_LIVES;
 var highscore = 1200;
 var score = 0;
@@ -45,6 +46,7 @@ function draw() {
     // todo
     board.draw();
     pacman.draw();
+    pinky.draw();
     drawScore();
     drawLives();
 }
