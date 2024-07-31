@@ -40,7 +40,6 @@ class Pacman {
             this.moveForwards();
             this.eat();
         }
-        this.eat();
     }
 
     eat() {
@@ -143,7 +142,7 @@ class Pacman {
 
     drawCoord() {
         const tile = getTile(this.pixel);
-        drawText(650, 80, "x=" + parseInt(tile.x) + ",y=" + parseInt(tile.y), "white");
+        drawText(650, 80, "x=" + parseInt(tile.x) + ",y=" + parseInt(tile.y), "yellow");
     }
 
     draw() {

@@ -42,12 +42,24 @@ function betweenTile(pixel) {
 
 function tileUp(tile) { return {x: tile.x, y: tile.y - 1}};
 function tileDown(tile) { return {x: tile.x, y: tile.y + 1}};
-function tileRight(tile) { return {x: tile.x + 1, y: tile.y}};
-function tileLeft(tile) { return {x: tile.x - 1, y: tile.y}};
-function tileLeftUp(tile) { return {x: tile.x - 1, y: tile.y - 1}};
-function tileRightUp(tile) { return {x: tile.x + 1, y: tile.y - 1}};
-function tileRightDown(tile) { return {x: tile.x + 1, y: tile.y + 1}};
-function tileLeftDown(tile) { return {x: tile.x - 1, y: tile.y + 1}};
+function tileRight(tile) {  
+    if (tile.x == RIGHT_DOOR_TILE.x && tile.y == RIGHT_DOOR_TILE.y) {
+        return LEFT_DOOR_TILE 
+    } else {
+        return {x: tile.x + 1, y: tile.y};
+    }
+}
+function tileLeft(tile) {
+    if (tile.x == LEFT_DOOR_TILE.x && tile.y == LEFT_DOOR_TILE.y) {
+        return RIGHT_DOOR_TILE;
+    } else { 
+        return {x: tile.x - 1, y: tile.y};
+    }
+}
+function tileLeftUp(tile) { return {x: tile.x - 1, y: tile.y - 1}}
+function tileRightUp(tile) { return {x: tile.x + 1, y: tile.y - 1}}
+function tileRightDown(tile) { return {x: tile.x + 1, y: tile.y + 1}}
+function tileLeftDown(tile) { return {x: tile.x - 1, y: tile.y + 1}}
 
 function getWestPoint(tile) {
     return {x: tile.x * TILESIZE, y: tile.y * TILESIZE + TILESIZE / 2};
@@ -69,4 +81,10 @@ function getCenterPoint(tile) {
     return {x: tile.x * TILESIZE + TILESIZE / 2, y: tile.y * TILESIZE + TILESIZE / 2};
 }
 
-
+function shuffle(array) { 
+    for (let i = array.length - 1; i > 0; i--) { 
+      const j = Math.floor(Math.random() * (i + 1)); 
+      [array[i], array[j]] = [array[j], array[i]]; 
+    } 
+    return array; 
+}

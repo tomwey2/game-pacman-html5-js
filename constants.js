@@ -29,7 +29,7 @@ const FOOD_SIZE = Math.trunc(TILESIZE / 3);
 
 const PACMAN_START_TILE = {x: 14, y: 26};
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
-const GHOST_START_TILE = {x: 14, y: 18};
+const GHOST_START_TILE = {x: 14, y: 14};
 const GHOST_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
 
 // Pacman relevant constants

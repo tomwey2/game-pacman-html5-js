@@ -20,6 +20,7 @@ function gameloop() {
 function update() {
     // todo
     pacman.move();
+    pinky.move();
 }
 
 function drawScore() {
@@ -72,6 +73,7 @@ window.addEventListener("keydown", (event) => {
             pacman.nextDirection = DIRECTION_DOWN;
         } else if (k == 32) {
             pacman.isMoving = !pacman.isMoving;  
+            pinky.isMoving = !pinky.isMoving;
         }
     }, 1);
 });
