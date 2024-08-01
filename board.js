@@ -18,7 +18,7 @@ class Board {
         [0,2,2,2,2,2,2,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,2,2,2,2,2,2,0],  // 12
         [0,0,0,0,0,0,2,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,2,0,0,0,0,0,0],  // 13
         [0,0,0,0,0,0,2,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,2,0,0,0,0,0,0],  // 14
-        [0,0,0,0,0,0,2,0,1,1,0,2,2,2,2,2,2,2,2,0,1,1,0,2,0,0,0,0,0,0],  // 15
+        [0,0,0,0,0,0,2,0,1,1,0,2,2,2,3,3,2,2,2,0,1,1,0,2,0,0,0,0,0,0],  // 15
         [0,2,2,2,2,2,2,0,1,1,0,2,0,0,0,0,0,0,2,0,1,1,0,2,2,2,2,2,2,0],  // 16
         [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0],  // 17
         [0,2,2,2,2,2,2,0,1,1,0,2,0,0,0,0,0,0,2,0,1,1,0,2,2,2,2,2,2,0],  // 18
@@ -47,6 +47,10 @@ class Board {
     
     isFood(tile) {
         return this.data[tile.y][tile.x] == BOARD_NUM_FOOD;
+    }
+
+    isDoor(tile) {
+        return this.data[tile.y][tile.x] == BOARD_NUM_DOOR;
     }
 
     isWall(tile) {
@@ -135,6 +139,10 @@ class Board {
         }
     }
 
+    drawDoor(path) {
+        drawLineSegment(path, BOARD_DOOR_COLOR, DOOR_WIDTH);
+    }
+
     drawBoard() {
         for (var y = 0; y < this.data.length; y++) {
             for (var x = 0; x < this.data[0].length; x++) {
@@ -158,6 +166,8 @@ class Board {
                     if (this.isBottomRightWall(tile)) {
                         this.drawWall(tile, [getNorthPoint(tile), getCenterPoint(tile), getWestPoint(tile)], true);
                     }
+                } else if (this.isDoor(tile)) {
+                    this.drawDoor([getWestPoint(tile), getEastPoint(tile)]);
                 }
             }
         }
@@ -189,7 +199,7 @@ class Board {
                     x > 0 && x < this.data[0].length - 2 && 
                     !(y > 12 && y < 22 && x > 0 && x < 7) &&
                     !(y > 12 && y < 22 && x > 22 && x < this.data[0].length - 2) &&
-                    !(y > 15 && y < 19 && x > 11 && x < 18) &&
+                    !(y > 11 && y < 23 && x > 7 && x < 22) &&
                     !(x >= 14 && x <= 15 && y == 26) &&
                     !this.isWall(tile)) {
                         this.data[tile.y][tile.x] = BOARD_NUM_FOOD;

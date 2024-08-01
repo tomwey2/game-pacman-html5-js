@@ -1,6 +1,7 @@
 var board = new Board();
 var pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED, board);
-var pinky = new Ghost(GHOST_START_TILE, GHOST_TILESPEED, board, pacman);
+var blinky = new Ghost(GHOST_START_TILE, GHOST_TILESPEED, board, pacman, ACTOR_BLINKY, dfs);
+var pinky = new Ghost({x: 17, y: 16}, GHOST_TILESPEED, board, pacman, ACTOR_PINKY, dfs);
 var lives = GAME_START_LIVES;
 var highscore = 1200;
 var score = 0;
@@ -20,6 +21,7 @@ function gameloop() {
 function update() {
     // todo
     pacman.move();
+    blinky.move();
     pinky.move();
 }
 
@@ -32,10 +34,10 @@ function drawScore() {
 
 function drawLives() {
     for (var live = 0; live < lives - 1; live++) {
-        var index = pacman.frameIndex.get(DIRECTION_LEFT)[1];
+        var index = pacman.spriteSheet.index.get(DIRECTION_LEFT)[1];
         ctx.drawImage(
             spriteSheet,
-            index * 30 + pacman.frameOffset[index].x, pacman.frameOffset[index].y, 30, 30, 
+            index * 30 + pacman.spriteSheet.offsets[index].x, pacman.spriteSheet.offsets[index].y, 30, 30, 
             3 * TILESIZE + live * TILESIZE * 2, 34 * TILESIZE, PACMAN_SIZE, PACMAN_SIZE
         );
     }
@@ -47,6 +49,7 @@ function draw() {
     // todo
     board.draw();
     pacman.draw();
+    blinky.draw();
     pinky.draw();
     drawScore();
     drawLives();
@@ -73,6 +76,7 @@ window.addEventListener("keydown", (event) => {
             pacman.nextDirection = DIRECTION_DOWN;
         } else if (k == 32) {
             pacman.isMoving = !pacman.isMoving;  
+            blinky.isMoving = !blinky.isMoving;
             pinky.isMoving = !pinky.isMoving;
         }
     }, 1);

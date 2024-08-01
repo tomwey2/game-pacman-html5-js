@@ -88,3 +88,22 @@ function shuffle(array) {
     } 
     return array; 
 }
+
+function getNeighbours(tile) {
+    var neighbours = [];
+    if (!this.board.isWall(tileUp(tile))) {
+        neighbours.push(tileUp(tile));
+    }
+    if (!this.board.isWall(tileDown(tile))) {
+        neighbours.push(tileDown(tile));
+    }
+    if (!this.board.isWall(tileLeft(tile))) {
+        neighbours.push(tileLeft(tile));
+    }
+    if (!this.board.isWall(tileRight(tile))) {
+        neighbours.push(tileRight(tile));
+    }
+    return neighbours;
+}
+
+

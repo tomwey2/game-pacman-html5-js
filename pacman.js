@@ -1,22 +1,5 @@
 class Pacman {
-    frameIndex = new Map([
-        [DIRECTION_RIGHT, [2, 1, 0, 1]],
-        [DIRECTION_LEFT, [2, 3, 4, 3]],
-        [DIRECTION_UP, [2, 6, 5, 6]],
-        [DIRECTION_DOWN, [2, 8, 7, 8]]
-    ]);
-    frameOffset = [
-        {x: 0, y: 0},
-        {x: 2, y: 0},
-        {x: 3, y: 0},
-        {x: 4, y: 0},
-        {x: 6, y: 0},
-        {x: 8, y: -1},
-        {x: 10, y: -1},
-        {x: 12, y: 1},
-        {x: 14, y: 1}
-    ]
-
+    
     constructor(startTile, speed, board) {
         this.board = board;
         this.pixel = getCenterPoint(startTile);
@@ -27,7 +10,8 @@ class Pacman {
         this.currentFrame = 0;
         this.currentFrameOffset = +1;
         this.frameCount = 2;
-        this.isMoving = false;        
+        this.isMoving = false;   
+        this.spriteSheet = SPRITESHEET.actors.filter(item => item.actor == ACTOR_PACMAN)[0];
 
         setInterval(() => { this.changeAnimation();}, 75);
     }
@@ -114,7 +98,7 @@ class Pacman {
         }
         return false;
     }
-
+    PACMAN_FRAME_INDEX
     checkGhostCollision() {
         
     }
@@ -134,7 +118,7 @@ class Pacman {
             this.currentFrame = 0;
         } else {
             this.currentFrame++;
-            if (this.currentFrame >= this.frameIndex.get(this.direction).length) {
+            if (this.currentFrame >= this.spriteSheet.index.get(this.direction).length) {
                 this.currentFrame = 0;
             }
         }
@@ -147,10 +131,11 @@ class Pacman {
 
     draw() {
         this.drawCoord();   // TODO: only for developing
-        var index = this.frameIndex.get(this.direction)[this.currentFrame];
+        var index = this.spriteSheet.index.get(this.direction)[this.currentFrame];
         ctx.drawImage(
             spriteSheet,
-            index * 30 + this.frameOffset[index].x, this.frameOffset[index].y, 30, 30, 
+            index * 30 + this.spriteSheet.offsets[index].x, 
+            this.spriteSheet.spriteRow * 30 + this.spriteSheet.offsets[index].y, 30, 30, 
             this.pixel.x - PACMAN_SIZE / 2, this.pixel.y - PACMAN_SIZE / 2, PACMAN_SIZE, PACMAN_SIZE
         );
     }
