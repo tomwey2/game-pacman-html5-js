@@ -1,14 +1,13 @@
-//const { dijkstra } = require("./dijkstra");
-
 class Ghost {
     constructor(startTile, speed, board, pacman, ghostActor, findPath) {
         this.pixel = getCenterPoint(startTile);
         this.speed = speed;
+        this.pixel.x += 2 * speed;
         this.board = board;
         this.pacman = pacman;
         this.findPath = findPath;
         this.isMoving = true;
-        this.direction = DIRECTION_NONE;
+        this.direction = DIRECTION_LEFT;
         this.currentFrame = 0;
         this.path = [];
         this.isMoving = false;

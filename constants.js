@@ -51,6 +51,8 @@ const DIRECTION_NONE = 0;
 const ACTOR_PACMAN = 1;
 const ACTOR_BLINKY = 2;
 const ACTOR_PINKY = 3;
+const ACTOR_INKY = 4;
+const ACTOR_CLYDE = 5;
 
 const SPRITESHEET = {
     actors: [
@@ -88,8 +90,8 @@ const SPRITESHEET = {
             offsets: [
                 {x: 2, y: 6},
                 {x: 4, y: 6},
-                {x: 6, y: 6},
-                {x: 8, y: 6},
+                {x: 6, y: 7},
+                {x: 8, y: 7},
                 {x: 10, y: 6},
                 {x: 12, y: 6},
                 {x: 14, y: 6},
@@ -109,12 +111,54 @@ const SPRITESHEET = {
             offsets: [
                 {x: 2, y: 7},
                 {x: 4, y: 7},
-                {x: 6, y: 6},
-                {x: 8, y: 6},
+                {x: 6, y: 8},
+                {x: 8, y: 8},
                 {x: 10, y: 8},
                 {x: 12, y: 8},
-                {x: 14, y: 7},
-                {x: 16, y: 7}
+                {x: 14, y: 8},
+                {x: 16, y: 8}
+            ]
+        },
+        {
+            actor: ACTOR_INKY,
+            spriteRow: 4,
+            index: new Map([
+                [DIRECTION_RIGHT, [0, 1]],
+                [DIRECTION_LEFT, [4, 5]],
+                [DIRECTION_UP, [6, 7]],
+                [DIRECTION_DOWN, [2, 3]],
+                [DIRECTION_NONE, [4, 5]]
+            ]),
+            offsets: [
+                {x: 2, y: 10},
+                {x: 4, y: 10},
+                {x: 6, y: 10},
+                {x: 8, y: 10},
+                {x: 10, y: 10},
+                {x: 12, y: 10},
+                {x: 14, y: 10},
+                {x: 16, y: 10}
+            ]
+        },
+        {
+            actor: ACTOR_CLYDE,
+            spriteRow: 5,
+            index: new Map([
+                [DIRECTION_RIGHT, [0, 1]],
+                [DIRECTION_LEFT, [4, 5]],
+                [DIRECTION_UP, [6, 7]],
+                [DIRECTION_DOWN, [2, 3]],
+                [DIRECTION_NONE, [4, 5]]
+            ]),
+            offsets: [
+                {x: 2, y: 12},
+                {x: 4, y: 12},
+                {x: 6, y: 12},
+                {x: 8, y: 12},
+                {x: 10, y: 12},
+                {x: 12, y: 12},
+                {x: 14, y: 12},
+                {x: 16, y: 12}
             ]
         }
     ]
