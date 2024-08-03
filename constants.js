@@ -40,6 +40,10 @@ const PACMAN_SIZE = Math.trunc((TILESIZE * 5) / 3);
 
 // Ghost relevant constants
 const GHOST_SIZE = Math.trunc((TILESIZE * 5) / 3);
+const BLINKY_STARTTILE = { x: 14, y: 14 };
+const PINKY_STARTTILE = { x: 14, y: 17 };
+const INKY_STARTTILE = { x: 12, y: 17 };
+const CLYDE_STARTTILE = { x: 16, y: 17 };
 
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;

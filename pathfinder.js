@@ -1,5 +1,5 @@
 function tileNr(tile) {
-  return tile.y * this.board.data.length + tile.x;
+  return tile.y * data.length + tile.x;
 }
 
 function dfs(startTile, targetTile, visited, path, maxDepht) {

@@ -81,30 +81,14 @@ class Pacman {
 
   checkCollision() {
     if (betweenTile(this.pixel)) return;
-    var nextTile = getTile(this.pixel);
-
-    switch (this.direction) {
-      case DIRECTION_RIGHT:
-        nextTile.x++;
-        break;
-      case DIRECTION_LEFT:
-        nextTile.x--;
-        break;
-      case DIRECTION_UP:
-        nextTile.y--;
-        break;
-      case DIRECTION_DOWN:
-        nextTile.y++;
-        break;
-    }
-
-    if (this.board.isWall(nextTile)) {
-      return true;
-    }
-    return false;
+    const nextTile = getNeighbour(getTile(this.pixel), this.direction);
+    return this.board.isWall(nextTile);
   }
 
-  checkGhostCollision() {}
+  checkGhostCollision() {
+    if (betweenTile(this.pixel)) return;
+    const nextTile = getNeighbour(getTile(this.pixel), this.direction);
+  }
 
   changeDirectionIfPossible() {
     if (this.direction == this.nextDirection) return;

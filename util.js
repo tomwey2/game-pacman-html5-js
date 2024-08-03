@@ -131,3 +131,16 @@ function getNeighbours(tile) {
   }
   return neighbours;
 }
+
+function getNeighbour(tile, direction) {
+  switch (direction) {
+    case DIRECTION_RIGHT:
+      return {x: tile.x + 1, y: tile.y};
+    case DIRECTION_LEFT:
+        return {x: tile.x - 1, y: tile.y};
+    case DIRECTION_UP:
+        return {x: tile.x, y: tile.y - 1};
+    case DIRECTION_DOWN:
+        return {x: tile.x, y: tile.y + 1};
+  }
+}

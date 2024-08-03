@@ -1,7 +1,7 @@
 var board = new Board();
 var pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED, board);
 var blinky = new Ghost(
-  { x: 14, y: 14 },
+  BLINKY_STARTTILE,
   GHOST_TILESPEED,
   board,
   pacman,
@@ -9,7 +9,7 @@ var blinky = new Ghost(
   dfs
 );
 var pinky = new Ghost(
-  { x: 14, y: 17 },
+  PINKY_STARTTILE,
   GHOST_TILESPEED,
   board,
   pacman,
@@ -17,7 +17,7 @@ var pinky = new Ghost(
   dfs
 );
 var inky = new Ghost(
-  { x: 12, y: 17 },
+  INKY_STARTTILE,
   GHOST_TILESPEED,
   board,
   pacman,
@@ -25,7 +25,7 @@ var inky = new Ghost(
   dfs
 );
 var clyde = new Ghost(
-  { x: 16, y: 17 },
+  CLYDE_STARTTILE,
   GHOST_TILESPEED,
   board,
   pacman,
