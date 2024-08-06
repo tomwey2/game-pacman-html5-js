@@ -29,7 +29,7 @@ class Ghost {
   }
 
   newPath() {
-    if (betweenTile(this.pixel)) return;
+    if (!isCenter(this.pixel)) return;
     this.path = [];
     if (
       this.findPath(
@@ -42,7 +42,7 @@ class Ghost {
     ) {
       console.info("gefunden");
     }
-    console.info(this.path);
+    //console.info(this.path);
   }
 
   moveForwards() {
@@ -72,7 +72,7 @@ class Ghost {
   }
 
   checkCollision() {
-    if (betweenTile(this.pixel)) return;
+    if (!isCenter(this.pixel)) return;
     var nextTile = getTile(this.pixel);
 
     switch (this.direction) {
@@ -97,25 +97,24 @@ class Ghost {
   }
 
   changeDirectionIfPossible() {
+    if (!isCenter(this.pixel)) return;
     const tile = getTile(this.pixel);
-    if (!betweenTile(this.pixel)) {
-      if (this.path.length > 0) {
-        const next = this.path.shift();
-        if (next.x < tile.x) {
-          this.direction = DIRECTION_LEFT;
-        }
-        if (next.x > tile.x) {
-          this.direction = DIRECTION_RIGHT;
-        }
-        if (next.y < tile.y) {
-          this.direction = DIRECTION_UP;
-        }
-        if (next.y > tile.y) {
-          this.direction = DIRECTION_DOWN;
-        }
-      } else {
-        this.newPath();
+    if (this.path.length > 0) {
+      const next = this.path.shift();
+      if (next.x < tile.x) {
+        this.direction = DIRECTION_LEFT;
       }
+      if (next.x > tile.x) {
+        this.direction = DIRECTION_RIGHT;
+      }
+      if (next.y < tile.y) {
+        this.direction = DIRECTION_UP;
+      }
+      if (next.y > tile.y) {
+        this.direction = DIRECTION_DOWN;
+      }
+    } else {
+      this.newPath();
     }
   }
 

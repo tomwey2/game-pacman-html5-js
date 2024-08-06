@@ -3,9 +3,6 @@ function tileNr(tile) {
 }
 
 function dfs(startTile, targetTile, visited, path, maxDepht) {
-  console.info(
-    "tile: " + tileNr(startTile) + " x=" + startTile.x + " y=" + startTile.y
-  );
   if (startTile.x < BOARD_XMIN || startTile.x > BOARD_XMAX) return false;
   if (startTile.y < BOARD_YMIN || startTile.y > BOARD_YMAX) return false;
 

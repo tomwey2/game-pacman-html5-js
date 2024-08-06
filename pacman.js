@@ -25,10 +25,13 @@ class Pacman {
       this.moveForwards();
       this.eat();
     }
+
+    if (this.checkGhostCollision()) {
+      console.info("collision with ghost");
+    }
   }
 
   eat() {
-    if (betweenTile(this.pixel)) return;
     const tile = getTile(this.pixel);
     if (this.board.isFood(tile)) {
       this.board.removeFood(tile);
@@ -80,19 +83,19 @@ class Pacman {
   }
 
   checkCollision() {
-    if (betweenTile(this.pixel)) return;
+    if (!isCenter(this.pixel)) return;
     const nextTile = getNeighbour(getTile(this.pixel), this.direction);
     return this.board.isWall(nextTile);
   }
 
   checkGhostCollision() {
-    if (betweenTile(this.pixel)) return;
-    const nextTile = getNeighbour(getTile(this.pixel), this.direction);
+    const nextTile = getTile(this.pixel); //getNeighbour(getTile(this.pixel), this.direction);
+    return isGhost(nextTile);
   }
 
   changeDirectionIfPossible() {
     if (this.direction == this.nextDirection) return;
-    if (betweenTile(this.pixel)) return;
+    if (!isCenter(this.pixel)) return;
     var tempDirection = this.direction;
     this.direction = this.nextDirection;
     if (this.checkCollision()) {

@@ -32,16 +32,20 @@ function drawText(px, py, text, color) {
 }
 
 function getTile(pixel) {
+  var offset = {
+    x: Math.trunc(pixel.x - TILESIZE / 2) % TILESIZE,
+    y: Math.trunc(pixel.y - TILESIZE / 2) % TILESIZE,
+  };
   return {
-    x: Math.trunc((pixel.x - TILESIZE / 2) / TILESIZE),
-    y: Math.trunc((pixel.y - TILESIZE / 2) / TILESIZE),
+    x: Math.floor((pixel.x - offset.x) / TILESIZE),
+    y: Math.floor((pixel.y - offset.y) / TILESIZE),
   };
 }
 
-function betweenTile(pixel) {
+function isCenter(pixel) {
   return (
-    Math.trunc(pixel.x - TILESIZE / 2) % TILESIZE != 0 ||
-    Math.trunc(pixel.y - TILESIZE / 2) % TILESIZE != 0
+    Math.trunc(pixel.x - TILESIZE / 2) % TILESIZE == 0 &&
+    Math.trunc(pixel.y - TILESIZE / 2) % TILESIZE == 0
   );
 }
 
@@ -135,12 +139,12 @@ function getNeighbours(tile) {
 function getNeighbour(tile, direction) {
   switch (direction) {
     case DIRECTION_RIGHT:
-      return {x: tile.x + 1, y: tile.y};
+      return tileRight(tile);
     case DIRECTION_LEFT:
-        return {x: tile.x - 1, y: tile.y};
+      return tileLeft(tile);
     case DIRECTION_UP:
-        return {x: tile.x, y: tile.y - 1};
+      return tileUp(tile);
     case DIRECTION_DOWN:
-        return {x: tile.x, y: tile.y + 1};
+      return tileDown(tile);
   }
 }
