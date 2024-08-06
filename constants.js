@@ -14,8 +14,8 @@ const BOARD_YMIN = 4;
 const BOARD_YMAX = 32;
 
 const TILESIZE = 30;
-const LEFT_DOOR_TILE = { x: 0, y: 17 };
-const RIGHT_DOOR_TILE = { x: 28, y: 17 };
+const LEFT_DOOR_TILE = new Tile(0, 17);
+const RIGHT_DOOR_TILE = new Tile(28, 17);
 
 const BOARD_WALL_COLOR = "#342DCA";
 const BOARD_DOOR_COLOR = "orange";
@@ -30,9 +30,8 @@ const BOARD_NUM_DOOR = 3;
 const BOARD_NUM_FOOD = 5;
 const FOOD_SIZE = Math.trunc(TILESIZE / 3);
 
-const PACMAN_START_TILE = { x: 14, y: 26 };
+const PACMAN_START_TILE = new Tile(14, 26);
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
-const GHOST_START_TILE = { x: 14, y: 14 };
 const GHOST_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
 
 // Pacman relevant constants
@@ -40,10 +39,10 @@ const PACMAN_SIZE = Math.trunc((TILESIZE * 5) / 3);
 
 // Ghost relevant constants
 const GHOST_SIZE = Math.trunc((TILESIZE * 5) / 3);
-const BLINKY_STARTTILE = { x: 14, y: 14 };
-const PINKY_STARTTILE = { x: 14, y: 17 };
-const INKY_STARTTILE = { x: 12, y: 17 };
-const CLYDE_STARTTILE = { x: 16, y: 17 };
+const BLINKY_STARTTILE = new Tile(14, 14);
+const PINKY_STARTTILE = new Tile(14, 17);
+const INKY_STARTTILE = new Tile(12, 17);
+const CLYDE_STARTTILE = new Tile(16, 17);
 
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;

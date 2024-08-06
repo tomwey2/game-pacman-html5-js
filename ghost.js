@@ -1,6 +1,6 @@
 class Ghost {
   constructor(startTile, speed, board, pacman, ghostActor, findPath) {
-    this.pixel = getCenterPoint(startTile);
+    this.pixel = startTile.centerPixel();
     this.speed = speed;
     this.pixel.x += 2 * speed;
     this.board = board;
@@ -29,12 +29,12 @@ class Ghost {
   }
 
   newPath() {
-    if (!isCenter(this.pixel)) return;
+    if (!this.pixel.isCenter()) return;
     this.path = [];
     if (
       this.findPath(
-        getTile(this.pixel),
-        getTile(this.pacman.pixel),
+        this.pixel.getTile(),
+        this.pacman.pixel.getTile(),
         [],
         this.path,
         50
@@ -46,11 +46,11 @@ class Ghost {
   }
 
   moveForwards() {
-    const tile = getTile(this.pixel);
+    const tile = this.pixel.getTile();
     switch (this.direction) {
       case DIRECTION_RIGHT:
-        if (tile.x == RIGHT_DOOR_TILE.x && tile.y == RIGHT_DOOR_TILE.y) {
-          this.pixel = getCenterPoint(LEFT_DOOR_TILE);
+        if (tile.equal(RIGHT_DOOR_TILE)) {
+          this.pixel = LEFT_DOOR_TILE.centerPixel();
         } else {
           this.pixel.x += this.speed;
         }
@@ -59,8 +59,8 @@ class Ghost {
         this.pixel.y -= this.speed;
         break;
       case DIRECTION_LEFT:
-        if (tile.x == LEFT_DOOR_TILE.x && tile.y == LEFT_DOOR_TILE.y) {
-          this.pixel = getCenterPoint(RIGHT_DOOR_TILE);
+        if (tile.equal(LEFT_DOOR_TILE)) {
+          this.pixel = RIGHT_DOOR_TILE.centerPixel();
         } else {
           this.pixel.x -= this.speed;
         }
@@ -72,33 +72,17 @@ class Ghost {
   }
 
   checkCollision() {
-    if (!isCenter(this.pixel)) return;
-    var nextTile = getTile(this.pixel);
-
-    switch (this.direction) {
-      case DIRECTION_RIGHT:
-        nextTile.x++;
-        break;
-      case DIRECTION_LEFT:
-        nextTile.x--;
-        break;
-      case DIRECTION_UP:
-        nextTile.y--;
-        break;
-      case DIRECTION_DOWN:
-        nextTile.y++;
-        break;
-    }
-
-    if (this.board.isWall(nextTile)) {
+    if (!this.pixel.isCenter()) return;
+    var nextTile = this.pixel.getTile();
+    if (this.board.isWall(nextTile.neighbour(this.direction))) {
       return true;
     }
     return false;
   }
 
   changeDirectionIfPossible() {
-    if (!isCenter(this.pixel)) return;
-    const tile = getTile(this.pixel);
+    if (!this.pixel.isCenter()) return;
+    const tile = this.pixel.getTile();
     if (this.path.length > 0) {
       const next = this.path.shift();
       if (next.x < tile.x) {
@@ -133,7 +117,7 @@ class Ghost {
 
   drawCoord() {
     if (this.spriteSheet.actor == ACTOR_BLINKY) {
-      const tile = getTile(this.pixel);
+      const tile = this.pixel.getTile();
       drawText(
         650,
         40,

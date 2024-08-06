@@ -12,7 +12,7 @@ function dfs(startTile, targetTile, visited, path, maxDepht) {
   if (path.length > maxDepht) {
     return false;
   }
-  if (startTile.x == targetTile.x && startTile.y == targetTile.y) {
+  if (startTile.equal(targetTile)) {
     return true;
   } else {
     var neighbors = shuffle(

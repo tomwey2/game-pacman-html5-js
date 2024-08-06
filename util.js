@@ -31,85 +31,6 @@ function drawText(px, py, text, color) {
   ctx.fillText(text, px, py);
 }
 
-function getTile(pixel) {
-  var offset = {
-    x: Math.trunc(pixel.x - TILESIZE / 2) % TILESIZE,
-    y: Math.trunc(pixel.y - TILESIZE / 2) % TILESIZE,
-  };
-  return {
-    x: Math.floor((pixel.x - offset.x) / TILESIZE),
-    y: Math.floor((pixel.y - offset.y) / TILESIZE),
-  };
-}
-
-function isCenter(pixel) {
-  return (
-    Math.trunc(pixel.x - TILESIZE / 2) % TILESIZE == 0 &&
-    Math.trunc(pixel.y - TILESIZE / 2) % TILESIZE == 0
-  );
-}
-
-function tileUp(tile) {
-  return { x: tile.x, y: tile.y - 1 };
-}
-function tileDown(tile) {
-  return { x: tile.x, y: tile.y + 1 };
-}
-function tileRight(tile) {
-  if (tile.x == RIGHT_DOOR_TILE.x && tile.y == RIGHT_DOOR_TILE.y) {
-    return LEFT_DOOR_TILE;
-  } else {
-    return { x: tile.x + 1, y: tile.y };
-  }
-}
-function tileLeft(tile) {
-  if (tile.x == LEFT_DOOR_TILE.x && tile.y == LEFT_DOOR_TILE.y) {
-    return RIGHT_DOOR_TILE;
-  } else {
-    return { x: tile.x - 1, y: tile.y };
-  }
-}
-function tileLeftUp(tile) {
-  return { x: tile.x - 1, y: tile.y - 1 };
-}
-function tileRightUp(tile) {
-  return { x: tile.x + 1, y: tile.y - 1 };
-}
-function tileRightDown(tile) {
-  return { x: tile.x + 1, y: tile.y + 1 };
-}
-function tileLeftDown(tile) {
-  return { x: tile.x - 1, y: tile.y + 1 };
-}
-
-function getWestPoint(tile) {
-  return { x: tile.x * TILESIZE, y: tile.y * TILESIZE + TILESIZE / 2 };
-}
-
-function getEastPoint(tile) {
-  return {
-    x: tile.x * TILESIZE + TILESIZE,
-    y: tile.y * TILESIZE + TILESIZE / 2,
-  };
-}
-
-function getNorthPoint(tile) {
-  return { x: tile.x * TILESIZE + TILESIZE / 2, y: tile.y * TILESIZE };
-}
-
-function getSouthPoint(tile) {
-  return {
-    x: tile.x * TILESIZE + TILESIZE / 2,
-    y: tile.y * TILESIZE + TILESIZE,
-  };
-}
-
-function getCenterPoint(tile) {
-  return {
-    x: tile.x * TILESIZE + TILESIZE / 2,
-    y: tile.y * TILESIZE + TILESIZE / 2,
-  };
-}
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -121,30 +42,18 @@ function shuffle(array) {
 
 function getNeighbours(tile) {
   var neighbours = [];
-  if (!this.board.isWall(tileUp(tile))) {
-    neighbours.push(tileUp(tile));
+  if (!this.board.isWall(tile.up())) {
+    neighbours.push(tile.up());
   }
-  if (!this.board.isWall(tileDown(tile))) {
-    neighbours.push(tileDown(tile));
+  if (!this.board.isWall(tile.down())) {
+    neighbours.push(tile.down());
   }
-  if (!this.board.isWall(tileLeft(tile))) {
-    neighbours.push(tileLeft(tile));
+  if (!this.board.isWall(tile.left())) {
+    neighbours.push(tile.left());
   }
-  if (!this.board.isWall(tileRight(tile))) {
-    neighbours.push(tileRight(tile));
+  if (!this.board.isWall(tile.right())) {
+    neighbours.push(tile.right());
   }
   return neighbours;
 }
 
-function getNeighbour(tile, direction) {
-  switch (direction) {
-    case DIRECTION_RIGHT:
-      return tileRight(tile);
-    case DIRECTION_LEFT:
-      return tileLeft(tile);
-    case DIRECTION_UP:
-      return tileUp(tile);
-    case DIRECTION_DOWN:
-      return tileDown(tile);
-  }
-}

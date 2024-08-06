@@ -40,8 +40,8 @@ var gamePaused = true;
 
 function isGhost(tile) {
   for (var i = 0; i < ghosts.length; i++) {
-    var ghostTile = getTile(ghosts[i].pixel);
-    if (tile.x == ghostTile.x && tile.y == ghostTile.y) {
+    var ghostTile = ghosts[i].pixel.getTile();
+    if (tile.equal(ghostTile)) {
       return true;
     }
   }

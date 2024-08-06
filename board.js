@@ -25,70 +25,70 @@ class Board {
 
   isHorizontalWall(tile) {
     return (
-      (this.isWall(tileLeft(tile)) &&
-        this.isWall(tileRight(tile)) &&
-        (!this.isWall(tileUp(tile)) || !this.isWall(tileDown(tile)))) ||
-      (!this.isWall(tileUp(tile)) && !this.isWall(tileDown(tile)))
+      (this.isWall(tile.left()) &&
+        this.isWall(tile.right()) &&
+        (!this.isWall(tile.up()) || !this.isWall(tile.down()))) ||
+      (!this.isWall(tile.up()) && !this.isWall(tile.down()))
     );
   }
 
   isVerticalWall(tile) {
     return (
-      this.isWall(tileUp(tile)) &&
-      this.isWall(tileDown(tile)) &&
-      (!this.isWall(tileLeft(tile)) || !this.isWall(tileRight(tile)))
+      this.isWall(tile.up()) &&
+      this.isWall(tile.down()) &&
+      (!this.isWall(tile.left()) || !this.isWall(tile.right()))
     );
   }
 
   isTopLeftWall(tile) {
     return (
-      (this.isWall(tileDown(tile)) &&
-        this.isWall(tileRight(tile)) &&
-        !this.isWall(tileLeftUp(tile)) &&
-        !this.isWall(tileUp(tile)) &&
-        !this.isWall(tileLeft(tile))) ||
-      (this.isWall(tileDown(tile)) &&
-        this.isWall(tileRight(tile)) &&
-        !this.isWall(tileRightDown(tile)))
+      (this.isWall(tile.down()) &&
+        this.isWall(tile.right()) &&
+        !this.isWall(tile.leftUp()) &&
+        !this.isWall(tile.up()) &&
+        !this.isWall(tile.left())) ||
+      (this.isWall(tile.down()) &&
+        this.isWall(tile.right()) &&
+        !this.isWall(tile.rightDown()))
     );
   }
 
   isTopRightWall(tile) {
     return (
-      (this.isWall(tileDown(tile)) &&
-        this.isWall(tileLeft(tile)) &&
-        !this.isWall(tileRightUp(tile)) &&
-        !this.isWall(tileUp(tile)) &&
-        !this.isWall(tileRight(tile))) ||
-      (this.isWall(tileDown(tile)) &&
-        this.isWall(tileLeft(tile)) &&
-        !this.isWall(tileLeftDown(tile)))
+      (this.isWall(tile.down()) &&
+        this.isWall(tile.left()) &&
+        !this.isWall(tile.rightUp()) &&
+        !this.isWall(tile.up()) &&
+        !this.isWall(tile.right())) ||
+      (this.isWall(tile.down()) &&
+        this.isWall(tile.left()) &&
+        !this.isWall(tile.leftDown()))
     );
   }
 
   isBottomLeftWall(tile) {
     return (
-      (this.isWall(tileUp(tile)) &&
-        this.isWall(tileRight(tile)) &&
-        !this.isWall(tileLeft(tile)) &&
-        !this.isWall(tileDown(tile)) &&
-        !this.isWall(tileLeftDown(tile))) ||
-      (this.isWall(tileUp(tile)) &&
-        this.isWall(tileRight(tile)) &&
-        !this.isWall(tileRightUp(tile)))
+      (this.isWall(tile.up()) &&
+        this.isWall(tile.right()) &&
+        !this.isWall(tile.left()) &&
+        !this.isWall(tile.down()) &&
+        !this.isWall(tile.leftDown())) ||
+      (this.isWall(tile.up()) &&
+        this.isWall(tile.right()) &&
+        !this.isWall(tile.rightUp()))
     );
   }
 
   isBottomRightWall(tile) {
     return (
-      (this.isWall(tileUp(tile)) &&
-        this.isWall(tileLeft(tile)) &&
-        !this.isWall(tileRight(tile)) &&
-        !this.isWall(tileDown(tile)) &&
-        !this.isWall(tileRightDown(tile))) ||
-      (this.isWall(tileLeft(tile)) &&
-        this.isWall(tileUp(tile)) &&
-        !this.isWall(tileLeftUp(tile)))
+      (this.isWall(tile.up()) &&
+        this.isWall(tile.left()) &&
+        !this.isWall(tile.right()) &&
+        !this.isWall(tile.down()) &&
+        !this.isWall(tile.rightDown())) ||
+      (this.isWall(tile.left()) &&
+        this.isWall(tile.up()) &&
+        !this.isWall(tile.leftUp()))
     );
   }
 
@@ -137,52 +137,44 @@ class Board {
   drawBoard() {
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
-        const tile = { x: x, y: y };
+        const tile = new Tile(x, y);
         if (this.isWall(tile)) {
           if (this.isHorizontalWall(tile)) {
-            this.drawWall(
-              tile,
-              [getWestPoint(tile), getEastPoint(tile)],
-              false
-            );
+            this.drawWall(tile, [tile.westPixel(), tile.eastPixel()], false);
           }
           if (this.isVerticalWall(tile)) {
-            this.drawWall(
-              tile,
-              [getNorthPoint(tile), getSouthPoint(tile)],
-              false
-            );
+            this.drawWall(tile, [tile.northPixel(), tile.southPixel()], false);
           }
           if (this.isTopLeftWall(tile)) {
             this.drawWall(
               tile,
-              [getSouthPoint(tile), getCenterPoint(tile), getEastPoint(tile)],
+              [tile.southPixel(), tile.centerPixel(), tile.eastPixel()],
               true
             );
           }
           if (this.isTopRightWall(tile)) {
             this.drawWall(
               tile,
-              [getSouthPoint(tile), getCenterPoint(tile), getWestPoint(tile)],
+              [tile.southPixel(), tile.centerPixel(), tile.westPixel()],
               true
             );
           }
           if (this.isBottomLeftWall(tile)) {
             this.drawWall(
               tile,
-              [getNorthPoint(tile), getCenterPoint(tile), getEastPoint(tile)],
+              [tile.northPixel(), tile.centerPixel(), tile.eastPixel()],
               true
             );
           }
           if (this.isBottomRightWall(tile)) {
             this.drawWall(
               tile,
-              [getNorthPoint(tile), getCenterPoint(tile), getWestPoint(tile)],
+              [tile.northPixel(), tile.centerPixel(), tile.westPixel()],
               true
             );
           }
         } else if (this.isDoor(tile)) {
-          this.drawDoor([getWestPoint(tile), getEastPoint(tile)]);
+          this.drawDoor([tile.westPixel(), tile.eastPixel()]);
         }
       }
     }
@@ -191,9 +183,9 @@ class Board {
   drawFood() {
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
-        const tile = { x: x, y: y };
+        const tile = new Tile(x, y);
         if (this.isFood(tile)) {
-          const pixel = getCenterPoint(tile);
+          const pixel = tile.centerPixel();
           ctx.drawImage(
             spriteSheet,
             45,
@@ -218,7 +210,7 @@ class Board {
   initFood() {
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
-        var tile = { x: x, y: y };
+        const tile = new Tile(x, y);
         if (
           y > 3 &&
           y < data.length - 3 &&

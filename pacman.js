@@ -1,7 +1,7 @@
 class Pacman {
   constructor(startTile, speed, board) {
     this.board = board;
-    this.pixel = getCenterPoint(startTile);
+    this.pixel = startTile.centerPixel();
     this.pixel.x += speed;
     this.speed = speed;
     this.direction = DIRECTION_RIGHT;
@@ -32,7 +32,7 @@ class Pacman {
   }
 
   eat() {
-    const tile = getTile(this.pixel);
+    const tile = this.pixel.getTile();
     if (this.board.isFood(tile)) {
       this.board.removeFood(tile);
       addScore(10);
@@ -40,11 +40,11 @@ class Pacman {
   }
 
   moveForwards() {
-    const tile = getTile(this.pixel);
+    const tile = this.pixel.getTile();
     switch (this.direction) {
       case DIRECTION_RIGHT:
-        if (tile.x == RIGHT_DOOR_TILE.x && tile.y == RIGHT_DOOR_TILE.y) {
-          this.pixel = getCenterPoint(LEFT_DOOR_TILE);
+        if (tile.equal(RIGHT_DOOR_TILE)) {
+          this.pixel = LEFT_DOOR_TILE.centerPixel();
         } else {
           this.pixel.x += this.speed;
         }
@@ -53,8 +53,8 @@ class Pacman {
         this.pixel.y -= this.speed;
         break;
       case DIRECTION_LEFT:
-        if (tile.x == LEFT_DOOR_TILE.x && tile.y == LEFT_DOOR_TILE.y) {
-          this.pixel = getCenterPoint(RIGHT_DOOR_TILE);
+        if (tile.equal(LEFT_DOOR_TILE)) {
+          this.pixel = RIGHT_DOOR_TILE.centerPixel();
         } else {
           this.pixel.x -= this.speed;
         }
@@ -83,19 +83,19 @@ class Pacman {
   }
 
   checkCollision() {
-    if (!isCenter(this.pixel)) return;
-    const nextTile = getNeighbour(getTile(this.pixel), this.direction);
-    return this.board.isWall(nextTile);
+    if (!this.pixel.isCenter()) return;
+    const tile = this.pixel.getTile();
+    return this.board.isWall(tile.neighbour(this.direction));
   }
 
   checkGhostCollision() {
-    const nextTile = getTile(this.pixel); //getNeighbour(getTile(this.pixel), this.direction);
+    const nextTile = this.pixel.getTile();
     return isGhost(nextTile);
   }
 
   changeDirectionIfPossible() {
     if (this.direction == this.nextDirection) return;
-    if (!isCenter(this.pixel)) return;
+    if (!this.pixel.isCenter()) return;
     var tempDirection = this.direction;
     this.direction = this.nextDirection;
     if (this.checkCollision()) {
@@ -113,7 +113,7 @@ class Pacman {
   }
 
   drawCoord() {
-    const tile = getTile(this.pixel);
+    const tile = this.pixel.getTile();
     drawText(
       650,
       80,
