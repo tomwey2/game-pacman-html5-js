@@ -7,6 +7,15 @@ const GAME_START_LIVES = 5;
 
 const fps = 60;
 
+// Game relevant constants
+const GAME_INIT = "init";
+const GAME_IS_READY = "ready";
+const GAME_IS_RUNNING = "running";
+const GAME_IS_LOST = "lost";
+const GAME_IS_WON = "won";
+const GAME_IS_OVER = "over";
+const GAME_IS_PAUSED = "pause";
+
 // Board relevant constants
 const BOARD_XMIN = 2;
 const BOARD_XMAX = 27;

@@ -42,18 +42,17 @@ function shuffle(array) {
 
 function getNeighbours(tile) {
   var neighbours = [];
-  if (!this.board.isWall(tile.up())) {
+  if (!game.board.isWall(tile.up())) {
     neighbours.push(tile.up());
   }
-  if (!this.board.isWall(tile.down())) {
+  if (!game.board.isWall(tile.down())) {
     neighbours.push(tile.down());
   }
-  if (!this.board.isWall(tile.left())) {
+  if (!game.board.isWall(tile.left())) {
     neighbours.push(tile.left());
   }
-  if (!this.board.isWall(tile.right())) {
+  if (!game.board.isWall(tile.right())) {
     neighbours.push(tile.right());
   }
   return neighbours;
 }
-

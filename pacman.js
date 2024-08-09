@@ -1,9 +1,8 @@
 class Pacman extends Sprite2D {
-    constructor(startTile, speed, board) {
+    constructor(startTile, speed) {
         var centerPixel = startTile.centerPixel();
         centerPixel.x += speed;
         super(centerPixel, speed, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
-        this.board = board;
         this.nextDirection = DIRECTION_RIGHT;
     }
 
@@ -22,9 +21,9 @@ class Pacman extends Sprite2D {
 
     eat() {
         const tile = this.pixel.getTile();
-        if (this.board.isFood(tile)) {
-            this.board.removeFood(tile);
-            addScore(10);
+        if (game.board.isFood(tile)) {
+            game.board.removeFood(tile);
+            game.addScore(10);
         }
     }
 
@@ -57,12 +56,14 @@ class Pacman extends Sprite2D {
     checkCollision() {
         if (!this.pixel.isCenter()) return;
         const tile = this.pixel.getTile();
-        return this.board.isWall(tile.neighbour(this.direction));
+        return game.board.isWall(tile.neighbour(this.direction));
     }
 
     checkGhostCollision() {
         const nextTile = this.pixel.getTile();
-        return isGhost(nextTile);
+        if (game.isGhost(nextTile)) {
+            setGameState(GAME_IS_LOST);
+        }
     }
 
     changeDirectionIfPossible() {

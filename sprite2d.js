@@ -7,6 +7,7 @@ class Sprite2D {
         this.spriteSheet = SPRITESHEET.actors.filter(
             (item) => item.actor == actor
         )[0];
+        this.isVisible = true;
 
         setInterval(() => {
             this.changeAnimation();
@@ -24,6 +25,7 @@ class Sprite2D {
     }
 
     draw() {
+        if (!this.isVisible) return;
         this.drawCoord(); // TODO: only for developing
         const index = this.spriteSheet.index.get(this.direction)[
             this.currentFrame

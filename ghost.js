@@ -1,15 +1,21 @@
 class Ghost extends Sprite2D {
-    constructor(startTile, speed, board, pacman, ghostActor, findPath) {
+    constructor(startTile, speed, ghostActor, findPath) {
         var centerPixel = startTile.centerPixel();
         centerPixel.x += 2 * speed;
         super(centerPixel, speed, DIRECTION_RIGHT, ghostActor, 200);
-        this.board = board;
-        this.pacman = pacman;
+        this.startTile = startTile;
         this.findPath = findPath;
         this.direction = DIRECTION_LEFT;
         this.path = [];
 
         this.newPath();
+    }
+
+    reset() {
+        var centerPixel = this.startTile.centerPixel();
+        //        centerPixel.x += 2 * this.speed;
+        this.pixel = centerPixel;
+        this.path = [];
     }
 
     move() {
@@ -26,13 +32,13 @@ class Ghost extends Sprite2D {
         if (
             this.findPath(
                 this.pixel.getTile(),
-                this.pacman.pixel.getTile(),
+                game.pacman.pixel.getTile(),
                 [],
                 this.path,
                 50
             )
         ) {
-            console.info("gefunden");
+            //console.info("gefunden");
         }
         //console.info(this.path);
     }
@@ -66,7 +72,7 @@ class Ghost extends Sprite2D {
     checkCollision() {
         if (!this.pixel.isCenter()) return;
         var nextTile = this.pixel.getTile();
-        if (this.board.isWall(nextTile.neighbour(this.direction))) {
+        if (game.board.isWall(nextTile.neighbour(this.direction))) {
             return true;
         }
         return false;
