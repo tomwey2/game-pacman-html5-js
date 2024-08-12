@@ -7,7 +7,6 @@ function setGameState(state) {
     gameState = state;
 }
 
-
 /*
 state           event               action          next state
 game init       -                   level 1         game start 
@@ -39,8 +38,7 @@ function gameloop() {
             //            levelWon();
             break;
         case GAME_IS_OVER:
-            // highscore list
-            game.draw();
+            game.draw(); // TODO?
             break;
     }
 }
@@ -50,39 +48,47 @@ gameloop();
 window.addEventListener("keydown", (event) => {
     var k = event.keyCode;
 
-    const keyPressedLeft = k == 37 || k == 65;    // LEFT || A
-    const keyPressedRight = k == 39 || k == 68;   // RIGHT || D
-    const keyPressedUp = k == 38 || k == 76;      // UP || L
-    const keyPressedDown = k == 40 || k == 77;    // DOWN || M
-    const keyPressedSpace = k == 32;              // SPACE
+    const keyPressedLeft = k == 37 || k == 65; // LEFT || A
+    const keyPressedRight = k == 39 || k == 68; // RIGHT || D
+    const keyPressedUp = k == 38 || k == 76; // UP || L
+    const keyPressedDown = k == 40 || k == 77; // DOWN || M
+    const keyPressedSpace = k == 32; // SPACE
 
     setTimeout(() => {
-        if (keyPressedLeft) {
-            game.pacman.nextDirection = DIRECTION_LEFT;
-        } else if (keyPressedUp) {
-            game.pacman.nextDirection = DIRECTION_UP;
-        } else if (keyPressedRight) {
-            game.pacman.nextDirection = DIRECTION_RIGHT;
-        } else if (keyPressedDown) {
-            game.pacman.nextDirection = DIRECTION_DOWN;
-        } else if (keyPressedSpace) {
-            switch (gameState) {
-                case GAME_INIT:
+        switch (gameState) {
+            case GAME_INIT:
+                if (keyPressedSpace) {
                     setGameState(GAME_IS_READY);
-                    break;
-                case GAME_IS_READY:
+                }
+                break;
+            case GAME_IS_READY:
+                if (keyPressedSpace) {
                     setGameState(GAME_IS_RUNNING);
-                    break;
-                case GAME_IS_RUNNING:
+                }
+                break;
+            case GAME_IS_RUNNING:
+                if (keyPressedLeft) {
+                    game.pacman.nextDirection = DIRECTION_LEFT;
+                } else if (keyPressedUp) {
+                    game.pacman.nextDirection = DIRECTION_UP;
+                } else if (keyPressedRight) {
+                    game.pacman.nextDirection = DIRECTION_RIGHT;
+                } else if (keyPressedDown) {
+                    game.pacman.nextDirection = DIRECTION_DOWN;
+                } else if (keyPressedSpace) {
                     setGameState(GAME_IS_PAUSED);
-                    break;
-                case GAME_IS_PAUSED:
+                }
+                break;
+            case GAME_IS_PAUSED:
+                if (keyPressedSpace) {
                     setGameState(GAME_IS_LOST);
-                    break;
-                case GAME_IS_OVER:
+                }
+                break;
+            case GAME_IS_OVER:
+                if (keyPressedSpace) {
                     setGameState(GAME_INIT);
-                    break;
-            }
+                }
+                break;
         }
     }, 1);
 });

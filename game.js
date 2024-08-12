@@ -5,19 +5,28 @@ class Game {
         this.blinky = new Ghost(
             BLINKY_STARTTILE,
             GHOST_TILESPEED,
+            DIRECTION_RIGHT,
             ACTOR_BLINKY,
             dfs
         );
         this.pinky = new Ghost(
             PINKY_STARTTILE,
             GHOST_TILESPEED,
+            DIRECTION_RIGHT,
             ACTOR_PINKY,
             dfs
         );
-        this.inky = new Ghost(INKY_STARTTILE, GHOST_TILESPEED, ACTOR_INKY, dfs);
+        this.inky = new Ghost(
+            INKY_STARTTILE,
+            GHOST_TILESPEED,
+            DIRECTION_RIGHT,
+            ACTOR_INKY,
+            dfs
+        );
         this.clyde = new Ghost(
             CLYDE_STARTTILE,
             GHOST_TILESPEED,
+            DIRECTION_RIGHT,
             ACTOR_CLYDE,
             dfs
         );
@@ -90,8 +99,10 @@ class Game {
     drawScore() {
         drawText(100, 40, "1UP", "white");
         drawText(100, 80, parseInt(this.score), "white");
-        drawText(350, 40, "HIGH  SCORE", "white");
+        drawText(350, 40, "HIGH SCORE", "white");
         drawText(350, 80, parseInt(this.highscore), "white");
+        drawText(700, 40, "2UP", "white");
+        drawText(700, 80, "0", "white");
     }
 
     drawReady() {

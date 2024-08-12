@@ -1,6 +1,7 @@
 body {
-    background: black;
+    background: darkgray;
     margin: 0px;
+    font-family: "Press Start 2P", system-ui;
 }
 
 canvas {
@@ -11,4 +12,13 @@ canvas {
     display: block;
     width: 900;
     height: 1080;
+    font-family: "PressStart2P", system-ui;
+    font-weight: 400;
 }
+
+  @font-face {
+    font-family: "PressStart2P";
+    src: url("PressStart2P-Regular.ttf");
+    style: "normal";
+    weight: "400";
+  }

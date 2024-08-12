@@ -26,7 +26,6 @@ class Sprite2D {
 
     draw() {
         if (!this.isVisible) return;
-        this.drawCoord(); // TODO: only for developing
         const index = this.spriteSheet.index.get(this.direction)[
             this.currentFrame
         ];

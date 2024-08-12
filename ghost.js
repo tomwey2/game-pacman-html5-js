@@ -1,20 +1,14 @@
 class Ghost extends Sprite2D {
-    constructor(startTile, speed, ghostActor, findPath) {
+    constructor(startTile, speed, direction, ghostActor, findPath) {
         var centerPixel = startTile.centerPixel();
-        centerPixel.x += 2 * speed;
-        super(centerPixel, speed, DIRECTION_RIGHT, ghostActor, 200);
+        super(centerPixel, speed, direction, ghostActor, 200);
         this.startTile = startTile;
         this.findPath = findPath;
-        this.direction = DIRECTION_LEFT;
         this.path = [];
-
-        this.newPath();
     }
 
     reset() {
-        var centerPixel = this.startTile.centerPixel();
-        //        centerPixel.x += 2 * this.speed;
-        this.pixel = centerPixel;
+        this.pixel = this.startTile.centerPixel();
         this.path = [];
     }
 
