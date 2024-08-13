@@ -5,9 +5,10 @@ class Sprite2D {
     this.direction = direction;
     this.currentFrame = 0;
     this.spriteSheet = SPRITESHEET.actors.filter(
-      (item) => item.actor == actor
+      (item) => item.actor == actor,
     )[0];
     this.isVisible = true;
+    this.isAnimated = animationSpeed > 0;
 
     setInterval(() => {
       this.changeAnimation();
@@ -15,6 +16,7 @@ class Sprite2D {
   }
 
   changeAnimation() {
+    if (!this.isAnimated) return;
     this.currentFrame++;
     if (
       this.currentFrame >= this.spriteSheet.index.get(this.direction).length
@@ -45,7 +47,7 @@ class Sprite2D {
         this.spriteSheet.spriteSize / 2 +
         this.spriteSheet.offset.y,
       this.spriteSheet.spriteSize,
-      this.spriteSheet.spriteSize
+      this.spriteSheet.spriteSize,
     );
   }
 }

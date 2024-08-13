@@ -19,7 +19,6 @@ level lost      -                   lives > 0       game ready
 game over       keypress                            game init
 */
 function gameloop() {
-  console.log("lives=" + game.lives + " state=" + gameState);
   switch (gameState) {
     case GAME_INIT:
       intro.loop();
@@ -38,9 +37,10 @@ function gameloop() {
       //            levelWon();
       break;
     case GAME_IS_OVER:
-      game.draw(); // TODO?
+      game.gameOver();
       break;
   }
+  console.log("lives=" + game.lives + " state=" + gameState);
 }
 
 gameloop();
@@ -53,6 +53,7 @@ window.addEventListener("keydown", (event) => {
   const keyPressedUp = k == 38 || k == 76; // UP || L
   const keyPressedDown = k == 40 || k == 77; // DOWN || M
   const keyPressedSpace = k == 32; // SPACE
+  const keyPressedEsc = k == 27; // ESC
 
   setTimeout(() => {
     switch (gameState) {
@@ -77,11 +78,15 @@ window.addEventListener("keydown", (event) => {
           game.pacman.nextDirection = DIRECTION_DOWN;
         } else if (keyPressedSpace) {
           setGameState(GAME_IS_PAUSED);
+        } else if (keyPressedEsc) {
+          setGameState(GAME_IS_OVER);
         }
         break;
       case GAME_IS_PAUSED:
         if (keyPressedSpace) {
           setGameState(GAME_IS_LOST);
+        } else if (keyPressedEsc) {
+          setGameState(GAME_IS_OVER);
         }
         break;
       case GAME_IS_OVER:

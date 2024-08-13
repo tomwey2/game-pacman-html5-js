@@ -1,7 +1,14 @@
 class Ghost extends Sprite2D {
-  constructor(startTile, speed, direction, ghostActor, findPath) {
+  constructor(
+    startTile,
+    speed,
+    direction,
+    ghostActor,
+    animationSpeed,
+    findPath,
+  ) {
     var centerPixel = startTile.centerPixel();
-    super(centerPixel, speed, direction, ghostActor, 200);
+    super(centerPixel, speed, direction, ghostActor, animationSpeed);
     this.startTile = startTile;
     this.findPath = findPath;
     this.path = [];
@@ -29,7 +36,7 @@ class Ghost extends Sprite2D {
         game.pacman.pixel.getTile(),
         [],
         this.path,
-        50
+        50,
       )
     ) {
       //console.info("gefunden");
@@ -101,7 +108,7 @@ class Ghost extends Sprite2D {
         650,
         40,
         "x=" + parseInt(tile.x) + ",y=" + parseInt(tile.y),
-        "red"
+        "red",
       );
     }
   }

@@ -8,13 +8,13 @@ const GAME_START_LIVES = 5;
 const fps = 60;
 
 // Game relevant constants
-const GAME_INIT = "init";
-const GAME_IS_READY = "ready";
-const GAME_IS_RUNNING = "running";
-const GAME_IS_LOST = "lost";
-const GAME_IS_WON = "won";
-const GAME_IS_OVER = "over";
-const GAME_IS_PAUSED = "pause";
+const GAME_INIT = "GAME_INIT";
+const GAME_IS_READY = "GAME_IS_READY";
+const GAME_IS_RUNNING = "GAME_IS_RUNNING";
+const GAME_IS_LOST = "GAME_IS_LOST";
+const GAME_IS_WON = "GAME_IS_WON";
+const GAME_IS_OVER = "GAME_IS_OVER";
+const GAME_IS_PAUSED = "GAME_IS_PAUSED";
 
 // Board relevant constants
 const BOARD_XMIN = 2;
@@ -38,6 +38,7 @@ const BOARD_NUM_DOUBLE_WALL = 2;
 const BOARD_NUM_DOOR = 3;
 const BOARD_NUM_FOOD = 5;
 const FOOD_SIZE = Math.trunc(TILESIZE / 3);
+const POWER_SIZE = Math.trunc(TILESIZE / 1.1);
 
 const PACMAN_START_TILE = new Tile(14, 26);
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
@@ -52,6 +53,7 @@ const BLINKY_STARTTILE = new Tile(14, 14);
 const PINKY_STARTTILE = new Tile(14, 17);
 const INKY_STARTTILE = new Tile(12, 17);
 const CLYDE_STARTTILE = new Tile(16, 17);
+const GHOST_ANIMATION_SPEED = 200;
 
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;

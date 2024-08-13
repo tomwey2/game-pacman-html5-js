@@ -55,3 +55,33 @@ function getNeighbours(tile) {
   }
   return neighbours;
 }
+
+function drawFood(tile) {
+  const pixel = tile.centerPixel();
+  ctx.drawImage(
+    spriteSheet,
+    45,
+    302,
+    5,
+    5,
+    pixel.x - FOOD_SIZE / 2,
+    pixel.y - FOOD_SIZE / 2,
+    FOOD_SIZE,
+    FOOD_SIZE,
+  );
+}
+
+function drawPower(tile) {
+  const pixel = tile.centerPixel();
+  ctx.drawImage(
+    spriteSheet,
+    8,
+    296,
+    17,
+    17,
+    pixel.x - POWER_SIZE / 2,
+    pixel.y - POWER_SIZE / 2,
+    POWER_SIZE,
+    POWER_SIZE,
+  );
+}

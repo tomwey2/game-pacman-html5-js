@@ -149,28 +149,28 @@ class Board {
             this.drawWall(
               tile,
               [tile.southPixel(), tile.centerPixel(), tile.eastPixel()],
-              true
+              true,
             );
           }
           if (this.isTopRightWall(tile)) {
             this.drawWall(
               tile,
               [tile.southPixel(), tile.centerPixel(), tile.westPixel()],
-              true
+              true,
             );
           }
           if (this.isBottomLeftWall(tile)) {
             this.drawWall(
               tile,
               [tile.northPixel(), tile.centerPixel(), tile.eastPixel()],
-              true
+              true,
             );
           }
           if (this.isBottomRightWall(tile)) {
             this.drawWall(
               tile,
               [tile.northPixel(), tile.centerPixel(), tile.westPixel()],
-              true
+              true,
             );
           }
         } else if (this.isDoor(tile)) {
@@ -185,18 +185,7 @@ class Board {
       for (var x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
         if (this.isFood(tile)) {
-          const pixel = tile.centerPixel();
-          ctx.drawImage(
-            spriteSheet,
-            45,
-            302,
-            5,
-            5,
-            pixel.x - FOOD_SIZE / 2,
-            pixel.y - FOOD_SIZE / 2,
-            FOOD_SIZE,
-            FOOD_SIZE
-          );
+          drawFood(tile);
         }
       }
     }

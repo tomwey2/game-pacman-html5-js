@@ -7,28 +7,32 @@ class Game {
       GHOST_TILESPEED,
       DIRECTION_RIGHT,
       ACTOR_BLINKY,
-      dfs
+      GHOST_ANIMATION_SPEED,
+      dfs,
     );
     this.pinky = new Ghost(
       PINKY_STARTTILE,
       GHOST_TILESPEED,
       DIRECTION_RIGHT,
       ACTOR_PINKY,
-      dfs
+      GHOST_ANIMATION_SPEED,
+      dfs,
     );
     this.inky = new Ghost(
       INKY_STARTTILE,
       GHOST_TILESPEED,
       DIRECTION_RIGHT,
       ACTOR_INKY,
-      dfs
+      GHOST_ANIMATION_SPEED,
+      dfs,
     );
     this.clyde = new Ghost(
       CLYDE_STARTTILE,
       GHOST_TILESPEED,
       DIRECTION_RIGHT,
       ACTOR_CLYDE,
-      dfs
+      GHOST_ANIMATION_SPEED,
+      dfs,
     );
     this.ghosts = [this.blinky, this.pinky, this.inky, this.clyde];
     this.lives = 0;
@@ -74,14 +78,24 @@ class Game {
   }
 
   levelLost() {
-    for (var i = 0; i < this.ghosts.length; i++) {
-      this.ghosts[i].isVisible = false;
-    }
+    this.visibleGhosts(false);
     if (this.lives > 0) {
       this.lives--;
       setGameState(GAME_IS_READY);
     } else {
       setGameState(GAME_IS_OVER);
+    }
+  }
+
+  gameOver() {
+    this.visibleGhosts(false);
+    this.lives = 0;
+    this.draw();
+  }
+
+  visibleGhosts(isVisible) {
+    for (var i = 0; i < this.ghosts.length; i++) {
+      this.ghosts[i].isVisible = isVisible;
     }
   }
 
@@ -106,11 +120,11 @@ class Game {
   }
 
   drawReady() {
-    drawText(400, 630, "Ready!", "yellow");
+    drawText(380, 630, "Ready!", "yellow");
   }
 
   drawGameOver() {
-    drawText(400, 630, "Game  Over", "red");
+    drawText(345, 630, "Game Over", "red");
   }
 
   drawLives() {
@@ -125,7 +139,7 @@ class Game {
         3 * TILESIZE + live * TILESIZE * 2,
         34 * TILESIZE,
         PACMAN_SIZE,
-        PACMAN_SIZE
+        PACMAN_SIZE,
       );
     }
   }
