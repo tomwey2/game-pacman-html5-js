@@ -2,6 +2,7 @@ class Game {
   constructor() {
     this.board = new Board();
     this.pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED);
+    this.dieingPacman = new DieingPacman(200);
     this.blinky = new Ghost(
       BLINKY_STARTTILE,
       GHOST_TILESPEED,
@@ -46,6 +47,7 @@ class Game {
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
+    this.dieingPacman.isVisible = false;
   }
 
   start() {
@@ -78,13 +80,11 @@ class Game {
   }
 
   levelLost() {
-    this.visibleActors(false);
     this.lives--;
-    if (this.lives > 0) {
-      setGameState(GAME_IS_READY);
-    } else {
-      setGameState(GAME_IS_OVER);
-    }
+    this.visibleActors(false);
+    this.dieingPacman.pixel = this.pacman.pixel;
+    this.dieingPacman.isVisible = true;
+    setGameState(PACMAN_IS_DIEING);
   }
 
   levelWon() {
@@ -97,6 +97,10 @@ class Game {
   gameOver() {
     this.visibleActors(false);
     this.lives = 0;
+    this.draw();
+  }
+
+  pacmanIsDieing() {
     this.draw();
   }
 
@@ -167,6 +171,9 @@ class Game {
     }
     if (gameState == GAME_IS_OVER) {
       this.drawGameOver();
+    }
+    if (gameState == PACMAN_IS_DIEING) {
+      this.dieingPacman.draw();
     }
   }
 }

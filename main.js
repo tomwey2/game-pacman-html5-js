@@ -39,6 +39,9 @@ function gameloop() {
     case GAME_IS_OVER:
       game.gameOver();
       break;
+    case PACMAN_IS_DIEING:
+      game.pacmanIsDieing();
+      break;
   }
   console.log(
     "level=" + game.level + " lives=" + game.lives + " state=" + gameState,

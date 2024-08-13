@@ -15,6 +15,7 @@ const GAME_IS_LOST = "GAME_IS_LOST";
 const GAME_IS_WON = "GAME_IS_WON";
 const GAME_IS_OVER = "GAME_IS_OVER";
 const GAME_IS_PAUSED = "GAME_IS_PAUSED";
+const PACMAN_IS_DIEING = "PACMAN_IS_DIEING";
 
 // Board relevant constants
 const BOARD_XMIN = 2;
@@ -68,6 +69,7 @@ const ACTOR_PINKY = 3;
 const ACTOR_INKY = 4;
 const ACTOR_CLYDE = 5;
 const ACTOR_POWERFOOD = 6;
+const ACTOR_DIEING_PACMAN = 7;
 
 const SPRITESHEET = {
   actors: [
@@ -93,6 +95,27 @@ const SPRITESHEET = {
         { x: 10, y: -1 },
         { x: 12, y: 1 },
         { x: 14, y: 1 },
+      ],
+    },
+    {
+      actor: ACTOR_DIEING_PACMAN,
+      sheetRow: 1,
+      spriteSizeInSheet: 30,
+      spriteSize: PACMAN_SIZE,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]),
+      offsetsInSheet: [
+        { x: 0, y: 6 },
+        { x: 2, y: 6 },
+        { x: 4, y: 6 },
+        { x: 6, y: 6 },
+        { x: 8, y: 6 },
+        { x: 10, y: 6 },
+        { x: 12, y: 6 },
+        { x: 14, y: 6 },
+        { x: 16, y: 6 },
+        { x: 18, y: 6 },
+        { x: 20, y: 6 },
       ],
     },
     {
