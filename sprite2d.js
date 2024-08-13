@@ -8,15 +8,15 @@ class Sprite2D {
       (item) => item.actor == actor,
     )[0];
     this.isVisible = true;
-    this.isAnimated = animationSpeed > 0;
 
-    setInterval(() => {
-      this.changeAnimation();
-    }, animationSpeed);
+    if (animationSpeed > 0) {
+      setInterval(() => {
+        this.changeAnimation();
+      }, animationSpeed);
+    }
   }
 
   changeAnimation() {
-    if (!this.isAnimated) return;
     this.currentFrame++;
     if (
       this.currentFrame >= this.spriteSheet.index.get(this.direction).length
@@ -32,8 +32,7 @@ class Sprite2D {
       index * this.spriteSheet.spriteSizeInSheet +
       this.spriteSheet.offsetsInSheet[index].x;
     const sheety =
-      this.spriteSheet.sheetRow * this.spriteSheet.spriteSizeInSheet +
-      this.spriteSheet.offsetsInSheet[index].y;
+      this.spriteSheet.sheetRow * 30 + this.spriteSheet.offsetsInSheet[index].y;
     ctx.drawImage(
       spriteSheet,
       sheetx,

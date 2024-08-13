@@ -4,6 +4,13 @@ class Pacman extends Sprite2D {
     centerPixel.x += speed;
     super(centerPixel, speed, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
     this.nextDirection = DIRECTION_RIGHT;
+    this.startTile = startTile;
+  }
+
+  reset() {
+    this.pixel = this.startTile.centerPixel();
+    this.direction = DIRECTION_RIGHT;
+    this.nextDirection = DIRECTION_RIGHT;
   }
 
   move() {
@@ -24,6 +31,9 @@ class Pacman extends Sprite2D {
     if (game.board.isFood(tile)) {
       game.board.removeFood(tile);
       game.addScore(10);
+      if (game.board.countFood() == 0) {
+        setGameState(GAME_IS_WON);
+      }
     }
   }
 
@@ -82,7 +92,7 @@ class Pacman extends Sprite2D {
       650,
       80,
       "x=" + parseInt(tile.x) + ",y=" + parseInt(tile.y),
-      "yellow"
+      "yellow",
     );
   }
 }

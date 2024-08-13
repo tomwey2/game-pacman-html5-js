@@ -32,6 +32,13 @@ class Intro {
       0,
       dfs,
     );
+    this.powerFood = new PowerFood(
+      new Tile(10, 27),
+      0,
+      DIRECTION_NONE,
+      ACTOR_POWERFOOD,
+      0,
+    );
   }
 
   loop() {
@@ -57,7 +64,7 @@ class Intro {
     drawText(500, 570, '"CLYDE"', "orange");
     drawFood(new Tile(10, 25));
     drawText(370, 775, "10 PTS", "white");
-    drawPower(new Tile(10, 27));
+    this.powerFood.draw();
     drawText(370, 838, "50 PTS", "white");
     drawText(140, 950, "(c) 1980 MIDWAY MFG. CO.", "white");
     drawText(60, 1070, "CREDIT  0", "white");

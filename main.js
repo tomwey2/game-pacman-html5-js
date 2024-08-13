@@ -34,13 +34,15 @@ function gameloop() {
       game.levelLost();
       break;
     case GAME_IS_WON:
-      //            levelWon();
+      game.levelWon();
       break;
     case GAME_IS_OVER:
       game.gameOver();
       break;
   }
-  console.log("lives=" + game.lives + " state=" + gameState);
+  console.log(
+    "level=" + game.level + " lives=" + game.lives + " state=" + gameState,
+  );
 }
 
 gameloop();

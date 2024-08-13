@@ -42,19 +42,19 @@ class Game {
   }
 
   init() {
+    this.board.initFood();
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
   }
 
   start() {
+    this.pacman.reset();
     this.blinky.reset();
     this.pinky.reset();
     this.inky.reset();
     this.clyde.reset();
-    for (var i = 0; i < this.ghosts.length; i++) {
-      this.ghosts[i].isVisible = true;
-    }
+    this.visibleActors(true);
     this.draw();
   }
 
@@ -78,22 +78,30 @@ class Game {
   }
 
   levelLost() {
-    this.visibleGhosts(false);
+    this.visibleActors(false);
+    this.lives--;
     if (this.lives > 0) {
-      this.lives--;
       setGameState(GAME_IS_READY);
     } else {
       setGameState(GAME_IS_OVER);
     }
   }
 
+  levelWon() {
+    this.visibleActors(false);
+    this.level++;
+    this.board.initFood();
+    setGameState(GAME_IS_READY);
+  }
+
   gameOver() {
-    this.visibleGhosts(false);
+    this.visibleActors(false);
     this.lives = 0;
     this.draw();
   }
 
-  visibleGhosts(isVisible) {
+  visibleActors(isVisible) {
+    this.pacman.isVisible = isVisible;
     for (var i = 0; i < this.ghosts.length; i++) {
       this.ghosts[i].isVisible = isVisible;
     }

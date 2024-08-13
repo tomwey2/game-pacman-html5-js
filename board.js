@@ -220,4 +220,17 @@ class Board {
   removeFood(tile) {
     data[tile.y][tile.x] = 0;
   }
+
+  countFood() {
+    var counter = 0;
+    for (var y = 0; y < data.length; y++) {
+      for (var x = 0; x < data[0].length; x++) {
+        const tile = new Tile(x, y);
+        if (this.isFood(tile)) {
+          counter++;
+        }
+      }
+    }
+    return counter;
+  }
 }

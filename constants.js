@@ -38,7 +38,7 @@ const BOARD_NUM_DOUBLE_WALL = 2;
 const BOARD_NUM_DOOR = 3;
 const BOARD_NUM_FOOD = 5;
 const FOOD_SIZE = Math.trunc(TILESIZE / 3);
-const POWER_SIZE = Math.trunc(TILESIZE / 1.1);
+const POWERFOOD_SIZE = Math.trunc(TILESIZE / 1.1);
 
 const PACMAN_START_TILE = new Tile(14, 26);
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
@@ -67,6 +67,7 @@ const ACTOR_BLINKY = 2;
 const ACTOR_PINKY = 3;
 const ACTOR_INKY = 4;
 const ACTOR_CLYDE = 5;
+const ACTOR_POWERFOOD = 6;
 
 const SPRITESHEET = {
   actors: [
@@ -189,6 +190,15 @@ const SPRITESHEET = {
         { x: 14, y: 12 },
         { x: 16, y: 12 },
       ],
+    },
+    {
+      actor: ACTOR_POWERFOOD,
+      sheetRow: 9,
+      spriteSizeInSheet: 20,
+      spriteSize: POWERFOOD_SIZE,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
+      offsetsInSheet: [{ x: 5, y: 25 }],
     },
   ],
 };
