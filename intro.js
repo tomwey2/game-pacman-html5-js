@@ -34,16 +34,10 @@ class Intro {
     );
     this.powerFood = new PowerFood(
       new Tile(10, 27),
-      0,
       DIRECTION_NONE,
       ACTOR_POWERFOOD,
       0,
     );
-    this.dieingPacman = new DieingPacman(0);
-    this.dptile = new Tile(8, 22);
-    this.dieingPacman.pixel = this.dptile.centerPixel();
-    this.dieingPacman.currentFrame = 9;
-    this.dieingPacman.isVisible = true;
   }
 
   loop() {
@@ -73,7 +67,5 @@ class Intro {
     drawText(370, 838, "50 PTS", "white");
     drawText(140, 950, "(c) 1980 MIDWAY MFG. CO.", "white");
     drawText(60, 1070, "CREDIT  0", "white");
-    this.dieingPacman.draw();
-    drawFood(this.dptile);
   }
 }

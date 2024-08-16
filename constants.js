@@ -1,7 +1,7 @@
 // Game relevant constants
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const spriteSheet = document.getElementById("assets");
+const spriteSheet = document.getElementById("spritesheet");
 const GAME_BACKGROUND_COLOR = "black";
 const GAME_START_LIVES = 5;
 
