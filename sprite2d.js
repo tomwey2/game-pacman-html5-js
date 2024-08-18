@@ -1,32 +1,12 @@
 class Sprite2D {
-  constructor(pixel, speed, direction, actor, animationSpeed) {
+  constructor(pixel, direction, actor) {
     this.pixel = pixel;
-    this.speed = speed;
     this.direction = direction;
     this.currentFrame = 0;
     this.spriteSheet = SPRITESHEET.actors.filter(
       (item) => item.actor == actor,
     )[0];
     this.isVisible = true;
-
-    if (animationSpeed > 0) {
-      setInterval(() => {
-        this.changeAnimation();
-      }, animationSpeed);
-    }
-  }
-
-  endOfAnimation() {}
-
-  changeAnimation() {
-    if (!this.isVisible) return;
-    this.currentFrame++;
-    if (
-      this.currentFrame >= this.spriteSheet.index.get(this.direction).length
-    ) {
-      this.currentFrame = 0;
-      this.endOfAnimation();
-    }
   }
 
   draw() {

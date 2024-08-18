@@ -1,7 +1,7 @@
-class PowerFood extends Sprite2D {
+class PowerFood extends AnimatedSprite2D {
   constructor(tile, direction, actor, animationSpeed) {
     var centerPixel = tile.centerPixel();
-    super(centerPixel, 0, direction, actor, animationSpeed);
+    super(centerPixel, direction, actor, animationSpeed);
     this.tile = tile;
   }
 

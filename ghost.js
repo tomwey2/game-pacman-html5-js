@@ -1,4 +1,4 @@
-class Ghost extends Sprite2D {
+class Ghost extends AnimatedSprite2D {
   constructor(
     startTile,
     speed,
@@ -8,8 +8,9 @@ class Ghost extends Sprite2D {
     findPath,
   ) {
     var centerPixel = startTile.centerPixel();
-    super(centerPixel, speed, direction, ghostActor, animationSpeed);
+    super(centerPixel, direction, ghostActor, animationSpeed);
     this.startTile = startTile;
+    this.speed = speed;
     this.findPath = findPath;
     this.path = [];
   }

@@ -1,8 +1,9 @@
-class Pacman extends Sprite2D {
+class Pacman extends AnimatedSprite2D {
   constructor(startTile, speed) {
     var centerPixel = startTile.centerPixel();
     centerPixel.x += speed;
-    super(centerPixel, speed, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
+    super(centerPixel, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
+    this.speed = speed;
     this.nextDirection = DIRECTION_RIGHT;
     this.startTile = startTile;
   }

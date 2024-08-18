@@ -1,12 +1,6 @@
-class DieingPacman extends Sprite2D {
+class DieingPacman extends AnimatedSprite2D {
   constructor(animationSpeed) {
-    super(
-      new Pixel(0, 0),
-      0,
-      DIRECTION_NONE,
-      ACTOR_DIEING_PACMAN,
-      animationSpeed,
-    );
+    super(new Pixel(0, 0), DIRECTION_NONE, ACTOR_DIEING_PACMAN, animationSpeed);
     this.isVisible = false;
   }
 
