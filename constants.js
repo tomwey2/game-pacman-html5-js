@@ -38,7 +38,7 @@ const BOARD_NUM_SIMPLE_WALL = 1;
 const BOARD_NUM_DOUBLE_WALL = 2;
 const BOARD_NUM_DOOR = 3;
 const BOARD_NUM_FOOD = 5;
-const FOOD_SIZE = Math.trunc(TILESIZE / 3);
+const FOOD_SIZE = Math.trunc(TILESIZE / 3.5);
 const POWERFOOD_SIZE = Math.trunc(TILESIZE / 1.1);
 
 const PACMAN_START_TILE = new Tile(14, 26);
