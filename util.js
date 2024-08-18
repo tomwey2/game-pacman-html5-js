@@ -55,18 +55,3 @@ function getNeighbours(tile) {
   }
   return neighbours;
 }
-
-function drawFood(tile) {
-  const pixel = tile.centerPixel();
-  ctx.drawImage(
-    spriteSheet,
-    45,
-    302,
-    5,
-    5,
-    pixel.x - FOOD_SIZE / 2,
-    pixel.y - FOOD_SIZE / 2,
-    FOOD_SIZE,
-    FOOD_SIZE,
-  );
-}

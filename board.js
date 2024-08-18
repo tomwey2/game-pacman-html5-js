@@ -1,6 +1,6 @@
 class Board {
   constructor() {
-    this.initFood();
+    this.foods = this.createFoods();
   }
 
   isFood(tile) {
@@ -180,53 +180,84 @@ class Board {
     }
   }
 
-  drawFood() {
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
-        const tile = new Tile(x, y);
-        if (this.isFood(tile)) {
-          drawFood(tile);
-        }
-      }
-    }
-  }
-
   draw() {
     this.drawBoard();
-    this.drawFood();
+    this.drawFoods();
   }
 
-  initFood() {
+  isFoodPlace(tile) {
+    return (
+      tile.y > 3 &&
+      tile.y < data.length - 3 &&
+      tile.x > 0 &&
+      tile.x < data[0].length - 2 &&
+      !(tile.y > 12 && tile.y < 22 && tile.x > 0 && tile.x < 7) &&
+      !(
+        tile.y > 12 &&
+        tile.y < 22 &&
+        tile.x > 22 &&
+        tile.x < data[0].length - 2
+      ) &&
+      !(tile.y > 11 && tile.y < 23 && tile.x > 7 && tile.x < 22) &&
+      !(tile.x >= 14 && tile.x <= 15 && tile.y == 26) &&
+      !this.isWall(tile)
+    );
+  }
+
+  createFoods() {
+    var foods = [];
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
-        if (
-          y > 3 &&
-          y < data.length - 3 &&
-          x > 0 &&
-          x < data[0].length - 2 &&
-          !(y > 12 && y < 22 && x > 0 && x < 7) &&
-          !(y > 12 && y < 22 && x > 22 && x < data[0].length - 2) &&
-          !(y > 11 && y < 23 && x > 7 && x < 22) &&
-          !(x >= 14 && x <= 15 && y == 26) &&
-          !this.isWall(tile)
-        ) {
-          data[tile.y][tile.x] = BOARD_NUM_FOOD;
+        if (this.isFoodPlace(tile)) {
+          foods.push(new Food(tile));
+        }
+      }
+    }
+    return foods;
+  }
+
+  getFood(x, y) {
+    return this.foods.find((food) => food.tile.x == x && food.tile.y == y);
+  }
+
+  visibleFoods(isVisible) {
+    for (var y = 0; y < data.length; y++) {
+      for (var x = 0; x < data[0].length; x++) {
+        var food = this.getFood(x, y);
+        if (food != undefined) {
+          food.isVisible = isVisible;
         }
       }
     }
   }
 
-  removeFood(tile) {
-    data[tile.y][tile.x] = 0;
+  drawFoods() {
+    for (var y = 0; y < data.length; y++) {
+      for (var x = 0; x < data[0].length; x++) {
+        var food = this.getFood(x, y);
+        if (food != undefined && food.isVisible) {
+          food.draw();
+        }
+      }
+    }
   }
 
-  countFood() {
+  removeFood(x, y) {
+    var food = this.getFood(x, y);
+    if (food != undefined) {
+      food.isVisible = false;
+      return true;
+    }
+    return false;
+  }
+
+  countFoods() {
     var counter = 0;
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
-        const tile = new Tile(x, y);
-        if (this.isFood(tile)) {
+        var food = this.getFood(x, y);
+        if (food != undefined && food.isVisible) {
           counter++;
         }
       }

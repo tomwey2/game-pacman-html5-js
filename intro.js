@@ -62,7 +62,6 @@ class Intro {
     this.clyde.draw();
     drawText(200, 570, "- POKEY", "orange");
     drawText(500, 570, '"CLYDE"', "orange");
-    //drawFood(new Tile(10, 25));
     this.food.draw();
     drawText(370, 775, "10 PTS", "white");
     this.powerFood.draw();

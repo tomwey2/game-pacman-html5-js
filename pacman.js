@@ -29,10 +29,9 @@ class Pacman extends AnimatedSprite2D {
 
   eat() {
     const tile = this.pixel.getTile();
-    if (game.board.isFood(tile)) {
-      game.board.removeFood(tile);
+    if (game.board.removeFood(tile.x, tile.y)) {
       game.addScore(10);
-      if (game.board.countFood() == 0) {
+      if (game.board.countFoods() == 0) {
         setGameState(GAME_IS_WON);
       }
     }

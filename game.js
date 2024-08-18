@@ -36,7 +36,6 @@ class Game {
       dfs,
     );
     this.ghosts = [this.blinky, this.pinky, this.inky, this.clyde];
-    this.foods = [];
     this.lives = 0;
     this.level = 0;
     this.score = 0;
@@ -44,7 +43,6 @@ class Game {
   }
 
   init() {
-    this.board.initFood();
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
@@ -58,6 +56,7 @@ class Game {
     this.inky.reset();
     this.clyde.reset();
     this.visibleActors(true);
+    this.board.visibleFoods(true);
     this.draw();
   }
 
