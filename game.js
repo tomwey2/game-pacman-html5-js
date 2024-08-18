@@ -36,6 +36,7 @@ class Game {
       dfs,
     );
     this.ghosts = [this.blinky, this.pinky, this.inky, this.clyde];
+    this.foods = [];
     this.lives = 0;
     this.level = 0;
     this.score = 0;

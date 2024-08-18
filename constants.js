@@ -68,8 +68,9 @@ const ACTOR_BLINKY = 2;
 const ACTOR_PINKY = 3;
 const ACTOR_INKY = 4;
 const ACTOR_CLYDE = 5;
-const ACTOR_POWERFOOD = 6;
-const ACTOR_DIEING_PACMAN = 7;
+const ACTOR_FOOD = 6;
+const ACTOR_POWERFOOD = 7;
+const ACTOR_DIEING_PACMAN = 8;
 
 const SPRITESHEET = {
   actors: [
@@ -222,6 +223,15 @@ const SPRITESHEET = {
       offset: { x: 0, y: 0 },
       index: new Map([[DIRECTION_NONE, [0]]]),
       offsetsInSheet: [{ x: 5, y: 25 }],
+    },
+    {
+      actor: ACTOR_FOOD,
+      sheetRow: 9,
+      spriteSizeInSheet: 5,
+      spriteSize: FOOD_SIZE,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
+      offsetsInSheet: [{ x: 15, y: 32 }],
     },
   ],
 };
