@@ -35,6 +35,9 @@ class Pacman extends AnimatedSprite2D {
         setGameState(GAME_IS_WON);
       }
     }
+    if (game.board.removePowerFood(tile.x, tile.y)) {
+      game.addScore(50);
+    }
   }
 
   moveForwards() {

@@ -221,8 +221,11 @@ const SPRITESHEET = {
       spriteSizeInSheet: 20,
       spriteSize: POWERFOOD_SIZE,
       offset: { x: 0, y: 0 },
-      index: new Map([[DIRECTION_NONE, [0]]]),
-      offsetsInSheet: [{ x: 5, y: 25 }],
+      index: new Map([[DIRECTION_NONE, [0, 1]]]),
+      offsetsInSheet: [
+        { x: 5, y: 25 },
+        { x: 5, y: 25 },
+      ],
     },
     {
       actor: ACTOR_FOOD,

@@ -1,6 +1,7 @@
 class Board {
   constructor() {
     this.foods = this.createFoods();
+    this.powerFoods = this.createPowerFoods();
   }
 
   isFood(tile) {
@@ -183,6 +184,7 @@ class Board {
   draw() {
     this.drawBoard();
     this.drawFoods();
+    this.drawPowerFoods();
   }
 
   isFoodPlace(tile) {
@@ -200,6 +202,10 @@ class Board {
       ) &&
       !(tile.y > 11 && tile.y < 23 && tile.x > 7 && tile.x < 22) &&
       !(tile.x >= 14 && tile.x <= 15 && tile.y == 26) &&
+      !(tile.x == 2 && tile.y == 6) && // Powerfood
+      !(tile.x == 27 && tile.y == 6) && // Powerfood
+      !(tile.x == 2 && tile.y == 26) && // Powerfood
+      !(tile.x == 27 && tile.y == 26) && // Powerfood
       !this.isWall(tile)
     );
   }
@@ -222,30 +228,16 @@ class Board {
   }
 
   visibleFoods(isVisible) {
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
-        var food = this.getFood(x, y);
-        if (food != undefined) {
-          food.isVisible = isVisible;
-        }
-      }
-    }
+    this.foods.forEach((food) => (food.isVisible = isVisible));
   }
 
   drawFoods() {
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
-        var food = this.getFood(x, y);
-        if (food != undefined && food.isVisible) {
-          food.draw();
-        }
-      }
-    }
+    this.foods.forEach((food) => food.draw());
   }
 
   removeFood(x, y) {
     var food = this.getFood(x, y);
-    if (food != undefined) {
+    if (food != undefined && food.isVisible) {
       food.isVisible = false;
       return true;
     }
@@ -254,14 +246,44 @@ class Board {
 
   countFoods() {
     var counter = 0;
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
-        var food = this.getFood(x, y);
-        if (food != undefined && food.isVisible) {
-          counter++;
-        }
+    for (var i = 0; i < this.foods.length; i++) {
+      if (this.foods[i].isVisible) {
+        counter++;
       }
     }
     return counter;
+  }
+
+  createPowerFoods() {
+    var powerFoods = [
+      new PowerFood(new Tile(2, 6)),
+      new PowerFood(new Tile(27, 6)),
+      new PowerFood(new Tile(2, 26)),
+      new PowerFood(new Tile(27, 26)),
+    ];
+    return powerFoods;
+  }
+
+  getPowerFood(x, y) {
+    return this.powerFoods.find(
+      (powerFood) => powerFood.tile.x == x && powerFood.tile.y == y,
+    );
+  }
+
+  visiblePowerFoods(isVisible) {
+    this.powerFoods.foreach((powerfood) => (powerfood.isVisible = isVisible));
+  }
+
+  drawPowerFoods() {
+    this.powerFoods.forEach((powerFood) => powerFood.draw());
+  }
+
+  removePowerFood(x, y) {
+    var powerFood = this.getPowerFood(x, y);
+    if (powerFood != undefined) {
+      powerFood.isVisible = false;
+      return true;
+    }
+    return false;
   }
 }

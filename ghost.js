@@ -18,6 +18,7 @@ class Ghost extends AnimatedSprite2D {
   reset() {
     this.pixel = this.startTile.centerPixel();
     this.path = [];
+    this.direction = DIRECTION_RIGHT;
   }
 
   move() {

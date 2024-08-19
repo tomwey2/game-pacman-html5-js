@@ -56,7 +56,6 @@ class Game {
     this.inky.reset();
     this.clyde.reset();
     this.visibleActors(true);
-    this.board.visibleFoods(true);
     this.draw();
   }
 
@@ -90,7 +89,8 @@ class Game {
   levelWon() {
     this.visibleActors(false);
     this.level++;
-    this.board.initFood();
+    this.board.visibleFoods(true);
+    this.board.visiblePowerFoods(true);
     setGameState(GAME_IS_READY);
   }
 

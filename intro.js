@@ -32,12 +32,7 @@ class Intro {
       0,
       dfs,
     );
-    this.powerFood = new PowerFood(
-      new Tile(10, 27),
-      DIRECTION_NONE,
-      ACTOR_POWERFOOD,
-      0,
-    );
+    this.powerFood = new PowerFood(new Tile(10, 27));
     this.food = new Food(new Tile(10, 25));
   }
 
