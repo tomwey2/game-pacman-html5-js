@@ -1,38 +1,10 @@
 class Intro {
   constructor() {
-    this.blinky = new Ghost(
-      new Tile(4, 9),
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_BLINKY,
-      0,
-      dfs,
-    );
-    this.pinky = new Ghost(
-      new Tile(4, 12),
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_PINKY,
-      0,
-      dfs,
-    );
-    this.inky = new Ghost(
-      new Tile(4, 15),
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_INKY,
-      0,
-      dfs,
-    );
-    this.clyde = new Ghost(
-      new Tile(4, 18),
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_CLYDE,
-      0,
-      dfs,
-    );
-    this.powerFood = new PowerFood(new Tile(10, 27));
+    this.blinky = new StaticGhost(new Tile(4, 9), ACTOR_BLINKY);
+    this.pinky = new StaticGhost(new Tile(4, 12), ACTOR_PINKY);
+    this.inky = new StaticGhost(new Tile(4, 15), ACTOR_INKY);
+    this.clyde = new StaticGhost(new Tile(4, 18), ACTOR_CLYDE);
+    this.powerFood = new StaticPowerFood(new Tile(10, 27));
     this.food = new Food(new Tile(10, 25));
   }
 

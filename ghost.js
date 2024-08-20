@@ -1,21 +1,14 @@
 class Ghost extends AnimatedSprite2D {
-  constructor(
-    startTile,
-    speed,
-    direction,
-    ghostActor,
-    animationSpeed,
-    findPath,
-  ) {
+  constructor(startTile, ghostActor) {
     var centerPixel = startTile.centerPixel();
-    super(centerPixel, direction, ghostActor, animationSpeed);
+    super(centerPixel, DIRECTION_RIGHT, ghostActor, GHOST_ANIMATION_SPEED);
     this.startTile = startTile;
-    this.speed = speed;
-    this.findPath = findPath;
+    this.speed = GHOST_TILESPEED;
+    this.findPath = dfs;
     this.path = [];
   }
 
-  reset() {
+  init() {
     this.pixel = this.startTile.centerPixel();
     this.path = [];
     this.direction = DIRECTION_RIGHT;
@@ -113,5 +106,13 @@ class Ghost extends AnimatedSprite2D {
         "red",
       );
     }
+  }
+}
+
+class StaticGhost extends Sprite2D {
+  constructor(startTile, ghostActor) {
+    var centerPixel = startTile.centerPixel();
+    super(centerPixel, DIRECTION_RIGHT, ghostActor);
+    this.startTile = startTile;
   }
 }

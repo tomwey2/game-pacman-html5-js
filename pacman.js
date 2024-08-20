@@ -8,7 +8,7 @@ class Pacman extends AnimatedSprite2D {
     this.startTile = startTile;
   }
 
-  reset() {
+  init() {
     this.pixel = this.startTile.centerPixel();
     this.direction = DIRECTION_RIGHT;
     this.nextDirection = DIRECTION_RIGHT;

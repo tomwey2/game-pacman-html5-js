@@ -3,38 +3,10 @@ class Game {
     this.board = new Board();
     this.pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED);
     this.dieingPacman = new DieingPacman(200);
-    this.blinky = new Ghost(
-      BLINKY_STARTTILE,
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_BLINKY,
-      GHOST_ANIMATION_SPEED,
-      dfs,
-    );
-    this.pinky = new Ghost(
-      PINKY_STARTTILE,
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_PINKY,
-      GHOST_ANIMATION_SPEED,
-      dfs,
-    );
-    this.inky = new Ghost(
-      INKY_STARTTILE,
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_INKY,
-      GHOST_ANIMATION_SPEED,
-      dfs,
-    );
-    this.clyde = new Ghost(
-      CLYDE_STARTTILE,
-      GHOST_TILESPEED,
-      DIRECTION_RIGHT,
-      ACTOR_CLYDE,
-      GHOST_ANIMATION_SPEED,
-      dfs,
-    );
+    this.blinky = new Ghost(BLINKY_STARTTILE, ACTOR_BLINKY);
+    this.pinky = new Ghost(PINKY_STARTTILE, ACTOR_PINKY);
+    this.inky = new Ghost(INKY_STARTTILE, ACTOR_INKY);
+    this.clyde = new Ghost(CLYDE_STARTTILE, ACTOR_CLYDE);
     this.ghosts = [this.blinky, this.pinky, this.inky, this.clyde];
     this.lives = 0;
     this.level = 0;
@@ -42,19 +14,21 @@ class Game {
     this.highscore = 1024;
   }
 
-  init() {
+  startGame() {
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
     this.dieingPacman.isVisible = false;
+    this.board.visiblePowerFoods(true);
+    this.board.visibleFoods(true);
   }
 
-  start() {
-    this.pacman.reset();
-    this.blinky.reset();
-    this.pinky.reset();
-    this.inky.reset();
-    this.clyde.reset();
+  startLevel() {
+    this.pacman.init();
+    this.blinky.init();
+    this.pinky.init();
+    this.inky.init();
+    this.clyde.init();
     this.visibleActors(true);
     this.draw();
   }
@@ -87,8 +61,8 @@ class Game {
   }
 
   levelWon() {
-    this.visibleActors(false);
     this.level++;
+    this.visibleActors(false);
     this.board.visibleFoods(true);
     this.board.visiblePowerFoods(true);
     setGameState(GAME_IS_READY);
@@ -106,9 +80,7 @@ class Game {
 
   visibleActors(isVisible) {
     this.pacman.isVisible = isVisible;
-    for (var i = 0; i < this.ghosts.length; i++) {
-      this.ghosts[i].isVisible = isVisible;
-    }
+    this.ghosts.forEach((ghost) => (ghost.isVisible = isVisible));
   }
 
   isGhost(tile) {

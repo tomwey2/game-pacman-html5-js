@@ -271,7 +271,7 @@ class Board {
   }
 
   visiblePowerFoods(isVisible) {
-    this.powerFoods.foreach((powerfood) => (powerfood.isVisible = isVisible));
+    this.powerFoods.forEach((powerfood) => (powerfood.isVisible = isVisible));
   }
 
   drawPowerFoods() {

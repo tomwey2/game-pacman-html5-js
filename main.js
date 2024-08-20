@@ -22,10 +22,10 @@ function gameloop() {
   switch (gameState) {
     case GAME_INIT:
       intro.loop();
-      game.init();
+      game.startGame();
       break;
     case GAME_IS_READY:
-      game.start();
+      game.startLevel();
       break;
     case GAME_IS_RUNNING:
       game.loop();
