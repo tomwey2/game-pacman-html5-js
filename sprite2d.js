@@ -2,35 +2,31 @@ class Sprite2D {
   constructor(pixel, direction, actor) {
     this.pixel = pixel;
     this.direction = direction;
+    this.actor = actor;
     this.currentFrame = 0;
-    this.spriteSheet = SPRITESHEET.actors.filter(
-      (item) => item.actor == actor,
-    )[0];
     this.isVisible = true;
   }
 
   draw() {
     if (!this.isVisible) return;
-    const index = this.spriteSheet.index.get(this.direction)[this.currentFrame];
+    const spriteData = SPRITESHEET.actors.filter(
+      (item) => item.actor == this.actor,
+    )[0];
+    const index = spriteData.index.get(this.direction)[this.currentFrame];
     const sheetx =
-      index * this.spriteSheet.spriteSizeInSheet +
-      this.spriteSheet.offsetsInSheet[index].x;
+      index * spriteData.spriteSizeInSheet + spriteData.offsetsInSheet[index].x;
     const sheety =
-      this.spriteSheet.sheetRow * 30 + this.spriteSheet.offsetsInSheet[index].y;
+      spriteData.sheetRow * 30 + spriteData.offsetsInSheet[index].y;
     ctx.drawImage(
       spriteSheet,
       sheetx,
       sheety,
-      this.spriteSheet.spriteSizeInSheet,
-      this.spriteSheet.spriteSizeInSheet,
-      this.pixel.x -
-        this.spriteSheet.spriteSize / 2 +
-        this.spriteSheet.offset.x,
-      this.pixel.y -
-        this.spriteSheet.spriteSize / 2 +
-        this.spriteSheet.offset.y,
-      this.spriteSheet.spriteSize,
-      this.spriteSheet.spriteSize,
+      spriteData.spriteSizeInSheet,
+      spriteData.spriteSizeInSheet,
+      this.pixel.x - spriteData.spriteSize / 2 + spriteData.offset.x,
+      this.pixel.y - spriteData.spriteSize / 2 + spriteData.offset.y,
+      spriteData.spriteSize,
+      spriteData.spriteSize,
     );
   }
 }

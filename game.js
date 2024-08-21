@@ -2,6 +2,12 @@ class Game {
   constructor() {
     this.board = new Board();
     this.pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED);
+    this.pacmanLives = [
+      new PacmanImage(new Tile(3, 34)),
+      new PacmanImage(new Tile(5, 34)),
+      new PacmanImage(new Tile(7, 34)),
+      new PacmanImage(new Tile(9, 34)),
+    ];
     this.dieingPacman = new DieingPacman(200);
     this.blinky = new Ghost(BLINKY_STARTTILE, ACTOR_BLINKY);
     this.pinky = new Ghost(PINKY_STARTTILE, ACTOR_PINKY);
@@ -21,6 +27,7 @@ class Game {
     this.dieingPacman.isVisible = false;
     this.board.visiblePowerFoods(true);
     this.board.visibleFoods(true);
+    this.visiblePacmanLives(true);
   }
 
   startLevel() {
@@ -53,7 +60,7 @@ class Game {
   }
 
   levelLost() {
-    this.lives--;
+    this.decPacmanLive();
     this.visibleActors(false);
     this.dieingPacman.pixel = this.pacman.pixel;
     this.dieingPacman.isVisible = true;
@@ -78,6 +85,13 @@ class Game {
     this.draw();
   }
 
+  decPacmanLive() {
+    this.lives--;
+    if (this.lives > 0) {
+      this.pacmanLives[this.lives - 1].isVisible = false;
+    }
+  }
+
   visibleActors(isVisible) {
     this.pacman.isVisible = isVisible;
     this.ghosts.forEach((ghost) => (ghost.isVisible = isVisible));
@@ -92,6 +106,12 @@ class Game {
     }
 
     return false;
+  }
+
+  visiblePacmanLives(isVisible) {
+    this.pacmanLives.forEach(
+      (pacmanLive) => (pacmanLive.isVisible = isVisible),
+    );
   }
 
   drawScore() {
@@ -111,33 +131,14 @@ class Game {
     drawText(345, 630, "Game Over", "red");
   }
 
-  drawLives() {
-    for (var live = 0; live < this.lives - 1; live++) {
-      var index = this.pacman.spriteSheet.index.get(DIRECTION_LEFT)[1];
-      ctx.drawImage(
-        spriteSheet,
-        index * 30 + this.pacman.spriteSheet.offsetsInSheet[index].x,
-        this.pacman.spriteSheet.offsetsInSheet[index].y,
-        30,
-        30,
-        3 * TILESIZE + live * TILESIZE * 2,
-        34 * TILESIZE,
-        PACMAN_SIZE,
-        PACMAN_SIZE,
-      );
-    }
-  }
-
   draw() {
     drawFillRect(0, 0, canvas.width, canvas.height, GAME_BACKGROUND_COLOR);
     this.drawScore();
-    this.drawLives();
     this.board.draw();
     this.pacman.draw();
     for (var i = 0; i < this.ghosts.length; i++) {
       this.ghosts[i].draw();
     }
-    this.drawLives();
     if (gameState == GAME_IS_READY) {
       this.drawReady();
     }
@@ -146,6 +147,9 @@ class Game {
     }
     if (gameState == PACMAN_IS_DIEING) {
       this.dieingPacman.draw();
+    }
+    for (var live = 0; live < GAME_START_LIVES - 1; live++) {
+      this.pacmanLives[live].draw();
     }
   }
 }

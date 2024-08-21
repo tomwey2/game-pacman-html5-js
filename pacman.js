@@ -99,3 +99,12 @@ class Pacman extends AnimatedSprite2D {
     );
   }
 }
+
+class PacmanImage extends Sprite2D {
+  constructor(startTile, ghostActor) {
+    var centerPixel = startTile.centerPixel();
+    super(centerPixel, DIRECTION_LEFT, ACTOR_PACMAN);
+    this.currentFrame = 1;
+    this.startTile = startTile;
+  }
+}

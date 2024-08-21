@@ -97,7 +97,7 @@ class Ghost extends AnimatedSprite2D {
   }
 
   drawCoord() {
-    if (this.spriteSheet.actor == ACTOR_BLINKY) {
+    if (this.actor == ACTOR_BLINKY) {
       const tile = this.pixel.getTile();
       drawText(
         650,
@@ -109,7 +109,7 @@ class Ghost extends AnimatedSprite2D {
   }
 }
 
-class StaticGhost extends Sprite2D {
+class GhostImage extends Sprite2D {
   constructor(startTile, ghostActor) {
     var centerPixel = startTile.centerPixel();
     super(centerPixel, DIRECTION_RIGHT, ghostActor);
