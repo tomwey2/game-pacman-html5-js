@@ -18,6 +18,7 @@ class Game {
     this.level = 0;
     this.score = 0;
     this.highscore = 1024;
+    this.ghostStateInterval = undefined;
   }
 
   startGame() {
@@ -112,6 +113,23 @@ class Game {
     this.pacmanLives.forEach(
       (pacmanLive) => (pacmanLive.isVisible = isVisible),
     );
+  }
+
+  eatPowerFood() {
+    if (this.ghostStateInterval == undefined) {
+      this.setGhostState(GHOST_STATE_BLUE);
+      this.ghostStateInterval = setInterval(
+        () => this.setGhostState(GHOST_STATE_NORMAL),
+        5000,
+      );
+    }
+  }
+
+  setGhostState(state) {
+    this.ghosts.forEach((ghost) => ghost.changeState(state));
+    if (this.ghostStateInterval != undefined) {
+      this.ghostStateInterval = clearInterval(this.ghostStateInterval);
+    }
   }
 
   drawScore() {

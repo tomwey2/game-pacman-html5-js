@@ -6,12 +6,33 @@ class Ghost extends AnimatedSprite2D {
     this.speed = GHOST_TILESPEED;
     this.findPath = dfs;
     this.path = [];
+    this.state = GHOST_STATE_NORMAL;
+    this.originActor = ghostActor;
   }
 
   init() {
     this.pixel = this.startTile.centerPixel();
     this.path = [];
     this.direction = DIRECTION_RIGHT;
+    this.actor = this.originActor;
+  }
+
+  changeState(state) {
+    this.state = state;
+    switch (this.state) {
+      case GHOST_STATE_NORMAL:
+        this.actor = this.originActor;
+        break;
+      case GHOST_STATE_BLUE:
+        this.actor = ACTOR_BLUE_GHOST;
+        break;
+      case GHOST_STATE_WHITE:
+        break;
+      case GHOST_STATE_EATEN:
+        break;
+      default:
+        break;
+    }
   }
 
   move() {

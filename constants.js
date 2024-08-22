@@ -56,6 +56,11 @@ const INKY_STARTTILE = new Tile(12, 17);
 const CLYDE_STARTTILE = new Tile(16, 17);
 const GHOST_ANIMATION_SPEED = 200;
 
+const GHOST_STATE_NORMAL = 0;
+const GHOST_STATE_BLUE = 1;
+const GHOST_STATE_WHITE = 2;
+const GHOST_STATE_EATEN = 3;
+
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;
 const DIRECTION_LEFT = 2;
@@ -71,6 +76,9 @@ const ACTOR_CLYDE = 5;
 const ACTOR_FOOD = 6;
 const ACTOR_POWERFOOD = 7;
 const ACTOR_DIEING_PACMAN = 8;
+const ACTOR_BLUE_GHOST = 9;
+const ACTOR_WHITE_GHOST = 10;
+const ACTOR_EATEN_GHOST = 11;
 
 const SPRITESHEET = {
   actors: [
@@ -235,6 +243,44 @@ const SPRITESHEET = {
       offset: { x: 0, y: 0 },
       index: new Map([[DIRECTION_NONE, [0]]]),
       offsetsInSheet: [{ x: 15, y: 32 }],
+    },
+    {
+      actor: ACTOR_BLUE_GHOST,
+      sheetRow: 7,
+      spriteSizeInSheet: 30,
+      spriteSize: GHOST_SIZE,
+      offset: { x: 0, y: 0 },
+      index: new Map([
+        [DIRECTION_RIGHT, [0, 1]],
+        [DIRECTION_LEFT, [0, 1]],
+        [DIRECTION_UP, [0, 1]],
+        [DIRECTION_DOWN, [0, 1]],
+        [DIRECTION_NONE, [0, 1]],
+      ]),
+      offsetsInSheet: [
+        { x: 1, y: 15 },
+        { x: 3, y: 15 },
+      ],
+    },
+    {
+      actor: ACTOR_WHITE_GHOST,
+      sheetRow: 7,
+      spriteSizeInSheet: 30,
+      spriteSize: GHOST_SIZE,
+      offset: { x: 0, y: 0 },
+      index: new Map([
+        [DIRECTION_RIGHT, [2, 3]],
+        [DIRECTION_LEFT, [2, 3]],
+        [DIRECTION_UP, [2, 3]],
+        [DIRECTION_DOWN, [2, 3]],
+        [DIRECTION_NONE, [2, 3]],
+      ]),
+      offsetsInSheet: [
+        { x: 0, y: 0 },
+        { x: 0, y: 0 },
+        { x: 4, y: 15 },
+        { x: 6, y: 15 },
+      ],
     },
   ],
 };
