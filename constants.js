@@ -38,18 +38,22 @@ const BOARD_NUM_SIMPLE_WALL = 1;
 const BOARD_NUM_DOUBLE_WALL = 2;
 const BOARD_NUM_DOOR = 3;
 const BOARD_NUM_FOOD = 5;
-const FOOD_SIZE = Math.trunc(TILESIZE / 3.5);
-const POWERFOOD_SIZE = Math.trunc(TILESIZE / 1.1);
+const FOOD_WIDTH = Math.trunc(TILESIZE / 3.5);
+const FOOD_HEIGHT = FOOD_WIDTH;
+const POWERFOOD_WIDTH = Math.trunc(TILESIZE / 1.1);
+const POWERFOOD_HEIGHT = POWERFOOD_WIDTH;
 
 const PACMAN_START_TILE = new Tile(14, 26);
 const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
 const GHOST_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
 
 // Pacman relevant constants
-const PACMAN_SIZE = Math.trunc((TILESIZE * 5) / 3);
+const PACMAN_WIDTH = Math.trunc((TILESIZE * 5) / 3);
+const PACMAN_HEIGHT = PACMAN_WIDTH;
 
 // Ghost relevant constants
-const GHOST_SIZE = Math.trunc((TILESIZE * 5) / 3);
+const GHOST_WIDTH = Math.trunc((TILESIZE * 5) / 3);
+const GHOST_HEIGHT = GHOST_WIDTH;
 const BLINKY_STARTTILE = new Tile(14, 14);
 const PINKY_STARTTILE = new Tile(14, 17);
 const INKY_STARTTILE = new Tile(12, 17);
@@ -85,16 +89,10 @@ const SPRITESHEET = {
     {
       actor: ACTOR_PACMAN,
       sheetRow: 0,
-      spriteSizeInSheet: 30,
-      spriteSize: PACMAN_SIZE,
-      offset: { x: 0, y: 0 },
-      index: new Map([
-        [DIRECTION_RIGHT, [2, 1, 0, 1]],
-        [DIRECTION_LEFT, [2, 3, 4, 3]],
-        [DIRECTION_UP, [2, 6, 5, 6]],
-        [DIRECTION_DOWN, [2, 8, 7, 8]],
-      ]),
-      offsetsInSheet: [
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 0, y: 0 },
         { x: 2, y: 0 },
         { x: 3, y: 0 },
@@ -105,15 +103,23 @@ const SPRITESHEET = {
         { x: 12, y: 1 },
         { x: 14, y: 1 },
       ],
+      width: PACMAN_WIDTH,
+      height: PACMAN_HEIGHT,
+      offset: { x: 0, y: 0 },
+      index: new Map([
+        [DIRECTION_RIGHT, [2, 1, 0, 1]],
+        [DIRECTION_LEFT, [2, 3, 4, 3]],
+        [DIRECTION_UP, [2, 6, 5, 6]],
+        [DIRECTION_DOWN, [2, 8, 7, 8]],
+      ]),
     },
     {
       actor: ACTOR_DIEING_PACMAN,
       sheetRow: 1,
-      spriteSizeInSheet: 30,
-      spriteSize: PACMAN_SIZE,
-      offset: { x: 0, y: 0 },
-      index: new Map([[DIRECTION_NONE, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]),
-      offsetsInSheet: [
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 0, y: 6 },
         { x: 2, y: 6 },
         { x: 4, y: 6 },
@@ -126,21 +132,18 @@ const SPRITESHEET = {
         { x: 18, y: 6 },
         { x: 20, y: 6 },
       ],
+      width: PACMAN_WIDTH,
+      height: PACMAN_HEIGHT,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]]),
     },
     {
       actor: ACTOR_BLINKY,
       sheetRow: 2,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
-      offset: { x: 2, y: 0 },
-      index: new Map([
-        [DIRECTION_RIGHT, [0, 1]],
-        [DIRECTION_LEFT, [4, 5]],
-        [DIRECTION_UP, [6, 7]],
-        [DIRECTION_DOWN, [2, 3]],
-        [DIRECTION_NONE, [4, 5]],
-      ]),
-      offsetsInSheet: [
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 2, y: 6 },
         { x: 4, y: 6 },
         { x: 6, y: 7 },
@@ -150,12 +153,8 @@ const SPRITESHEET = {
         { x: 14, y: 6 },
         { x: 16, y: 6 },
       ],
-    },
-    {
-      actor: ACTOR_PINKY,
-      sheetRow: 3,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
       offset: { x: 2, y: 0 },
       index: new Map([
         [DIRECTION_RIGHT, [0, 1]],
@@ -164,7 +163,14 @@ const SPRITESHEET = {
         [DIRECTION_DOWN, [2, 3]],
         [DIRECTION_NONE, [4, 5]],
       ]),
-      offsetsInSheet: [
+    },
+    {
+      actor: ACTOR_PINKY,
+      sheetRow: 3,
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 2, y: 7 },
         { x: 4, y: 7 },
         { x: 6, y: 8 },
@@ -174,12 +180,8 @@ const SPRITESHEET = {
         { x: 14, y: 8 },
         { x: 16, y: 8 },
       ],
-    },
-    {
-      actor: ACTOR_INKY,
-      sheetRow: 4,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
       offset: { x: 2, y: 0 },
       index: new Map([
         [DIRECTION_RIGHT, [0, 1]],
@@ -188,7 +190,14 @@ const SPRITESHEET = {
         [DIRECTION_DOWN, [2, 3]],
         [DIRECTION_NONE, [4, 5]],
       ]),
-      offsetsInSheet: [
+    },
+    {
+      actor: ACTOR_INKY,
+      sheetRow: 4,
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 2, y: 10 },
         { x: 4, y: 10 },
         { x: 6, y: 10 },
@@ -198,12 +207,8 @@ const SPRITESHEET = {
         { x: 14, y: 10 },
         { x: 16, y: 10 },
       ],
-    },
-    {
-      actor: ACTOR_CLYDE,
-      sheetRow: 5,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
       offset: { x: 2, y: 0 },
       index: new Map([
         [DIRECTION_RIGHT, [0, 1]],
@@ -212,7 +217,14 @@ const SPRITESHEET = {
         [DIRECTION_DOWN, [2, 3]],
         [DIRECTION_NONE, [4, 5]],
       ]),
-      offsetsInSheet: [
+    },
+    {
+      actor: ACTOR_CLYDE,
+      sheetRow: 5,
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 2, y: 12 },
         { x: 4, y: 12 },
         { x: 6, y: 12 },
@@ -222,33 +234,56 @@ const SPRITESHEET = {
         { x: 14, y: 12 },
         { x: 16, y: 12 },
       ],
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
+      offset: { x: 2, y: 0 },
+      index: new Map([
+        [DIRECTION_RIGHT, [0, 1]],
+        [DIRECTION_LEFT, [4, 5]],
+        [DIRECTION_UP, [6, 7]],
+        [DIRECTION_DOWN, [2, 3]],
+        [DIRECTION_NONE, [4, 5]],
+      ]),
     },
     {
       actor: ACTOR_POWERFOOD,
       sheetRow: 9,
-      spriteSizeInSheet: 20,
-      spriteSize: POWERFOOD_SIZE,
-      offset: { x: 0, y: 0 },
-      index: new Map([[DIRECTION_NONE, [0, 1]]]),
-      offsetsInSheet: [
+      sheetCol: 0,
+      sheetSpriteWidth: 20,
+      sheetSpriteHeight: 20,
+      sheetOffsets: [
         { x: 5, y: 25 },
         { x: 5, y: 25 },
       ],
+      width: POWERFOOD_WIDTH,
+      height: POWERFOOD_HEIGHT,
+      offset: { x: -1, y: 1 },
+      index: new Map([[DIRECTION_NONE, [0, 1]]]),
     },
     {
       actor: ACTOR_FOOD,
       sheetRow: 9,
-      spriteSizeInSheet: 5,
-      spriteSize: FOOD_SIZE,
+      sheetCol: 1,
+      sheetSpriteWidth: 5,
+      sheetSpriteHeight: 5,
+      sheetOffsets: [{ x: 15, y: 32 }],
+      width: FOOD_WIDTH,
+      height: FOOD_HEIGHT,
       offset: { x: 0, y: 0 },
       index: new Map([[DIRECTION_NONE, [0]]]),
-      offsetsInSheet: [{ x: 15, y: 32 }],
     },
     {
       actor: ACTOR_BLUE_GHOST,
       sheetRow: 7,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
+        { x: 1, y: 15 },
+        { x: 3, y: 15 },
+      ],
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
       offset: { x: 0, y: 0 },
       index: new Map([
         [DIRECTION_RIGHT, [0, 1]],
@@ -257,30 +292,27 @@ const SPRITESHEET = {
         [DIRECTION_DOWN, [0, 1]],
         [DIRECTION_NONE, [0, 1]],
       ]),
-      offsetsInSheet: [
-        { x: 1, y: 15 },
-        { x: 3, y: 15 },
-      ],
     },
     {
       actor: ACTOR_WHITE_GHOST,
       sheetRow: 7,
-      spriteSizeInSheet: 30,
-      spriteSize: GHOST_SIZE,
-      offset: { x: 0, y: 0 },
-      index: new Map([
-        [DIRECTION_RIGHT, [2, 3]],
-        [DIRECTION_LEFT, [2, 3]],
-        [DIRECTION_UP, [2, 3]],
-        [DIRECTION_DOWN, [2, 3]],
-        [DIRECTION_NONE, [2, 3]],
-      ]),
-      offsetsInSheet: [
-        { x: 0, y: 0 },
-        { x: 0, y: 0 },
+      sheetCol: 2,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 30,
+      sheetOffsets: [
         { x: 4, y: 15 },
         { x: 6, y: 15 },
       ],
+      width: GHOST_WIDTH,
+      height: GHOST_HEIGHT,
+      offset: { x: 0, y: 0 },
+      index: new Map([
+        [DIRECTION_RIGHT, [0, 1]],
+        [DIRECTION_LEFT, [0, 1]],
+        [DIRECTION_UP, [0, 1]],
+        [DIRECTION_DOWN, [0, 1]],
+        [DIRECTION_NONE, [0, 1]],
+      ]),
     },
   ],
 };

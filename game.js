@@ -151,8 +151,8 @@ class Game {
 
   draw() {
     drawFillRect(0, 0, canvas.width, canvas.height, GAME_BACKGROUND_COLOR);
-    this.drawScore();
     this.board.draw();
+    this.drawScore();
     this.pacman.draw();
     for (var i = 0; i < this.ghosts.length; i++) {
       this.ghosts[i].draw();

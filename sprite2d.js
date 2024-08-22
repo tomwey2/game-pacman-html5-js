@@ -14,19 +14,20 @@ class Sprite2D {
     )[0];
     const index = spriteData.index.get(this.direction)[this.currentFrame];
     const sheetx =
-      index * spriteData.spriteSizeInSheet + spriteData.offsetsInSheet[index].x;
-    const sheety =
-      spriteData.sheetRow * 30 + spriteData.offsetsInSheet[index].y;
+      spriteData.sheetCol * 30 +
+      index * spriteData.sheetSpriteWidth +
+      spriteData.sheetOffsets[index].x;
+    const sheety = spriteData.sheetRow * 30 + spriteData.sheetOffsets[index].y;
     ctx.drawImage(
       spriteSheet,
       sheetx,
       sheety,
-      spriteData.spriteSizeInSheet,
-      spriteData.spriteSizeInSheet,
-      this.pixel.x - spriteData.spriteSize / 2 + spriteData.offset.x,
-      this.pixel.y - spriteData.spriteSize / 2 + spriteData.offset.y,
-      spriteData.spriteSize,
-      spriteData.spriteSize,
+      spriteData.sheetSpriteWidth,
+      spriteData.sheetSpriteHeight,
+      this.pixel.x - spriteData.width / 2 + spriteData.offset.x,
+      this.pixel.y - spriteData.height / 2 + spriteData.offset.y,
+      spriteData.width,
+      spriteData.height,
     );
   }
 }

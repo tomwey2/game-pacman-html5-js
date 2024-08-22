@@ -135,10 +135,18 @@ class Board {
     drawLineSegment(path, BOARD_DOOR_COLOR, DOOR_WIDTH);
   }
 
+  drawTile(tile) {
+    const px = tile.x * TILESIZE;
+    const py = tile.y * TILESIZE;
+    drawFillRect(px, py, TILESIZE, TILESIZE, "grey");
+    drawFillRect(px + 1, py + 1, TILESIZE - 2, TILESIZE - 2, "black");
+  }
+
   drawBoard() {
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
+        //this.drawTile(tile);
         if (this.isWall(tile)) {
           if (this.isHorizontalWall(tile)) {
             this.drawWall(tile, [tile.westPixel(), tile.eastPixel()], false);
