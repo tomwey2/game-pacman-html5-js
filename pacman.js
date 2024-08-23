@@ -31,7 +31,7 @@ class Pacman extends AnimatedSprite2D {
     if (game.board.removeFood(tile.x, tile.y)) {
       game.addScore(10);
       if (game.board.countFoods() == 0) {
-        setGameState(GAME_IS_WON);
+        setGameState(LEVEL_IS_WON);
       }
     }
     if (game.board.removePowerFood(tile.x, tile.y)) {
@@ -54,7 +54,7 @@ class Pacman extends AnimatedSprite2D {
       if (ghost.state == GHOST_STATE_BLUE || ghost.state == GHOST_STATE_WHITE) {
         ghost.changeState(GHOST_STATE_EATEN);
       } else if (ghost.state == GHOST_STATE_NORMAL) {
-        setGameState(GAME_IS_LOST);
+        setGameState(LEVEL_IS_LOST);
       }
       return true;
     }

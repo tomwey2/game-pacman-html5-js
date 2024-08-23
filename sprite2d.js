@@ -29,7 +29,10 @@ class Sprite2D {
       spriteData.width,
       spriteData.height,
     );
+    this.drawCenterCross();
+  }
 
+  drawCenterCross() {
     ctx.strokeStyle = "white";
     ctx.lineWidth = 1;
     ctx.beginPath();

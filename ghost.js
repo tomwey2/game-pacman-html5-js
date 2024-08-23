@@ -2,21 +2,30 @@ class Ghost extends AnimatedSprite2D {
   constructor(startTile, ghostActor) {
     var centerPixel = startTile.centerPixel();
     super(centerPixel, DIRECTION_RIGHT, ghostActor, GHOST_ANIMATION_SPEED);
-    this.originTile = startTile;
+    this.startTile = startTile;
     this.speed = GHOST_NORMAL_SPEED;
     this.findPath = dfs;
     this.path = [];
     this.state = GHOST_STATE_NORMAL;
-    this.originActor = ghostActor;
+    this.startActor = ghostActor;
   }
 
   init() {
-    this.pixel = this.originTile.centerPixel();
+    this.pixel = this.startTile.centerPixel();
     this.path = [];
     this.direction = DIRECTION_RIGHT;
-    this.actor = this.originActor;
+    this.actor = this.startActor;
   }
 
+  /*
+  state           event                     next state
+  NORMAL          pacman eat poer food      BLUE
+  BLUE            6 secs                    WHITE
+                  collision with pacman     EATEN
+  WHITE           2 secs                    NORMAL
+                  collision with pacman     EATEN
+  EATEN           back to home area         NORMAL
+  */
   changeState(state) {
     this.state = state;
     this.pixel = this.pixel.getTile().centerPixel();
@@ -25,7 +34,7 @@ class Ghost extends AnimatedSprite2D {
         if (this.actor == ACTOR_EATEN_GHOST) {
           this.speed = GHOST_NORMAL_SPEED;
         }
-        this.actor = this.originActor;
+        this.actor = this.startActor;
         break;
       case GHOST_STATE_BLUE:
         this.actor = ACTOR_BLUE_GHOST;
@@ -37,7 +46,6 @@ class Ghost extends AnimatedSprite2D {
         this.actor = ACTOR_WHITE_GHOST;
         break;
       case GHOST_STATE_EATEN:
-        console.log("GHOST_STATE_EATEN");
         this.actor = ACTOR_EATEN_GHOST;
         this.currentFrame = 0;
         this.speed = GHOST_FAST_SPEED;
@@ -52,6 +60,12 @@ class Ghost extends AnimatedSprite2D {
 
     if (!this.checkCollision()) {
       this.moveForwards(this.speed);
+      if (
+        this.state == GHOST_STATE_EATEN &&
+        this.pixel.getTile().equal(this.startTile)
+      ) {
+        this.changeState(GHOST_STATE_NORMAL);
+      }
     }
     this.isMoving = false;
   }
@@ -67,7 +81,7 @@ class Ghost extends AnimatedSprite2D {
         targetTile = game.pacman.pixel.getTile();
         break;
       case GHOST_STATE_EATEN:
-        targetTile = this.originTile;
+        targetTile = this.startTile;
         break;
       default:
         break;
@@ -120,7 +134,7 @@ class Ghost extends AnimatedSprite2D {
   }
 
   toString() {
-    switch (this.originActor) {
+    switch (this.startActor) {
       case ACTOR_BLINKY:
         return "BLINKY";
       case ACTOR_PINKY:

@@ -1,7 +1,7 @@
 var intro = new Intro();
 var game = new Game();
 var gameState = GAME_INIT;
-var gameInterval = setInterval(gameloop, 1000 / fps);
+var gameInterval = setInterval(mainloop, 1000 / fps);
 
 function setGameState(state) {
   gameState = state;
@@ -9,35 +9,35 @@ function setGameState(state) {
 
 /*
 state           event               action          next state
-game init       -                   level 1         game start
-game ready      -                   "ready!"        game running
-game running    eat all foods       -               level won
-                ghost collision     dec lives       level lost
-level won                           inc level       game ready
-level lost      -                   lives > 0       game ready
-                -                   lives == 0      game over
-game over       keypress                            game init
+INIT            keypressed          level = 1       READY
+READY           5 secs                              RUNNING
+RUNNING         all foods eaten                     WON
+                ghost collision                     LOST
+WON                                 inc level       READY
+LOST            lives > 0           dec lives       READY
+                lives == 0                          OVER
+OVER            keypressed                          INIT
 */
-function gameloop() {
+function mainloop() {
   switch (gameState) {
     case GAME_INIT:
       intro.loop();
-      game.startGame();
+      game.init();
       break;
     case GAME_IS_READY:
-      game.startLevel();
+      game.ready();
       break;
     case GAME_IS_RUNNING:
       game.loop();
       break;
-    case GAME_IS_LOST:
+    case LEVEL_IS_LOST:
       game.levelLost();
       break;
-    case GAME_IS_WON:
+    case LEVEL_IS_WON:
       game.levelWon();
       break;
     case GAME_IS_OVER:
-      game.gameOver();
+      game.over();
       break;
     case PACMAN_IS_DIEING:
       game.pacmanIsDieing();
@@ -48,7 +48,7 @@ function gameloop() {
   );
 }
 
-gameloop();
+mainloop();
 
 window.addEventListener("keydown", (event) => {
   var k = event.keyCode;

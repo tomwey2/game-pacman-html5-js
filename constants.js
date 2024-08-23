@@ -11,8 +11,8 @@ const fps = 60;
 const GAME_INIT = "GAME_INIT";
 const GAME_IS_READY = "GAME_IS_READY";
 const GAME_IS_RUNNING = "GAME_IS_RUNNING";
-const GAME_IS_LOST = "GAME_IS_LOST";
-const GAME_IS_WON = "GAME_IS_WON";
+const LEVEL_IS_LOST = "LEVEL_IS_LOST";
+const LEVEL_IS_WON = "LEVEL_IS_WON";
 const GAME_IS_OVER = "GAME_IS_OVER";
 const GAME_IS_PAUSED = "GAME_IS_PAUSED";
 const PACMAN_IS_DIEING = "PACMAN_IS_DIEING";
@@ -24,7 +24,7 @@ const BOARD_YMIN = 4;
 const BOARD_YMAX = 32;
 
 const TILESIZE = 30;
-const LEFT_DOOR_TILE = new Tile(0, 17);
+const LEFT_DOOR_TILE = new Tile(1, 17);
 const RIGHT_DOOR_TILE = new Tile(28, 17);
 
 const BOARD_WALL_COLOR = "#342DCA";

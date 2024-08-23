@@ -21,7 +21,17 @@ class Game {
     this.ghostStateInterval = undefined;
   }
 
-  startGame() {
+  loop() {
+    this.update();
+    this.draw();
+  }
+
+  update() {
+    this.pacman.move();
+    this.ghosts.forEach((ghost) => ghost.move());
+  }
+
+  init() {
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
@@ -31,7 +41,7 @@ class Game {
     this.visiblePacmanLives(true);
   }
 
-  startLevel() {
+  ready() {
     this.pacman.init();
     this.blinky.init();
     this.pinky.init();
@@ -39,18 +49,6 @@ class Game {
     this.clyde.init();
     this.visibleActors(true);
     this.draw();
-  }
-
-  loop() {
-    this.update();
-    this.draw();
-  }
-
-  update() {
-    this.pacman.move();
-    for (var i = 0; i < this.ghosts.length; i++) {
-      this.ghosts[i].move();
-    }
   }
 
   addScore(value) {
@@ -76,7 +74,7 @@ class Game {
     setGameState(GAME_IS_READY);
   }
 
-  gameOver() {
+  over() {
     this.visibleActors(false);
     this.lives = 0;
     this.draw();
