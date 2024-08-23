@@ -100,13 +100,17 @@ class Game {
 
   isGhost(tile) {
     for (var i = 0; i < this.ghosts.length; i++) {
-      var ghostTile = this.ghosts[i].pixel.getTile();
+      const ghostTile = this.ghosts[i].pixel.getTile();
       if (tile.equal(ghostTile)) {
         return true;
       }
     }
 
     return false;
+  }
+
+  getGhost(tile) {
+    return this.ghosts.find((ghost) => ghost.pixel.getTile().equal(tile));
   }
 
   visiblePacmanLives(isVisible) {
@@ -118,10 +122,6 @@ class Game {
   eatPowerFood() {
     if (this.ghostStateInterval == undefined) {
       this.setGhostState(GHOST_STATE_BLUE);
-      this.ghostStateInterval = setInterval(
-        () => this.setGhostState(GHOST_STATE_NORMAL),
-        5000,
-      );
     }
   }
 
@@ -129,6 +129,19 @@ class Game {
     this.ghosts.forEach((ghost) => ghost.changeState(state));
     if (this.ghostStateInterval != undefined) {
       this.ghostStateInterval = clearInterval(this.ghostStateInterval);
+    }
+    switch (state) {
+      case GHOST_STATE_BLUE:
+        this.ghostStateInterval = setInterval(
+          () => this.setGhostState(GHOST_STATE_WHITE),
+          5000,
+        );
+        break;
+      case GHOST_STATE_WHITE:
+        this.ghostStateInterval = setInterval(
+          () => this.setGhostState(GHOST_STATE_NORMAL),
+          3000,
+        );
     }
   }
 

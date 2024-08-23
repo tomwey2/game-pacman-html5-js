@@ -2,16 +2,18 @@ class Ghost extends AnimatedSprite2D {
   constructor(startTile, ghostActor) {
     var centerPixel = startTile.centerPixel();
     super(centerPixel, DIRECTION_RIGHT, ghostActor, GHOST_ANIMATION_SPEED);
-    this.startTile = startTile;
+    this.originTile = startTile;
     this.speed = GHOST_TILESPEED;
     this.findPath = dfs;
     this.path = [];
     this.state = GHOST_STATE_NORMAL;
     this.originActor = ghostActor;
+    this.moveDelay = setInterval(() => this.doMove(), 40);
+    this.moving = false;
   }
 
   init() {
-    this.pixel = this.startTile.centerPixel();
+    this.pixel = this.originTile.centerPixel();
     this.path = [];
     this.direction = DIRECTION_RIGHT;
     this.actor = this.originActor;
@@ -27,37 +29,49 @@ class Ghost extends AnimatedSprite2D {
         this.actor = ACTOR_BLUE_GHOST;
         break;
       case GHOST_STATE_WHITE:
+        this.actor = ACTOR_WHITE_GHOST;
         break;
       case GHOST_STATE_EATEN:
+        console.log("GHOST_STATE_EATEN");
+        this.actor = ACTOR_EATEN_GHOST;
         break;
       default:
         break;
     }
   }
 
+  doMove() {
+    this.moving = true;
+  }
+
   move() {
+    if (!this.moving) return;
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
       this.moveForwards();
     }
+    this.moving = false;
   }
 
   newPath() {
     if (!this.pixel.isCenter()) return;
-    this.path = [];
-    if (
-      this.findPath(
-        this.pixel.getTile(),
-        game.pacman.pixel.getTile(),
-        [],
-        this.path,
-        50,
-      )
-    ) {
-      //console.info("gefunden");
+    const currentTile = this.pixel.getTile();
+    var targetTile = currentTile;
+    switch (this.state) {
+      case GHOST_STATE_NORMAL:
+      case GHOST_STATE_BLUE:
+      case GHOST_STATE_WHITE:
+        targetTile = game.pacman.pixel.getTile();
+        break;
+      case GHOST_STATE_EATEN:
+        targetTile = this.originTile;
+        break;
+      default:
+        break;
     }
-    //console.info(this.path);
+    this.path = [];
+    this.findPath(currentTile, targetTile, [], this.path, 50);
   }
 
   moveForwards() {
@@ -128,12 +142,25 @@ class Ghost extends AnimatedSprite2D {
       );
     }
   }
+
+  toString() {
+    switch (this.originActor) {
+      case ACTOR_BLINKY:
+        return "BLINKY";
+      case ACTOR_PINKY:
+        return "PINKY";
+      case ACTOR_INKY:
+        return "INKY";
+      case ACTOR_CLYDE:
+        return "CLYDE";
+      default:
+        return "UNKNOWN";
+    }
+  }
 }
 
 class GhostImage extends Sprite2D {
-  constructor(startTile, ghostActor) {
-    var centerPixel = startTile.centerPixel();
-    super(centerPixel, DIRECTION_RIGHT, ghostActor);
-    this.startTile = startTile;
+  constructor(tile, ghostActor) {
+    super(tile.centerPixel(), DIRECTION_RIGHT, ghostActor);
   }
 }
