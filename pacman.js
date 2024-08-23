@@ -1,9 +1,8 @@
 class Pacman extends AnimatedSprite2D {
-  constructor(startTile, speed) {
+  constructor(startTile) {
     var centerPixel = startTile.centerPixel();
-    centerPixel.x += speed;
     super(centerPixel, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
-    this.speed = speed;
+    this.speed = PACMAN_NORMAL_SPEED;
     this.nextDirection = DIRECTION_RIGHT;
     this.startTile = startTile;
   }
@@ -43,26 +42,44 @@ class Pacman extends AnimatedSprite2D {
 
   moveForwards() {
     const tile = this.pixel.getTile();
+    const cx = tile.centerPixel().x;
+    const cy = tile.centerPixel().y;
     switch (this.direction) {
       case DIRECTION_RIGHT:
         if (tile.equal(RIGHT_DOOR_TILE)) {
           this.pixel = LEFT_DOOR_TILE.centerPixel();
         } else {
-          this.pixel.x += this.speed;
+          if (this.pixel.x < cx && this.pixel.x + this.speed > cx) {
+            this.pixel.x = cx;
+          } else {
+            this.pixel.x += this.speed;
+          }
         }
         break;
       case DIRECTION_UP:
-        this.pixel.y -= this.speed;
+        if (this.pixel.y - this.speed < cy && this.pixel.y > cy) {
+          this.pixel.y = cy;
+        } else {
+          this.pixel.y -= this.speed;
+        }
         break;
       case DIRECTION_LEFT:
         if (tile.equal(LEFT_DOOR_TILE)) {
           this.pixel = RIGHT_DOOR_TILE.centerPixel();
         } else {
-          this.pixel.x -= this.speed;
+          if (this.pixel.x - this.speed < cx && this.pixel.x > cx) {
+            this.pixel.x = cx;
+          } else {
+            this.pixel.x -= this.speed;
+          }
         }
         break;
       case DIRECTION_DOWN:
-        this.pixel.y += this.speed;
+        if (this.pixel.y < cy && this.pixel.y + this.speed > cy) {
+          this.pixel.y = cy;
+        } else {
+          this.pixel.y += this.speed;
+        }
         break;
     }
   }

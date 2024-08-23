@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.board = new Board();
-    this.pacman = new Pacman(PACMAN_START_TILE, PACMAN_TILESPEED);
+    this.pacman = new Pacman(PACMAN_START_TILE);
     this.pacmanLives = [
       new PacmanImage(new Tile(3, 34)),
       new PacmanImage(new Tile(5, 34)),
@@ -134,13 +134,13 @@ class Game {
       case GHOST_STATE_BLUE:
         this.ghostStateInterval = setInterval(
           () => this.setGhostState(GHOST_STATE_WHITE),
-          5000,
+          6000,
         );
         break;
       case GHOST_STATE_WHITE:
         this.ghostStateInterval = setInterval(
           () => this.setGhostState(GHOST_STATE_NORMAL),
-          3000,
+          2000,
         );
     }
   }
@@ -151,7 +151,7 @@ class Game {
     drawText(350, 40, "HIGH SCORE", "white");
     drawText(350, 80, parseInt(this.highscore), "white");
     drawText(700, 40, "2UP", "white");
-    drawText(700, 80, "0", "white");
+    //drawText(700, 80, "0", "white");
   }
 
   drawReady() {
@@ -182,5 +182,6 @@ class Game {
     for (var live = 0; live < GAME_START_LIVES - 1; live++) {
       this.pacmanLives[live].draw();
     }
+    this.pacman.drawCoord();
   }
 }

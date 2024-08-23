@@ -1,7 +1,7 @@
 var intro = new Intro();
 var game = new Game();
 var gameState = GAME_INIT;
-var gameInterval = setInterval(gameloop, 1500 / fps);
+var gameInterval = setInterval(gameloop, 1000 / fps);
 
 function setGameState(state) {
   gameState = state;
@@ -89,7 +89,7 @@ window.addEventListener("keydown", (event) => {
         break;
       case GAME_IS_PAUSED:
         if (keyPressedSpace) {
-          setGameState(GAME_IS_LOST);
+          setGameState(GAME_IS_RUNNING);
         } else if (keyPressedEsc) {
           setGameState(GAME_IS_OVER);
         }

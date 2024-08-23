@@ -5,7 +5,7 @@ class Intro {
     this.inky = new GhostImage(new Tile(4, 15), ACTOR_EATEN_GHOST);
     this.inky.direction = DIRECTION_RIGHT;
     this.clyde = new GhostImage(new Tile(4, 18), ACTOR_CLYDE);
-    this.powerFood = new StaticPowerFood(new Tile(10, 27));
+    this.powerFood = new PowerFoodImage(new Tile(10, 27));
     this.food = new Food(new Tile(10, 25));
   }
 

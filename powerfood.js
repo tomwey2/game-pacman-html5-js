@@ -5,7 +5,7 @@ class PowerFood extends AnimatedSprite2D {
   }
 }
 
-class StaticPowerFood extends Sprite2D {
+class PowerFoodImage extends Sprite2D {
   constructor(tile) {
     super(tile.centerPixel(), DIRECTION_NONE, ACTOR_POWERFOOD);
     this.tile = tile;

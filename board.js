@@ -146,7 +146,7 @@ class Board {
     for (var y = 0; y < data.length; y++) {
       for (var x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
-        //this.drawTile(tile);
+        this.drawTile(tile);
         if (this.isWall(tile)) {
           if (this.isHorizontalWall(tile)) {
             this.drawWall(tile, [tile.westPixel(), tile.eastPixel()], false);

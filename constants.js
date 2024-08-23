@@ -44,8 +44,9 @@ const POWERFOOD_WIDTH = Math.trunc(TILESIZE / 1.1);
 const POWERFOOD_HEIGHT = POWERFOOD_WIDTH;
 
 const PACMAN_START_TILE = new Tile(14, 26);
-const PACMAN_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
-const GHOST_TILESPEED = TILESIZE / 5; // Ergebnis muss eine ganze Zahl sein
+const PACMAN_NORMAL_SPEED = TILESIZE / 7; // Ergebnis muss eine ganze Zahl sein
+const GHOST_NORMAL_SPEED = TILESIZE / 10; // Ergebnis muss eine ganze Zahl sein
+const GHOST_FAST_SPEED = TILESIZE / 5;
 
 // Pacman relevant constants
 const PACMAN_WIDTH = Math.trunc((TILESIZE * 5) / 3);
@@ -59,6 +60,7 @@ const PINKY_STARTTILE = new Tile(14, 17);
 const INKY_STARTTILE = new Tile(12, 17);
 const CLYDE_STARTTILE = new Tile(16, 17);
 const GHOST_ANIMATION_SPEED = 200;
+const GHOST_MOVING_SPEED = 40;
 
 const GHOST_STATE_NORMAL = 0;
 const GHOST_STATE_BLUE = 1;

@@ -29,5 +29,14 @@ class Sprite2D {
       spriteData.width,
       spriteData.height,
     );
+
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(this.pixel.x - 5, this.pixel.y);
+    ctx.lineTo(this.pixel.x + 5, this.pixel.y);
+    ctx.moveTo(this.pixel.x, this.pixel.y - 5);
+    ctx.lineTo(this.pixel.x, this.pixel.y + 5);
+    ctx.stroke();
   }
 }

@@ -3,13 +3,11 @@ class Ghost extends AnimatedSprite2D {
     var centerPixel = startTile.centerPixel();
     super(centerPixel, DIRECTION_RIGHT, ghostActor, GHOST_ANIMATION_SPEED);
     this.originTile = startTile;
-    this.speed = GHOST_TILESPEED;
+    this.speed = GHOST_NORMAL_SPEED;
     this.findPath = dfs;
     this.path = [];
     this.state = GHOST_STATE_NORMAL;
     this.originActor = ghostActor;
-    this.moveDelay = setInterval(() => this.doMove(), 40);
-    this.moving = false;
   }
 
   init() {
@@ -21,37 +19,41 @@ class Ghost extends AnimatedSprite2D {
 
   changeState(state) {
     this.state = state;
+    this.pixel = this.pixel.getTile().centerPixel();
     switch (this.state) {
       case GHOST_STATE_NORMAL:
+        if (this.actor == ACTOR_EATEN_GHOST) {
+          this.speed = GHOST_NORMAL_SPEED;
+        }
         this.actor = this.originActor;
         break;
       case GHOST_STATE_BLUE:
         this.actor = ACTOR_BLUE_GHOST;
         break;
       case GHOST_STATE_WHITE:
+        if (this.actor == ACTOR_EATEN_GHOST) {
+          this.speed = GHOST_NORMAL_SPEED;
+        }
         this.actor = ACTOR_WHITE_GHOST;
         break;
       case GHOST_STATE_EATEN:
         console.log("GHOST_STATE_EATEN");
         this.actor = ACTOR_EATEN_GHOST;
+        this.currentFrame = 0;
+        this.speed = GHOST_FAST_SPEED;
         break;
       default:
         break;
     }
   }
 
-  doMove() {
-    this.moving = true;
-  }
-
   move() {
-    if (!this.moving) return;
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
       this.moveForwards();
     }
-    this.moving = false;
+    this.isMoving = false;
   }
 
   newPath() {

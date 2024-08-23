@@ -1,9 +1,10 @@
 class AnimatedSprite2D extends Sprite2D {
   constructor(pixel, direction, actor, animationSpeed) {
     super(pixel, direction, actor);
-    setInterval(() => {
-      this.changeAnimation();
-    }, animationSpeed);
+    this.animateDelay = setInterval(
+      () => this.changeAnimation(),
+      animationSpeed,
+    );
   }
 
   endOfAnimation() {}
