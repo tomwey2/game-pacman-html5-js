@@ -17,7 +17,7 @@ class Pacman extends AnimatedSprite2D {
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
-      this.moveForwards();
+      this.moveForwards(this.speed);
       this.eat();
     }
 
@@ -37,50 +37,6 @@ class Pacman extends AnimatedSprite2D {
     if (game.board.removePowerFood(tile.x, tile.y)) {
       game.addScore(50);
       game.eatPowerFood();
-    }
-  }
-
-  moveForwards() {
-    const tile = this.pixel.getTile();
-    const cx = tile.centerPixel().x;
-    const cy = tile.centerPixel().y;
-    switch (this.direction) {
-      case DIRECTION_RIGHT:
-        if (tile.equal(RIGHT_DOOR_TILE)) {
-          this.pixel = LEFT_DOOR_TILE.centerPixel();
-        } else {
-          if (this.pixel.x < cx && this.pixel.x + this.speed > cx) {
-            this.pixel.x = cx;
-          } else {
-            this.pixel.x += this.speed;
-          }
-        }
-        break;
-      case DIRECTION_UP:
-        if (this.pixel.y - this.speed < cy && this.pixel.y > cy) {
-          this.pixel.y = cy;
-        } else {
-          this.pixel.y -= this.speed;
-        }
-        break;
-      case DIRECTION_LEFT:
-        if (tile.equal(LEFT_DOOR_TILE)) {
-          this.pixel = RIGHT_DOOR_TILE.centerPixel();
-        } else {
-          if (this.pixel.x - this.speed < cx && this.pixel.x > cx) {
-            this.pixel.x = cx;
-          } else {
-            this.pixel.x -= this.speed;
-          }
-        }
-        break;
-      case DIRECTION_DOWN:
-        if (this.pixel.y < cy && this.pixel.y + this.speed > cy) {
-          this.pixel.y = cy;
-        } else {
-          this.pixel.y += this.speed;
-        }
-        break;
     }
   }
 

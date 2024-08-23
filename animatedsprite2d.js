@@ -20,4 +20,48 @@ class AnimatedSprite2D extends Sprite2D {
       this.endOfAnimation();
     }
   }
+
+  moveForwards(speed) {
+    const tile = this.pixel.getTile();
+    const cx = tile.centerPixel().x;
+    const cy = tile.centerPixel().y;
+    switch (this.direction) {
+      case DIRECTION_RIGHT:
+        if (tile.equal(RIGHT_DOOR_TILE)) {
+          this.pixel = LEFT_DOOR_TILE.centerPixel();
+        } else {
+          if (this.pixel.x < cx && this.pixel.x + speed > cx) {
+            this.pixel.x = cx;
+          } else {
+            this.pixel.x += speed;
+          }
+        }
+        break;
+      case DIRECTION_UP:
+        if (this.pixel.y - speed < cy && this.pixel.y > cy) {
+          this.pixel.y = cy;
+        } else {
+          this.pixel.y -= speed;
+        }
+        break;
+      case DIRECTION_LEFT:
+        if (tile.equal(LEFT_DOOR_TILE)) {
+          this.pixel = RIGHT_DOOR_TILE.centerPixel();
+        } else {
+          if (this.pixel.x - speed < cx && this.pixel.x > cx) {
+            this.pixel.x = cx;
+          } else {
+            this.pixel.x -= speed;
+          }
+        }
+        break;
+      case DIRECTION_DOWN:
+        if (this.pixel.y < cy && this.pixel.y + speed > cy) {
+          this.pixel.y = cy;
+        } else {
+          this.pixel.y += speed;
+        }
+        break;
+    }
+  }
 }

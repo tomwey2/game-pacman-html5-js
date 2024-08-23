@@ -51,7 +51,7 @@ class Ghost extends AnimatedSprite2D {
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
-      this.moveForwards();
+      this.moveForwards(this.speed);
     }
     this.isMoving = false;
   }
@@ -74,32 +74,6 @@ class Ghost extends AnimatedSprite2D {
     }
     this.path = [];
     this.findPath(currentTile, targetTile, [], this.path, 50);
-  }
-
-  moveForwards() {
-    const tile = this.pixel.getTile();
-    switch (this.direction) {
-      case DIRECTION_RIGHT:
-        if (tile.equal(RIGHT_DOOR_TILE)) {
-          this.pixel = LEFT_DOOR_TILE.centerPixel();
-        } else {
-          this.pixel.x += this.speed;
-        }
-        break;
-      case DIRECTION_UP:
-        this.pixel.y -= this.speed;
-        break;
-      case DIRECTION_LEFT:
-        if (tile.equal(LEFT_DOOR_TILE)) {
-          this.pixel = RIGHT_DOOR_TILE.centerPixel();
-        } else {
-          this.pixel.x -= this.speed;
-        }
-        break;
-      case DIRECTION_DOWN:
-        this.pixel.y += this.speed;
-        break;
-    }
   }
 
   checkCollision() {
