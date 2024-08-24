@@ -8,7 +8,6 @@ class Game {
       new PacmanImage(new Tile(7, 34)),
       new PacmanImage(new Tile(9, 34)),
     ];
-    this.dieingPacman = new DieingPacman(200);
     this.blinky = new Ghost(BLINKY_STARTTILE, ACTOR_BLINKY);
     this.pinky = new Ghost(PINKY_STARTTILE, ACTOR_PINKY);
     this.inky = new Ghost(INKY_STARTTILE, ACTOR_INKY);
@@ -35,7 +34,6 @@ class Game {
     this.lives = GAME_START_LIVES;
     this.level = 1;
     this.score = 0;
-    this.dieingPacman.isVisible = false;
     this.board.visiblePowerFoods(true);
     this.board.visibleFoods(true);
     this.visiblePacmanLives(true);
@@ -59,11 +57,13 @@ class Game {
   }
 
   levelLost() {
-    this.decPacmanLive();
     this.visibleActors(false);
-    this.dieingPacman.pixel = this.pacman.pixel;
-    this.dieingPacman.isVisible = true;
-    setGameState(PACMAN_IS_DIEING);
+    this.decPacmanLive();
+    if (this.lives > 0) {
+      setGameState(GAME_IS_READY);
+    } else {
+      setGameState(GAME_IS_OVER);
+    }
   }
 
   levelWon() {
@@ -80,8 +80,10 @@ class Game {
     this.draw();
   }
 
-  pacmanIsDieing() {
-    this.draw();
+  diePacman() {
+    this.visibleActors(false);
+    this.pacman.isVisible = true;
+    this.pacman.changeState(PACMAN_STATE_DIEING);
   }
 
   decPacmanLive() {
@@ -94,17 +96,6 @@ class Game {
   visibleActors(isVisible) {
     this.pacman.isVisible = isVisible;
     this.ghosts.forEach((ghost) => (ghost.isVisible = isVisible));
-  }
-
-  isGhost(tile) {
-    for (var i = 0; i < this.ghosts.length; i++) {
-      const ghostTile = this.ghosts[i].pixel.getTile();
-      if (tile.equal(ghostTile)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   getGhost(tile) {
@@ -173,9 +164,6 @@ class Game {
     }
     if (gameState == GAME_IS_OVER) {
       this.drawGameOver();
-    }
-    if (gameState == PACMAN_IS_DIEING) {
-      this.dieingPacman.draw();
     }
     for (var live = 0; live < GAME_START_LIVES - 1; live++) {
       this.pacmanLives[live].draw();

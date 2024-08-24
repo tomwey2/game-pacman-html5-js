@@ -7,7 +7,7 @@ const GAME_START_LIVES = 5;
 
 const fps = 60;
 
-// Game relevant constants
+// Game states
 const GAME_INIT = "GAME_INIT";
 const GAME_IS_READY = "GAME_IS_READY";
 const GAME_IS_RUNNING = "GAME_IS_RUNNING";
@@ -15,7 +15,6 @@ const LEVEL_IS_LOST = "LEVEL_IS_LOST";
 const LEVEL_IS_WON = "LEVEL_IS_WON";
 const GAME_IS_OVER = "GAME_IS_OVER";
 const GAME_IS_PAUSED = "GAME_IS_PAUSED";
-const PACMAN_IS_DIEING = "PACMAN_IS_DIEING";
 
 // Board relevant constants
 const BOARD_XMIN = 2;
@@ -44,13 +43,18 @@ const POWERFOOD_WIDTH = Math.trunc(TILESIZE / 1.1);
 const POWERFOOD_HEIGHT = POWERFOOD_WIDTH;
 
 const PACMAN_START_TILE = new Tile(14, 26);
-const PACMAN_NORMAL_SPEED = TILESIZE / 7; // Ergebnis muss eine ganze Zahl sein
-const GHOST_NORMAL_SPEED = TILESIZE / 10; // Ergebnis muss eine ganze Zahl sein
+const PACMAN_NORMAL_SPEED = TILESIZE / 7;
+const GHOST_NORMAL_SPEED = TILESIZE / 10;
 const GHOST_FAST_SPEED = TILESIZE / 5;
 
 // Pacman relevant constants
 const PACMAN_WIDTH = Math.trunc((TILESIZE * 5) / 3);
 const PACMAN_HEIGHT = PACMAN_WIDTH;
+
+const PACMAN_STATE_NORMAL = 0;
+const PACMAN_STATE_DIEING = 1;
+const PACMAN_ANIMATION_SPEED_NORMAL = 75;
+const PACMAN_ANIMATION_SPEED_DIEING = 200;
 
 // Ghost relevant constants
 const GHOST_WIDTH = Math.trunc((TILESIZE * 5) / 3);

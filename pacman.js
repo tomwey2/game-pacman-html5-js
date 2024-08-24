@@ -1,10 +1,15 @@
 class Pacman extends AnimatedSprite2D {
   constructor(startTile) {
-    var centerPixel = startTile.centerPixel();
-    super(centerPixel, DIRECTION_RIGHT, ACTOR_PACMAN, 75);
+    super(
+      startTile.centerPixel(),
+      DIRECTION_RIGHT,
+      ACTOR_PACMAN,
+      PACMAN_ANIMATION_SPEED_NORMAL,
+    );
     this.speed = PACMAN_NORMAL_SPEED;
     this.nextDirection = DIRECTION_RIGHT;
     this.startTile = startTile;
+    this.state = PACMAN_STATE_NORMAL;
   }
 
   init() {
@@ -13,7 +18,39 @@ class Pacman extends AnimatedSprite2D {
     this.nextDirection = DIRECTION_RIGHT;
   }
 
+  /*
+  state           event                     next state
+  NORMAL          ghost collision           DIEING
+  DIEING                                    NORMAL
+  */
+  changeState(state) {
+    this.state = state;
+    this.pixel = this.pixel.getTile().centerPixel();
+    this.currentFrame = 0;
+    switch (this.state) {
+      case PACMAN_STATE_NORMAL:
+        this.actor = ACTOR_PACMAN;
+        this.changeAnimationSpeed(PACMAN_ANIMATION_SPEED_NORMAL);
+        break;
+      case PACMAN_STATE_DIEING:
+        this.actor = ACTOR_DIEING_PACMAN;
+        this.direction = DIRECTION_NONE;
+        this.changeAnimationSpeed(PACMAN_ANIMATION_SPEED_DIEING);
+        break;
+      default:
+        break;
+    }
+  }
+
+  endOfAnimation() {
+    if (this.state == PACMAN_STATE_DIEING) {
+      this.changeState(PACMAN_STATE_NORMAL);
+      setGameState(LEVEL_IS_LOST);
+    }
+  }
+
   move() {
+    if (this.state == PACMAN_STATE_DIEING) return;
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
@@ -54,7 +91,7 @@ class Pacman extends AnimatedSprite2D {
       if (ghost.state == GHOST_STATE_BLUE || ghost.state == GHOST_STATE_WHITE) {
         ghost.changeState(GHOST_STATE_EATEN);
       } else if (ghost.state == GHOST_STATE_NORMAL) {
-        setGameState(LEVEL_IS_LOST);
+        game.diePacman();
       }
       return true;
     }

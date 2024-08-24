@@ -29,7 +29,7 @@ class Sprite2D {
       spriteData.width,
       spriteData.height,
     );
-    this.drawCenterCross();
+    // this.drawCenterCross();
   }
 
   drawCenterCross() {

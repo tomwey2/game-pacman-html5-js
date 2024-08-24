@@ -39,9 +39,6 @@ function mainloop() {
     case GAME_IS_OVER:
       game.over();
       break;
-    case PACMAN_IS_DIEING:
-      game.pacmanIsDieing();
-      break;
   }
   console.log(
     "level=" + game.level + " lives=" + game.lives + " state=" + gameState,

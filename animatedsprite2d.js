@@ -9,6 +9,13 @@ class AnimatedSprite2D extends Sprite2D {
 
   endOfAnimation() {}
 
+  changeAnimationSpeed(speed) {
+    if (this.animateDelay != undefined) {
+      this.animateDelay = clearInterval(this.animateDelay);
+    }
+    this.animateDelay = setInterval(() => this.changeAnimation(), speed);
+  }
+
   changeAnimation() {
     if (!this.isVisible) return;
     const spriteData = SPRITESHEET.actors.filter(
