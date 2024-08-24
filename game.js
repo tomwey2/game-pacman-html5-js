@@ -140,7 +140,7 @@ class Game {
     drawText(350, 40, "HIGH SCORE", "white");
     drawText(350, 80, parseInt(this.highscore), "white");
     drawText(700, 40, "2UP", "white");
-    //drawText(700, 80, "0", "white");
+    drawText(700, 80, "0", "white");
   }
 
   drawReady() {
@@ -168,6 +168,6 @@ class Game {
     for (var live = 0; live < GAME_START_LIVES - 1; live++) {
       this.pacmanLives[live].draw();
     }
-    this.pacman.drawCoord();
+    // this.pacman.drawCoord();
   }
 }

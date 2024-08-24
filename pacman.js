@@ -20,7 +20,7 @@ class Pacman extends AnimatedSprite2D {
 
   /*
   state           event                     next state
-  NORMAL          ghost collision           DIEING
+  NORMAL          ghost collision           DYING
   DIEING                                    NORMAL
   */
   changeState(state) {
@@ -32,10 +32,10 @@ class Pacman extends AnimatedSprite2D {
         this.actor = ACTOR_PACMAN;
         this.changeAnimationSpeed(PACMAN_ANIMATION_SPEED_NORMAL);
         break;
-      case PACMAN_STATE_DIEING:
-        this.actor = ACTOR_DIEING_PACMAN;
+      case PACMAN_STATE_DYING:
+        this.actor = ACTOR_DYING_PACMAN;
         this.direction = DIRECTION_NONE;
-        this.changeAnimationSpeed(PACMAN_ANIMATION_SPEED_DIEING);
+        this.changeAnimationSpeed(PACMAN_ANIMATION_SPEED_DYING);
         break;
       default:
         break;
@@ -43,14 +43,14 @@ class Pacman extends AnimatedSprite2D {
   }
 
   endOfAnimation() {
-    if (this.state == PACMAN_STATE_DIEING) {
+    if (this.state == PACMAN_STATE_DYING) {
       this.changeState(PACMAN_STATE_NORMAL);
       setGameState(LEVEL_IS_LOST);
     }
   }
 
   move() {
-    if (this.state == PACMAN_STATE_DIEING) return;
+    if (this.state == PACMAN_STATE_DYING) return;
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
@@ -65,13 +65,13 @@ class Pacman extends AnimatedSprite2D {
 
   eat() {
     const tile = this.pixel.getTile();
-    if (game.board.removeFood(tile.x, tile.y)) {
+    if (game.board.removeFood(tile)) {
       game.addScore(10);
       if (game.board.countFoods() == 0) {
         setGameState(LEVEL_IS_WON);
       }
     }
-    if (game.board.removePowerFood(tile.x, tile.y)) {
+    if (game.board.removePowerFood(tile)) {
       game.addScore(50);
       game.eatPowerFood();
     }

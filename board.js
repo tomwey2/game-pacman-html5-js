@@ -231,8 +231,8 @@ class Board {
     return foods;
   }
 
-  getFood(x, y) {
-    return this.foods.find((food) => food.tile.x == x && food.tile.y == y);
+  getFood(tile) {
+    return this.foods.find((food) => food.tile.equal(tile));
   }
 
   visibleFoods(isVisible) {
@@ -243,8 +243,8 @@ class Board {
     this.foods.forEach((food) => food.draw());
   }
 
-  removeFood(x, y) {
-    var food = this.getFood(x, y);
+  removeFood(tile) {
+    var food = this.getFood(tile);
     if (food != undefined && food.isVisible) {
       food.isVisible = false;
       return true;
@@ -272,10 +272,8 @@ class Board {
     return powerFoods;
   }
 
-  getPowerFood(x, y) {
-    return this.powerFoods.find(
-      (powerFood) => powerFood.tile.x == x && powerFood.tile.y == y,
-    );
+  getPowerFood(tile) {
+    return this.powerFoods.find((powerFood) => powerFood.tile.equal(tile));
   }
 
   visiblePowerFoods(isVisible) {
@@ -286,9 +284,9 @@ class Board {
     this.powerFoods.forEach((powerFood) => powerFood.draw());
   }
 
-  removePowerFood(x, y) {
-    var powerFood = this.getPowerFood(x, y);
-    if (powerFood != undefined) {
+  removePowerFood(tile) {
+    var powerFood = this.getPowerFood(tile);
+    if (powerFood != undefined && powerFood.isVisible) {
       powerFood.isVisible = false;
       return true;
     }

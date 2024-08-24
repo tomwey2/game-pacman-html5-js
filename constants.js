@@ -52,9 +52,9 @@ const PACMAN_WIDTH = Math.trunc((TILESIZE * 5) / 3);
 const PACMAN_HEIGHT = PACMAN_WIDTH;
 
 const PACMAN_STATE_NORMAL = 0;
-const PACMAN_STATE_DIEING = 1;
+const PACMAN_STATE_DYING = 1;
 const PACMAN_ANIMATION_SPEED_NORMAL = 75;
-const PACMAN_ANIMATION_SPEED_DIEING = 200;
+const PACMAN_ANIMATION_SPEED_DYING = 200;
 
 // Ghost relevant constants
 const GHOST_WIDTH = Math.trunc((TILESIZE * 5) / 3);
@@ -85,7 +85,7 @@ const ACTOR_INKY = 4;
 const ACTOR_CLYDE = 5;
 const ACTOR_FOOD = 6;
 const ACTOR_POWERFOOD = 7;
-const ACTOR_DIEING_PACMAN = 8;
+const ACTOR_DYING_PACMAN = 8;
 const ACTOR_BLUE_GHOST = 9;
 const ACTOR_WHITE_GHOST = 10;
 const ACTOR_EATEN_GHOST = 11;
@@ -120,7 +120,7 @@ const SPRITESHEET = {
       ]),
     },
     {
-      actor: ACTOR_DIEING_PACMAN,
+      actor: ACTOR_DYING_PACMAN,
       sheetRow: 1,
       sheetCol: 0,
       sheetSpriteWidth: 30,
