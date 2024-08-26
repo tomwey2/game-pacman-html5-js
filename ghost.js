@@ -30,6 +30,7 @@ class Ghost extends AnimatedSprite2D {
   */
   changeState(state, score = 0) {
     if (this.state == GHOST_STATE_DIED && state != GHOST_STATE_EYES) return;
+    if (this.state == GHOST_STATE_EYES && state != GHOST_STATE_HOME) return;
     this.state = state;
     this.pixel = this.pixel.getTile().centerPixel();
     this.currentFrame = 0;
@@ -66,6 +67,9 @@ class Ghost extends AnimatedSprite2D {
         }
         setTimeout(() => this.changeState(GHOST_STATE_EYES), 2000);
         break;
+      case GHOST_STATE_HOME:
+        this.changeState(GHOST_STATE_NORMAL);
+        break;
       default:
         break;
     }
@@ -81,7 +85,7 @@ class Ghost extends AnimatedSprite2D {
         this.state == GHOST_STATE_EYES &&
         this.pixel.getTile().equal(this.startTile)
       ) {
-        this.changeState(GHOST_STATE_NORMAL);
+        this.changeState(GHOST_STATE_HOME);
       }
     }
   }
