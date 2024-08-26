@@ -1,5 +1,6 @@
-var audio = document.getElementById("sounds");
-var audioEndTime;
+"use strict";
+let audio = document.getElementById("sounds");
+let audioEndTime;
 
 audio.addEventListener(
   "timeupdate",

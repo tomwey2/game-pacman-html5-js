@@ -1,3 +1,4 @@
+"use strict";
 class Ghost extends AnimatedSprite2D {
   constructor(startTile, ghostActor) {
     var centerPixel = startTile.centerPixel();
@@ -96,7 +97,7 @@ class Ghost extends AnimatedSprite2D {
   newPath() {
     if (!this.pixel.isCenter()) return;
     const currentTile = this.pixel.getTile();
-    var targetTile = currentTile;
+    let targetTile = currentTile;
     switch (this.state) {
       case GHOST_STATE_NORMAL:
       case GHOST_STATE_BLUE:
@@ -115,7 +116,7 @@ class Ghost extends AnimatedSprite2D {
 
   checkCollision() {
     if (!this.pixel.isCenter()) return;
-    var nextTile = this.pixel.getTile();
+    const nextTile = this.pixel.getTile();
     if (game.board.isWall(nextTile.neighbour(this.direction))) {
       return true;
     }

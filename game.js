@@ -1,3 +1,4 @@
+"use strict";
 class Game {
   constructor() {
     this.board = new Board();
@@ -170,18 +171,14 @@ class Game {
     this.board.draw();
     this.drawScore();
     this.pacman.draw();
-    for (var i = 0; i < this.ghosts.length; i++) {
-      this.ghosts[i].draw();
-    }
+    this.ghosts.forEach((ghost) => ghost.draw());
     if (gameState == GAME_IS_READY) {
       this.drawReady();
     }
     if (gameState == GAME_IS_OVER) {
       this.drawGameOver();
     }
-    for (var live = 0; live < GAME_START_LIVES - 1; live++) {
-      this.pacmanLives[live].draw();
-    }
+    this.pacmanLives.forEach((live) => live.draw());
     // this.pacman.drawCoord();
   }
 }

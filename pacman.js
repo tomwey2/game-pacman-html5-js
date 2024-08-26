@@ -1,3 +1,4 @@
+"use strict";
 class Pacman extends AnimatedSprite2D {
   constructor(startTile) {
     super(
@@ -104,7 +105,7 @@ class Pacman extends AnimatedSprite2D {
   changeDirectionIfPossible() {
     if (this.direction == this.nextDirection) return;
     if (!this.pixel.isCenter()) return;
-    var tempDirection = this.direction;
+    const tempDirection = this.direction;
     this.direction = this.nextDirection;
     if (this.checkCollision()) {
       this.direction = tempDirection;

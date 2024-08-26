@@ -1,3 +1,4 @@
+"use strict";
 function tileNr(tile) {
   return tile.y * data.length + tile.x;
 }
@@ -17,10 +18,10 @@ function dfs(startTile, targetTile, visited, path, maxDepht) {
   } else {
     var neighbors = shuffle(
       getNeighbours(startTile, true).filter(
-        (tile) => !visited.includes(tileNr(tile))
-      )
+        (tile) => !visited.includes(tileNr(tile)),
+      ),
     );
-    for (var i = 0; i < neighbors.length; i++) {
+    for (let i = 0; i < neighbors.length; i++) {
       if (dfs(neighbors[i], targetTile, visited, path, maxDepht)) {
         return true;
       } else {

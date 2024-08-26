@@ -1,3 +1,4 @@
+"use strict";
 class PowerFood extends AnimatedSprite2D {
   constructor(tile) {
     super(tile.centerPixel(), DIRECTION_NONE, ACTOR_POWERFOOD, 500);

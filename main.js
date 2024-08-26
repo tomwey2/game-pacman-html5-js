@@ -1,7 +1,8 @@
-var intro = new Intro();
-var game = new Game();
-var gameState = GAME_INIT;
-var gameInterval = setInterval(mainloop, 1000 / fps);
+"use strict";
+let intro = new Intro();
+let game = new Game();
+let gameState = GAME_INIT;
+let gameInterval = setInterval(mainloop, 1000 / fps);
 
 function setGameState(state) {
   gameState = state;
@@ -48,7 +49,7 @@ function mainloop() {
 mainloop();
 
 window.addEventListener("keydown", (event) => {
-  var k = event.keyCode;
+  let k = event.keyCode;
 
   const keyPressedLeft = k == 37 || k == 65; // LEFT || A
   const keyPressedRight = k == 39 || k == 68; // RIGHT || D

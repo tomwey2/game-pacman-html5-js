@@ -1,3 +1,4 @@
+"use strict";
 class Board {
   constructor() {
     this.foods = this.createFoods();
@@ -143,8 +144,8 @@ class Board {
   }
 
   drawBoard() {
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
+    for (let y = 0; y < data.length; y++) {
+      for (let x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
         //this.drawTile(tile);
         if (this.isWall(tile)) {
@@ -219,9 +220,9 @@ class Board {
   }
 
   createFoods() {
-    var foods = [];
-    for (var y = 0; y < data.length; y++) {
-      for (var x = 0; x < data[0].length; x++) {
+    let foods = [];
+    for (let y = 0; y < data.length; y++) {
+      for (let x = 0; x < data[0].length; x++) {
         const tile = new Tile(x, y);
         if (this.isFoodPlace(tile)) {
           foods.push(new Food(tile));
@@ -244,7 +245,7 @@ class Board {
   }
 
   removeFood(tile) {
-    var food = this.getFood(tile);
+    let food = this.getFood(tile);
     if (food != undefined && food.isVisible) {
       food.isVisible = false;
       return true;
@@ -253,8 +254,8 @@ class Board {
   }
 
   countFoods() {
-    var counter = 0;
-    for (var i = 0; i < this.foods.length; i++) {
+    let counter = 0;
+    for (let i = 0; i < this.foods.length; i++) {
       if (this.foods[i].isVisible) {
         counter++;
       }

@@ -1,3 +1,4 @@
+"use strict";
 class Tile {
   constructor(x, y) {
     this.x = x;

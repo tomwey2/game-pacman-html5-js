@@ -1,3 +1,4 @@
+"use strict";
 class Pixel {
   constructor(x, y) {
     this.x = x;

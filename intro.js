@@ -1,3 +1,4 @@
+"use strict";
 class Intro {
   constructor() {
     this.blinky = new GhostImage(new Tile(4, 9), ACTOR_BLINKY);

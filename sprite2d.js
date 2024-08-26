@@ -1,3 +1,4 @@
+"use strict";
 class Sprite2D {
   constructor(pixel, direction, actor) {
     this.pixel = pixel;
