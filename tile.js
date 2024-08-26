@@ -53,6 +53,8 @@ class Tile {
         return this.up();
       case DIRECTION_DOWN:
         return this.down();
+      case DIRECTION_NONE:
+        return this;
     }
   }
 
@@ -63,7 +65,7 @@ class Tile {
   eastPixel() {
     return new Pixel(
       this.x * TILESIZE + TILESIZE,
-      this.y * TILESIZE + TILESIZE / 2
+      this.y * TILESIZE + TILESIZE / 2,
     );
   }
 
@@ -74,14 +76,14 @@ class Tile {
   southPixel() {
     return new Pixel(
       this.x * TILESIZE + TILESIZE / 2,
-      this.y * TILESIZE + TILESIZE
+      this.y * TILESIZE + TILESIZE,
     );
   }
 
   centerPixel() {
     return new Pixel(
       this.x * TILESIZE + TILESIZE / 2,
-      this.y * TILESIZE + TILESIZE / 2
+      this.y * TILESIZE + TILESIZE / 2,
     );
   }
 }

@@ -8,6 +8,7 @@ class Ghost extends AnimatedSprite2D {
     this.path = [];
     this.state = GHOST_STATE_NORMAL;
     this.startActor = ghostActor;
+    this.diedTimer = undefined;
   }
 
   init() {
@@ -19,55 +20,77 @@ class Ghost extends AnimatedSprite2D {
 
   /*
   state           event                     next state
-  NORMAL          pacman eat poer food      BLUE
+  NORMAL          pacman eat power food     BLUE
   BLUE            6 secs                    WHITE
-                  collision with pacman     EATEN
+                  collision with pacman     DIED
   WHITE           2 secs                    NORMAL
-                  collision with pacman     EATEN
-  EATEN           back to home area         NORMAL
+                  collision with pacman     DIED
+  DIED            2 secs                    EYES
+  EYES            back to home area         NORMAL
   */
-  changeState(state) {
+  changeState(state, score = 0) {
+    if (this.state == GHOST_STATE_DIED && state != GHOST_STATE_EYES) return;
     this.state = state;
     this.pixel = this.pixel.getTile().centerPixel();
+    this.currentFrame = 0;
+    this.speed = GHOST_NORMAL_SPEED;
     switch (this.state) {
       case GHOST_STATE_NORMAL:
-        if (this.actor == ACTOR_EATEN_GHOST) {
-          this.speed = GHOST_NORMAL_SPEED;
-        }
         this.actor = this.startActor;
         break;
       case GHOST_STATE_BLUE:
         this.actor = ACTOR_BLUE_GHOST;
         break;
       case GHOST_STATE_WHITE:
-        if (this.actor == ACTOR_EATEN_GHOST) {
-          this.speed = GHOST_NORMAL_SPEED;
-        }
         this.actor = ACTOR_WHITE_GHOST;
         break;
-      case GHOST_STATE_EATEN:
-        this.actor = ACTOR_EATEN_GHOST;
-        this.currentFrame = 0;
+      case GHOST_STATE_EYES:
+        this.actor = ACTOR_EYES_GHOST;
         this.speed = GHOST_FAST_SPEED;
+        break;
+      case GHOST_STATE_DIED:
+        if (this.diedTimer == undefined) {
+          this.diedTimer = setInterval(() => this.endDiedTimer(), 2000);
+          this.direction = DIRECTION_NONE;
+          switch (score) {
+            case 200:
+              this.actor = ACTOR_POINTS_200;
+              break;
+            case 400:
+              this.actor = ACTOR_POINTS_400;
+              break;
+            case 800:
+              this.actor = ACTOR_POINTS_800;
+              break;
+            case 1600:
+              this.actor = ACTOR_POINTS_1600;
+              break;
+          }
+        }
         break;
       default:
         break;
     }
   }
 
+  endDiedTimer() {
+    this.diedTimer = clearInterval(this.diedTimer);
+    this.changeState(GHOST_STATE_EYES);
+  }
+
   move() {
+    if (this.state == GHOST_STATE_DIED) return;
     this.changeDirectionIfPossible();
 
     if (!this.checkCollision()) {
       this.moveForwards(this.speed);
       if (
-        this.state == GHOST_STATE_EATEN &&
+        this.state == GHOST_STATE_EYES &&
         this.pixel.getTile().equal(this.startTile)
       ) {
         this.changeState(GHOST_STATE_NORMAL);
       }
     }
-    this.isMoving = false;
   }
 
   newPath() {
@@ -80,7 +103,7 @@ class Ghost extends AnimatedSprite2D {
       case GHOST_STATE_WHITE:
         targetTile = game.pacman.pixel.getTile();
         break;
-      case GHOST_STATE_EATEN:
+      case GHOST_STATE_EYES:
         targetTile = this.startTile;
         break;
       default:

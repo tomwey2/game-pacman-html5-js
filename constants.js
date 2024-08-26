@@ -65,11 +65,13 @@ const INKY_STARTTILE = new Tile(12, 17);
 const CLYDE_STARTTILE = new Tile(16, 17);
 const GHOST_ANIMATION_SPEED = 200;
 const GHOST_MOVING_SPEED = 40;
+const GHOST_DIE_SCORES = [200, 400, 800, 1600];
 
 const GHOST_STATE_NORMAL = 0;
 const GHOST_STATE_BLUE = 1;
 const GHOST_STATE_WHITE = 2;
-const GHOST_STATE_EATEN = 3;
+const GHOST_STATE_EYES = 3;
+const GHOST_STATE_DIED = 4;
 
 const DIRECTION_RIGHT = 4;
 const DIRECTION_UP = 3;
@@ -88,7 +90,11 @@ const ACTOR_POWERFOOD = 7;
 const ACTOR_DYING_PACMAN = 8;
 const ACTOR_BLUE_GHOST = 9;
 const ACTOR_WHITE_GHOST = 10;
-const ACTOR_EATEN_GHOST = 11;
+const ACTOR_EYES_GHOST = 11;
+const ACTOR_POINTS_200 = 12;
+const ACTOR_POINTS_400 = 13;
+const ACTOR_POINTS_800 = 14;
+const ACTOR_POINTS_1600 = 15;
 
 const SPRITESHEET = {
   actors: [
@@ -321,7 +327,7 @@ const SPRITESHEET = {
       ]),
     },
     {
-      actor: ACTOR_EATEN_GHOST,
+      actor: ACTOR_EYES_GHOST,
       sheetRow: 6,
       sheetCol: 0,
       sheetSpriteWidth: 30,
@@ -346,6 +352,54 @@ const SPRITESHEET = {
         [DIRECTION_DOWN, [2]],
         [DIRECTION_NONE, [2]],
       ]),
+    },
+    {
+      actor: ACTOR_POINTS_200,
+      sheetRow: 10,
+      sheetCol: 0,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 15,
+      sheetOffsets: [{ x: 0, y: 28 }],
+      width: 50,
+      height: 25,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
+    },
+    {
+      actor: ACTOR_POINTS_400,
+      sheetRow: 10,
+      sheetCol: 1,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 15,
+      sheetOffsets: [{ x: 2, y: 28 }],
+      width: 50,
+      height: 25,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
+    },
+    {
+      actor: ACTOR_POINTS_800,
+      sheetRow: 10,
+      sheetCol: 2,
+      sheetSpriteWidth: 30,
+      sheetSpriteHeight: 15,
+      sheetOffsets: [{ x: 4, y: 28 }],
+      width: 50,
+      height: 25,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
+    },
+    {
+      actor: ACTOR_POINTS_1600,
+      sheetRow: 10,
+      sheetCol: 3,
+      sheetSpriteWidth: 35,
+      sheetSpriteHeight: 15,
+      sheetOffsets: [{ x: 6, y: 28 }],
+      width: 60,
+      height: 25,
+      offset: { x: 0, y: 0 },
+      index: new Map([[DIRECTION_NONE, [0]]]),
     },
   ],
 };

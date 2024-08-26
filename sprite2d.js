@@ -12,6 +12,9 @@ class Sprite2D {
     const spriteData = SPRITESHEET.actors.filter(
       (item) => item.actor == this.actor,
     )[0];
+    if (spriteData.index.get(this.direction) == undefined) {
+      console.log("error: actor=" + this.actor + " dir=" + this.direction);
+    }
     const index = spriteData.index.get(this.direction)[this.currentFrame];
     const sheetx =
       spriteData.sheetCol * 30 +

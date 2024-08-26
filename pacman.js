@@ -88,12 +88,15 @@ class Pacman extends AnimatedSprite2D {
     const ghost = game.getGhost(nextTile);
     if (ghost != undefined) {
       console.log("collision with ghost: " + ghost);
-      if (ghost.state == GHOST_STATE_BLUE || ghost.state == GHOST_STATE_WHITE) {
-        ghost.changeState(GHOST_STATE_EATEN);
-      } else if (ghost.state == GHOST_STATE_NORMAL) {
-        game.diePacman();
+      switch (ghost.state) {
+        case GHOST_STATE_NORMAL:
+          game.diePacman();
+          return true;
+        case GHOST_STATE_BLUE:
+        case GHOST_STATE_WHITE:
+          game.dieGhost(ghost);
+          return true;
       }
-      return true;
     }
     return false;
   }

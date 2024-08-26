@@ -18,6 +18,7 @@ class Game {
     this.score = 0;
     this.highscore = 1024;
     this.ghostStateInterval = undefined;
+    this.ghostScoreIndex = 0;
   }
 
   loop() {
@@ -80,10 +81,18 @@ class Game {
     this.draw();
   }
 
+  dieGhost(ghost) {
+    ghost.changeState(GHOST_STATE_DIED, GHOST_DIE_SCORES[this.ghostScoreIndex]);
+    this.addScore(GHOST_DIE_SCORES[this.ghostScoreIndex]);
+    if (this.ghostScoreIndex < GHOST_DIE_SCORES.length - 1) {
+      this.ghostScoreIndex++;
+    }
+  }
+
   diePacman() {
     this.visibleActors(false);
     this.pacman.isVisible = true;
-    this.pacman.changeState(PACMAN_STATE_DIEING);
+    this.pacman.changeState(PACMAN_STATE_DYING);
   }
 
   decPacmanLive() {
@@ -115,11 +124,16 @@ class Game {
   }
 
   setGhostState(state) {
-    this.ghosts.forEach((ghost) => ghost.changeState(state));
+    if (this.state != GHOST_STATE_NORMAL) {
+      this.ghosts.forEach((ghost) => ghost.changeState(state));
+    }
     if (this.ghostStateInterval != undefined) {
       this.ghostStateInterval = clearInterval(this.ghostStateInterval);
     }
     switch (state) {
+      case GHOST_STATE_NORMAL:
+        this.ghostScoreIndex = 0;
+        break;
       case GHOST_STATE_BLUE:
         this.ghostStateInterval = setInterval(
           () => this.setGhostState(GHOST_STATE_WHITE),
