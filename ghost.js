@@ -26,7 +26,8 @@ class Ghost extends AnimatedSprite2D {
   WHITE           2 secs                    NORMAL
                   collision with pacman     DIED
   DIED            2 secs                    EYES
-  EYES            back to home area         NORMAL
+  EYES            back to home area         HOME
+  HOME                                      NORMAL
   */
   changeState(state, score = 0) {
     if (this.state == GHOST_STATE_DIED && state != GHOST_STATE_EYES) return;
