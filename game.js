@@ -18,7 +18,6 @@ class Game {
     this.level = 0;
     this.score = 0;
     this.highscore = 1024;
-    this.ghostStateInterval = undefined;
     this.ghostScoreIndex = 0;
   }
 
@@ -128,24 +127,15 @@ class Game {
     if (this.state != GHOST_STATE_NORMAL) {
       this.ghosts.forEach((ghost) => ghost.changeState(state));
     }
-    if (this.ghostStateInterval != undefined) {
-      this.ghostStateInterval = clearInterval(this.ghostStateInterval);
-    }
     switch (state) {
       case GHOST_STATE_NORMAL:
         this.ghostScoreIndex = 0;
         break;
       case GHOST_STATE_BLUE:
-        this.ghostStateInterval = setInterval(
-          () => this.setGhostState(GHOST_STATE_WHITE),
-          6000,
-        );
+        setTimeout(() => this.setGhostState(GHOST_STATE_WHITE), 6000);
         break;
       case GHOST_STATE_WHITE:
-        this.ghostStateInterval = setInterval(
-          () => this.setGhostState(GHOST_STATE_NORMAL),
-          2000,
-        );
+        setTimeout(() => this.setGhostState(GHOST_STATE_NORMAL), 2000);
     }
   }
 

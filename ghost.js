@@ -9,7 +9,6 @@ class Ghost extends AnimatedSprite2D {
     this.path = [];
     this.state = GHOST_STATE_NORMAL;
     this.startActor = ghostActor;
-    this.diedTimer = undefined;
   }
 
   init() {
@@ -50,33 +49,26 @@ class Ghost extends AnimatedSprite2D {
         this.speed = GHOST_FAST_SPEED;
         break;
       case GHOST_STATE_DIED:
-        if (this.diedTimer == undefined) {
-          this.diedTimer = setInterval(() => this.endDiedTimer(), 2000);
-          this.direction = DIRECTION_NONE;
-          switch (score) {
-            case 200:
-              this.actor = ACTOR_POINTS_200;
-              break;
-            case 400:
-              this.actor = ACTOR_POINTS_400;
-              break;
-            case 800:
-              this.actor = ACTOR_POINTS_800;
-              break;
-            case 1600:
-              this.actor = ACTOR_POINTS_1600;
-              break;
-          }
+        this.direction = DIRECTION_NONE;
+        switch (score) {
+          case 200:
+            this.actor = ACTOR_POINTS_200;
+            break;
+          case 400:
+            this.actor = ACTOR_POINTS_400;
+            break;
+          case 800:
+            this.actor = ACTOR_POINTS_800;
+            break;
+          case 1600:
+            this.actor = ACTOR_POINTS_1600;
+            break;
         }
+        setTimeout(() => this.changeState(GHOST_STATE_EYES), 2000);
         break;
       default:
         break;
     }
-  }
-
-  endDiedTimer() {
-    this.diedTimer = clearInterval(this.diedTimer);
-    this.changeState(GHOST_STATE_EYES);
   }
 
   move() {
