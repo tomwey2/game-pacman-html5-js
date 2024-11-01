@@ -18,7 +18,7 @@ canvas {
 
 @font-face {
     font-family: "PressStart2P";
-    src: url("PressStart2P-Regular.ttf");
+    src: url("assets/PressStart2P-Regular.ttf");
     style: "normal";
     weight: "400";
 }
