@@ -36,7 +36,7 @@ This is my simple game flow:
 Here you can see some screenshots of my Pacman version.
 
 <figure>
-    <img src="./docs/pacman-intro.png" alt="pacman-intro" width="200"/>
+    <img src="./docs/pacman-intro.png" alt="pacman-intro" width="500"/>
     <figcaption>The Pacman intro page.</figcaption>
 </figure>
 
