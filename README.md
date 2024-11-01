@@ -21,23 +21,28 @@ moving enemies, a clear gameplay.
 
 This is my simple game flow:
 
-|state           |event               |action          |next state|
-|----------------|--------------------|----------------|----------|
-|INIT            |keypressed          |level = 1       |READY     |
-|READY           |5 secs              |                |RUNNING   |
-|RUNNING         |all foods eaten     |                |WON       |
-|                |ghost collision     |                |LOST      |
-|WON             |                    |inc level       |READY     |
-|LOST            |lives > 0           |dec lives       |READY     |
-|                |lives == 0          |                |OVER      |
-|OVER            |keypressed          |                |INIT      |
+| state           | event               | action               | next state |
+| --------------- | ------------------- | -------------------- | ---------- |
+| INIT            | keypressed          | level = 0, lives = 5 | READY     |
+| READY           | 5 secs              |                      | RUNNING   |
+| RUNNING         | all foods eaten     |                      | WON       |
+| RUNNING         | ghost collision     |                      | LOST      |
+| WON             |                     | inc level            | READY     |
+| LOST            | lives > 0           | dec lives            | READY     |
+| LOST            | lives == 0          |                      | OVER      |
+| OVER            | keypressed          |                      | INIT      |
 
 ## Screenshots
 Here you can see some screenshots of my Pacman version.
 
 ![pacman intro](./docs/pacman-intro.png)
+*The Pacman intro page*
+
 ![pacman ready](./docs/pacman-ready.png)
+*Pacman is ready to play*
+
 ![pacman eat ghost](./docs/pacman-eatghost.png)
+*Pacman eats a ghost*
 
 ## Usage
 Run the game: clone the repository and load the file 'index.html' into
