@@ -3,6 +3,9 @@ let intro = new Intro();
 let game = new Game();
 let gameState = GAME_INIT;
 let gameInterval = setInterval(mainloop, 1000 / fps);
+let touchMoveX = 0;
+let touchMoveY = 0;
+let touchPoint = 0;
 
 function setGameState(state) {
   gameState = state;
@@ -99,4 +102,68 @@ window.addEventListener("keydown", (event) => {
         break;
     }
   }, 1);
+});
+
+canvas.addEventListener("touchstart", (event) => {
+  event.preventDefault();
+  touchMoveX = event.touches[0].screenX;
+  touchMoveY = event.touches[0].screenY;
+});
+
+canvas.addEventListener("touchend", (event) => {
+  event.preventDefault();
+  const touches = event.changedTouches;
+  if (touches.length > 0) {
+    const dx = touches[0].screenX - touchMoveX;
+    const dy = touches[0].screenY - touchMoveY;
+    if (dx < 5 && dy < 5) {
+      touchPoint++;
+    }
+    const touchLeft = Math.abs(dx) > Math.abs(dy) && dx < 0;
+    const touchRight = Math.abs(dx) > Math.abs(dy) && dx > 0;
+    const touchUp = Math.abs(dx) < Math.abs(dy) && dy < 0;
+    const touchDown = Math.abs(dx) < Math.abs(dy) && dy > 0;
+    const doubleTouch = touchPoint >= 2;
+
+    switch (gameState) {
+      case GAME_INIT:
+        if (doubleTouch) {
+          setGameState(GAME_IS_READY);
+          touchPoint = 0;
+        }
+        break;
+      case GAME_IS_READY:
+        if (doubleTouch) {
+          setGameState(GAME_IS_RUNNING);
+          touchPoint = 0;
+        }
+        break;
+      case GAME_IS_RUNNING:
+        if (touchLeft) {
+          game.pacman.nextDirection = DIRECTION_LEFT;
+        } else if (touchUp) {
+          game.pacman.nextDirection = DIRECTION_UP;
+        } else if (touchRight) {
+          game.pacman.nextDirection = DIRECTION_RIGHT;
+        } else if (touchDown) {
+          game.pacman.nextDirection = DIRECTION_DOWN;
+        } else if (doubleTouch) {
+          setGameState(GAME_IS_PAUSED);
+          touchPoint = 0;
+        }
+        break;
+      case GAME_IS_PAUSED:
+        if (doubleTouch) {
+          setGameState(GAME_IS_RUNNING);
+          touchPoint = 0;
+        }
+        break;
+      case GAME_IS_OVER:
+        if (doubleTouch) {
+          setGameState(GAME_INIT);
+          touchPoint = 0;
+        }
+        break;
+    }
+  }
 });
